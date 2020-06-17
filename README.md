@@ -1,2 +1,5 @@
-# AccessBot
-Qualweb browser extension for Chrome for automatic, semi-automatic, manual accessibility evaluations
+# Chrome extension test
+
+## Requirements
+
+Add the flag "--remote-debugging-port=9222" to chrome executable.

@@ -1,0 +1,258 @@
+
+        /* http://meyerweb.com/eric/tools/css/reset/ 
+        v2.0 | 20110126
+        License: none (public domain)
+        */
+        *, *:before, *:after {
+            box-sizing: border-box;
+        }
+        html, body, div, span, applet, object, iframe,
+        h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+        a, abbr, acronym, address, big, cite, code,
+        del, dfn, em, img, ins, kbd, q, s, samp,
+        small, strike, strong, sub, sup, tt, var,
+        b, u, i, center,
+        dl, dt, dd, ol, ul, li,
+        fieldset, form, label, legend,
+        table, caption, tbody, tfoot, thead, tr, th, td,
+        article, aside, canvas, details, embed, 
+        figure, figcaption, footer, header, hgroup, 
+        menu, nav, output, ruby, section, summary,
+        time, mark, audio, video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+        /* HTML5 display-role reset for older browsers */
+        article, aside, details, figcaption, figure, 
+        footer, header, hgroup, menu, nav, section {
+            display: block;
+        }
+        body {
+            line-height: 1;
+        }
+        ol, ul {
+            list-style: none;
+        }
+        blockquote, q {
+            quotes: none;
+        }
+        blockquote:before, blockquote:after,
+        q:before, q:after {
+            content: '';
+            content: none;
+        }
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+        /*custom css*/
+        html {
+            font-size: 12px;
+            font-family: 'Roboto', sans-serif;
+            
+        }
+        body {
+          background-color: #0077C8;
+          color: #ffffff;
+        
+        }
+        button {
+            font-family: 'Roboto', sans-serif;
+        }
+        .RuleTitle {
+            font-weight: 700;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+        .RuleLink {
+            margin-bottom: 15px;
+            color: #ffffff;
+            display: block;
+        }
+        .RuleLink a {
+            color: #ffffff;
+        }
+        #resultcount span {
+            font-weight: bold;
+        }
+        /* Style the buttons that are used to open and close the accordion panel */
+        .accordion {
+        background-color: #eee;
+        color: #444;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        text-align: left;
+        border: none;
+        outline: none;
+        transition: 0.4s;
+        }
+
+        /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+        .active, .accordion:hover {
+        background-color: #ccc;
+        }
+
+        /* Style the accordion panel. Note: hidden by default */
+        .panel {
+        background-color: white;
+        display: none;
+        overflow: hidden;
+        }
+
+        .panel.active {
+            display: block;
+        }
+
+        .ResultPage {
+            display: flex;
+            width: 100%;
+        }
+        .ResultPage .ResultSection {
+            flex: 1 ;
+            border-right: 2px black solid;
+            padding: 1.2rem;
+            text-align: center;
+            max-height: 100vh;
+            overflow-y: auto;
+        }
+        .ResultPage .ResultSection:last-child {
+            border-right: none;
+        }
+        .Flex-h {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .PanelButton {
+            border: 0;
+            background-color: transparent;
+            width: 100%;
+            padding: 1rem;
+            cursor: pointer;
+            align-items: center;
+        }
+        .PanelButton:hover {
+            background-color: rgba(122, 161, 152, 0.239);
+        }
+        .PanelButton.active {
+            background-color: aquamarine;
+        }
+        .PanelButton > span {
+            text-align: left;
+            max-width: calc(100% - 50px);
+        }
+        .QuestionText {
+            text-align: left;
+            padding: 1rem 0;
+        }
+        .ExportButton {
+           float: right;
+           margin-top: 3rem;
+        }
+        .ResultList {
+            counter-reset: section;
+        }
+        .ResultList > li {
+            padding-top: 1rem;
+            padding: 15px;
+            background-color: #ffffff;
+            color: #000000;
+            margin-top: 15px;
+        }
+        .ResultList.ManualTest > li {
+            margin-top: 5px;
+        }
+
+        .ResultList > li > div {
+            position: relative;
+        }
+        .ResultList:not(.ManualTest) > li > div::before {
+            counter-increment: section;
+            content:  counter(section);
+            display: block;
+            position: absolute;
+            background-color: #0077C8;
+            border-radius: 50%; 
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+            top: -10px;
+            left: -10px;
+        }
+        #resultcount {
+            padding-bottom: 1rem;
+        }
+        .CommunicateResult > div {
+            padding: 1rem 0 0 0;
+            font-size: 14px;
+        }
+        .CommunicateResult > div > span {
+            font-weight: bold;
+        }
+        .CommunicateResult > textarea {
+            resize: none;
+            width: 100%;
+            height: 50px;
+            margin: 2rem 0;
+        }
+        .ResultList > li .checkmark {
+            margin-bottom: 1rem;
+            display: block;
+        }
+        .manualTestText {
+            font-size: 14px;
+            line-height: 150%;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .RuleWhy {
+            font-weight: normal;
+        }
+        .RuleImportance {
+            margin-top: 15px;
+            font-size: 14px;
+            font-weight: bold;
+            border: 2px solid white;
+            padding: 15px;
+        }
+        .stepsReproduce {
+            margin-top: 15px;
+            text-align: left;
+        }
+        .manualTestQuestion {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .manualTest-area {
+            display: flex;
+            align-items: center;
+        }
+
+        .selectwarning {
+            font-size: 32px;
+            width: 100%;
+            margin-bottom: 8px;
+            display: none;
+            color: rgb(226, 203, 0);
+            text-align: center;
+        }
+        .visible {
+            display: block;
+        }
+        .panelRuleName {
+            flex: 1 1 auto;
+            margin: 0 10px;
+        }
+        .panelRuleCount { 
+            display: block;
+            flex: 0 0 auto;
+        }

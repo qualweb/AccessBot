@@ -1,0 +1,26 @@
+{
+  "name": "chrome-extension-test-antonioestrigaextensao",
+  "version": "1.0.0",
+  "description": "Add the flag \"--remote-debugging-port=9222\" to chrome executable.",
+  "main": "act.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@qualweb/util": "^0.2.47",
+    "css": "^2.2.4",
+    "css-select": "^2.1.0",
+    "html-validator": "^5.0.0",
+    "htmlparser2": "^4.0.0",
+    "lodash": "^4.17.15",
+    "lodash.clone": "^4.5.0",
+    "lodash.clonedeep": "^4.5.0",
+    "rematrix": "^0.4.1",
+    "stew-select": "0.0.5",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10"
+  }
+}

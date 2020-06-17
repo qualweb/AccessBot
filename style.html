@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset = "utf-8">
+      <title>QualWeb Assisted Evaluation</title>
+      <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/styles/railscasts.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/highlight.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.slim.js" integrity="sha256-sCexhaKpAfuqulKjtSY7V9H7QT0TCN90H+Y5NlmqOUE=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <style>
+        /* http://meyerweb.com/eric/tools/css/reset/ 
+        v2.0 | 20110126
+        License: none (public domain)
+        */
+        *, *:before, *:after {
+            box-sizing: border-box;
+        }
+        html, body, div, span, applet, object, iframe,
+        h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+        a, abbr, acronym, address, big, cite, code,
+        del, dfn, em, img, ins, kbd, q, s, samp,
+        small, strike, strong, sub, sup, tt, var,
+        b, u, i, center,
+        dl, dt, dd, ol, ul, li,
+        fieldset, form, label, legend,
+        table, caption, tbody, tfoot, thead, tr, th, td,
+        article, aside, canvas, details, embed, 
+        figure, figcaption, footer, header, hgroup, 
+        menu, nav, output, ruby, section, summary,
+        time, mark, audio, video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+        /* HTML5 display-role reset for older browsers */
+        article, aside, details, figcaption, figure, 
+        footer, header, hgroup, menu, nav, section {
+            display: block;
+        }
+        body {
+            line-height: 1;
+        }
+        ol, ul {
+            list-style: none;
+        }
+        blockquote, q {
+            quotes: none;
+        }
+        blockquote:before, blockquote:after,
+        q:before, q:after {
+            content: '';
+            content: none;
+        }
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+        /*custom css*/
+        html {
+            font-size: 12px;
+            font-family: 'Roboto', sans-serif;
+            
+        }
+        body {
+          background-color: #0077C8;
+          color: #ffffff;
+        
+        }
+        button {
+            font-family: 'Roboto', sans-serif;
+        }
+        .RuleTitle {
+            font-weight: 400;
+            font-size: 1.2rem;
+            padding-bottom: 1rem;
+        }
+        .RuleTitle span {
+            font-weight: 700;
+        }
+
+        #resultcount span {
+            font-weight: bold;
+        }
+        /* Style the buttons that are used to open and close the accordion panel */
+        .accordion {
+        background-color: #eee;
+        color: #444;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        text-align: left;
+        border: none;
+        outline: none;
+        transition: 0.4s;
+        }
+
+        /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+        .active, .accordion:hover {
+        background-color: #ccc;
+        }
+
+        /* Style the accordion panel. Note: hidden by default */
+        .panel {
+        background-color: white;
+        display: none;
+        overflow: hidden;
+        }
+        .ResultPage {
+            display: flex;
+            width: 100%;
+        }
+        .ResultPage .ResultSection {
+            flex: 1 ;
+            border-right: 2px black solid;
+            padding: 1.2rem;
+            text-align: center;
+            max-height: 100vh;
+            overflow-y: auto;
+        }
+        .ResultPage .ResultSection:last-child {
+            border-right: none;
+        }
+        .Flex-h {
+            display: flex;
+            justify-content: space-between;
+
+        }
+
+        .PanelButton {
+            border: 0;
+            background-color: transparent;
+            width: 100%;
+            padding: 1rem;
+            cursor: pointer;
+        }
+        .PanelButton:hover {
+            background-color: rgba(122, 161, 152, 0.239);
+        }
+        .PanelButton.active {
+            background-color: aquamarine;
+        }
+        .QuestionText {
+            text-align: left;
+            padding: 1rem 0;
+        }
+        .ExportButton {
+           float: right;
+           margin-top: 3rem;
+        }
+        .ResultList > li {
+            padding: 2rem;
+            background-color: white;
+            margin-bottom: 1rem;
+            color: black;
+        
+        }
+
+        #resultcount {
+            padding-bottom: 1rem;
+        }
+        .CommunicateResult > div {
+            padding: 1rem 0 0 0;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .radioOption {
+            display: center;
+        }
+
+        .page {
+            display: flex;
+        }
+        .page > div {
+            flex: 1;
+            border-right: 2px black solid;
+            width: 50%;
+            height: 100vh;
+            overflow: auto;
+           
+
+        }
+        .page .background {
+            background-color: white;
+            color: black;
+        }
+        /* Custom page example */
+        #container
+        {
+        display: block; 
+        height:auto;
+        position: relative; 
+        }
+
+        #mainpic h1
+        {
+        position:absolute;
+        text-align:right;
+        color:#F8FDEE;
+        font-size:30px;
+        color:#FFF;	
+        }
+
+
+        #mainpic h2
+        {
+        position:absolute;
+        text-align:right;
+        color:#E1E7F7;	
+        left:60px;
+        top:50px;
+        }
+
+        #mainpic
+        {
+        background-image:url(images/main.jpg);
+        background-repeat:no-repeat;
+        }
+
+
+
+        .off
+        {
+        color:#3A6028;
+            
+        }
+
+        #menu
+        {
+        background-image:url(images/menu.png);
+        background-repeat:no-repeat;
+        width:940px;
+        height:69px;
+        float:left;
+        clear:both;
+        }
+
+        #content
+        {
+        width:880px;
+        height:auto;
+        background-color:#FFF;
+        padding-left:10px;
+        padding-right:10px;
+        padding-bottom:5px;
+        }
+
+        #footer
+        {
+        width:inherit;
+        height:auto;
+        }
+
+        #footer h3 a,#footer h3 a:visited
+        {
+        display:inline;
+        text-align:center;
+        font-size:12px;
+        text-decoration:none;
+        color:#7198E1;
+        }
+
+
+        #menu ul {
+            list-style: none;
+            padding: 0px;
+            margin-left:auto;
+            width:900px;
+        }
+
+        #menu li {
+            list-style: none;
+            padding: 0px;	
+            display: inline; 
+            
+        }
+
+        #menu a {
+            float: left;
+            width: 150px;
+            height: 40px;
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            color:black;
+            font-weight: bold;
+            padding-top: 17px;
+            font-size: 15px;
+        }
+
+        #menu a:hover{
+            color:#BEE399;
+        }
+
+        #TODO {
+            display: none;
+        }
+        #TODO.show {
+            display: block;
+        }
+    </style>
+  </head>
+  <body>
+      <div class="page">
+          <div class="background">
+            <div id="container">
+                <div id="mainpic">
+                    <h1>Green<span class="off">Mountain</span></h1>
+                    <h2>A template by Tania Frazao</h2>
+                </div>   
+                <img src="https://www.html.am/templates/downloads/bryantsmith/greenmountain/images/main.jpg" >
+                
+                <div id="menu">
+                    <ul>
+                        <li class="menuitem"><a href="#">Home</a></li>
+                        <li class="menuitem"><a href="#">About</a></li>
+                        <li class="menuitem"><a href="#">Products</a></li>
+                        <li class="menuitem"><a href="#">Services</a></li>
+                        <li class="menuitem"><a href="#">Design</a></li>
+                      <li class="menuitem"><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div id="content">
+                    <h2>You may use this template in any manner you like. All I ask is that you leave the link back to my site at the bottom of the page. </h2>
+                    <p>&nbsp;</p>
+                       <p>&nbsp;</p>
+                     <h3>Template Notes</h3>
+                    <p>The main image can be changed by either replacing the current image with another one of the same size (900x402), or using a new one of what ever dimensions you'd like.  If you choose the latter, you must open up style.css and change the dimensions of #mainpic, as well as the file name if that is different. If you would like to move the heading around in the above image, find &quot;#mainpic h1&quot; in style.css and modify it's &quot;left&quot; and &quot;top&quot; properties, this is also true for the h2 tag.</p>
+                    <p>&nbsp;</p>
+        <h3>More information</h3>
+                    <p>I decided to leave the content portion open for the templates users to do as they wish with a blank canvas. I don't like to restrict my users too much, and for this reason I leave the defining of any content related styles to you.</p>
+                    <p>&nbsp;</p>
+                    <h3>Template Notes</h3>
+                    <p>The main image can be changed by either replacing the current image with another one of the same size (900x402), or using a new one of what ever dimensions you'd like.  If you choose the latter, you must open up style.css and change the dimensions of #mainpic, as well as the file name if that is different. If you would like to move the heading around in the above image, find &quot;#mainpic h1&quot; in style.css and modify it's &quot;left&quot; and &quot;top&quot; properties, this is also true for the h2 tag.</p>
+                    <p>&nbsp;</p>
+                    <h3>More information</h3>
+                    <p>I decided to leave the content portion open for the templates users to do as they wish with a blank canvas. I don't like to restrict my users too much, and for this reason I leave the defining of any content related styles to you.</p>
+                    <p>&nbsp;</p>
+                    <p>&nbsp;</p>
+                    <p>&nbsp;</p>
+        <p>&nbsp;</p>
+                    
+                    <div id="footer"><h3><a href="http://www.bryantsmith.com">florida web design</a></div>
+              </div>
+           </div>
+
+          </div>
+        <div class="ResultPage">
+            <div class="ResultSection">
+                <div id="resultcount">
+                    Pass: <span>0</span> Fail: <span>0</span> Innaplicable: <span>0</span>
+                </div>
+                <button class="accordion">
+                    <div class=Flex-h>
+                        <span>Image</span>
+                        <span>0 / 12</span>
+                    </div>
+                </button>
+                <div class="panel">
+                    <button class="Flex-h PanelButton" onclick="showInfo()">
+                        <span>R17</span>
+                        <span>0 / 12</span>
+                    </button>
+                    <button class="Flex-h PanelButton" onclick="showInfo()">
+                        <span>R3</span>
+                        <span>0 / 12</span>
+                    </button>
+                    <button class="Flex-h PanelButton" onclick="showInfo()">
+                        <span>R3</span>
+                        <span>0 / 12</span>
+                    </button>
+                </div>
+                <button class="accordion">
+                    <div class=Flex-h>
+                        <span>Title</span>
+                        <span>0 / 12</span>
+                    </div>
+                </button>
+                    <div class="panel">
+                        <button class="Flex-h PanelButton" onclick="showInfo()">
+                            <span>R17</span>
+                            <span>0 / 12</span>
+                        </button>
+                        <button class="Flex-h PanelButton" onclick="showInfo()">
+                            <span>R3</span>
+                            <span>0 / 12</span>
+                        </button>
+                        <button class="Flex-h PanelButton" onclick="showInfo()">
+                            <span>R3</span>
+                            <span>0 / 12</span>
+                        </button>
+                    </div>
+                <button class="ExportButton" >Export</button>
+            </div>
+            <div class="ResultSection">
+                <div id="TODO">
+                    <h2 class="RuleTitle"><span>R6</span></h2>
+                    <ul class="ResultList" id="r17">
+                        <li>
+                            <div >
+                                <div class="radioOption">
+                                    <input type="radio" id="codeAnalyse" name="checkCurrent" onchange="handleChange1(this)"value="1">
+                                    <label for="checkCurrent">Check for analysis</label>
+                                </div>
+                                <pre><code class="html">
+                                    &#60;div&#62;test&#60;div/&#62; 
+                                </code></pre>
+                                <div class="QuestionText" id="text-0">this is the title</div>
+                                <div class="Flex-h">
+                                    <div id="radios-0">
+                                        <input type="radio" name="radio-0" value="1">yes
+                                        <input type="radio" name="radio-0" value="0">no
+                                    </div>
+                                <button id="button-revert-0">Revert</button>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="radioOption">
+                                    <input type="radio" id="codeAnalyse" name="checkCurrent" onchange="handleChange1(this)" value="2">
+                                    <label for="checkCurrent">Check for analysis</label>
+                                </div>
+                                <pre><code class="html">
+                                    &#60;div&#62;test&#60;div/&#62; 
+                                </code></pre>
+                                <div class="QuestionText" id="text-0">this is the title</div>
+                                <div class="Flex-h">
+                                    <div id="radios-0">
+                                        <input type="radio" name="radio-0" value="1">yes
+                                        <input type="radio" name="radio-0" value="0">no
+                                    </div>
+                                <button id="button-revert-0">Revert</button>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="radioOption">
+                                    <input type="radio" id="codeAnalyse" name="checkCurrent" onchange="handleChange1(this)">
+                                    <label for="checkCurrent">Check for analysis</label>
+                                </div>
+                                <pre><code class="html">
+                                    &#60;div&#62;test&#60;div/&#62; 
+                                </code></pre>
+                                <div class="QuestionText" id="text-0">this is the title</div>
+                                <div class="Flex-h">
+                                    <div id="radios-0">
+                                        <input type="radio" name="radio-0" value="1">yes
+                                        <input type="radio" name="radio-0" value="0">no
+                                    </div>
+                                <button id="button-revert-0">Revert</button>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="radioOption">
+                                    <input type="radio" id="codeAnalyse" name="checkCurrent" onchange="handleChange1(this)" >
+                                    <label for="checkCurrent">Check for analysis</label>
+                                </div>
+                                <pre><code class="html">
+                                    &#60;div&#62;test&#60;div/&#62; 
+                                </code></pre>
+                                <div class="QuestionText" id="text-0">this is the title</div >
+                                <div class="Flex-h">
+                                    <div id="radios-0">
+                                        <input type="radio" name="radio-0" value="1">yes
+                                        <input type="radio" name="radio-0" value="0">no
+                                    </div>
+                                <button id="button-revert-0">Revert</button>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="radioOption">
+                                    <input type="radio" id="codeAnalyse" name="checkCurrent" onchange="handleChange1(this)" >
+                                    <label for="checkCurrent">Check for analysis</label>
+                                </div>
+                                <pre><code class="html">
+                                    &#60;div&#62;test&#60;div/&#62; 
+                                </code></pre>
+                                <div class="QuestionText" id="text-0">this is the title</div>
+                                <div class="Flex-h">
+                                    <div id="radios-0">
+                                        <input type="radio" name="radio-0" value="1">yes
+                                        <input type="radio" name="radio-0" value="0">no
+                                    </div>
+                                <button id="button-revert-0">Revert</button>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="radioOption">
+                                    <input type="radio" id="codeAnalyse" name="checkCurrent" onchange="handleChange1(this)">
+                                    <label for="checkCurrent">Check for analysis</label>
+                                </div>
+                                <pre><code class="html">
+                                    &#60;div&#62;test&#60;div/&#62; 
+                                </code></pre>
+                                <div class="QuestionText" id="text-0">this is the title </div>
+                                <div class="Flex-h">
+                                    <div id="radios-0">
+                                        <input type="radio" name="radio-0" value="1">yes
+                                        <input type="radio" name="radio-0" value="0">no
+                                    </div>
+                                <button id="button-revert-0">Revert</button>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="radioOption">
+                                    <input type="radio" id="codeAnalyse" name="checkCurrent" onchange="handleChange1(this)" >
+                                    <label for="checkCurrent">Check for analysis</label>
+                                </div>
+                                <pre><code class="html">
+                                    &#60;div&#62;test&#60;div/&#62; 
+                                </code></pre>
+                                <div class="QuestionText" id="text-0">this is the title</div>
+                                <div class="Flex-h">
+                                    <div id="radios-0">
+                                        <input type="radio" name="radio-0" value="1">yes
+                                        <input type="radio" name="radio-0" value="0">no
+                                    </div>
+                                <button id="button-revert-0">Revert</button>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                            <div>
+                                <div class="radioOption">
+                                    <input type="radio" id="codeAnalyse" name="checkCurrent" >
+                                    <label for="checkCurrent">Check for analysis</label>
+                                </div>
+                                <pre><code class="html">
+                                    &#60;div&#62;test&#60;div/&#62; 
+                                </code></pre>
+                                <div class="QuestionText" id="text-0">this is the title</div>
+                                <div class="Flex-h">
+                                    <div id="radios-0">
+                                        <input type="radio" name="radio-0" value="1">yes
+                                        <input type="radio" name="radio-0" value="0">no
+                                    </div>
+                                <button id="button-revert-0">Revert</button>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="radioOption">
+                                    <input type="radio" id="codeAnalyse" name="checkCurrent" >
+                                    <label for="checkCurrent">Check for analysis</label>
+                                </div>
+                                <pre><code class="html">
+                                    &#60;div&#62;test&#60;div/&#62; 
+                                </code></pre>
+                                <div class="QuestionText" id="text-0">this is the title</div>
+                                <div class="Flex-h">
+                                    <div id="radios-0">
+                                        <input type="radio" name="radio-0" value="1">yes
+                                        <input type="radio" name="radio-0" value="0">no
+                                    </div>
+                                <button id="button-revert-0">Revert</button>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="radioOption">
+                                    <input type="radio" id="codeAnalyse" name="checkCurrent" >
+                                    <label for="checkCurrent">Check for analysis</label>
+                                </div>
+                                <pre><code class="html">
+                                    &#60;div&#62;test&#60;div/&#62; 
+                                </code></pre>
+                                <div class="QuestionText" id="text-0">this is the title</div>
+                                <div class="Flex-h">
+                                    <div id="radios-0">
+                                        <input type="radio" name="radio-0" value="1">yes
+                                        <input type="radio" name="radio-0" value="0">no
+                                    </div>
+                                <button id="button-revert-0">Revert</button>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                </div>
+            </div>        
+        </div>
+    </div>
+        <script>
+            var acc = document.getElementsByClassName("accordion");
+            var i;
+
+            let currentSelector;
+            for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function() {
+                /* Toggle between adding and removing the "active" class,
+                to highlight the button that controls the panel */
+                this.classList.toggle("active");
+
+                /* Toggle between hiding and showing the active panel */
+                var panel = this.nextElementSibling;
+                if (panel.style.display === "block") {
+                panel.style.display = "none";
+                } else {
+                panel.style.display = "block";
+                }
+            });
+            }
+
+            function handleChange1(e) {
+                const borderStyle = "thick solid red";
+
+                if (currentSelector) {
+                    currentSelector.style.border = "";
+                }
+
+                console.log(e.value)
+                
+                switch (e.value) {
+                    case "1":
+                        currentSelector = document.querySelector("#mainpic");
+                        break;
+                    case "2":
+                        currentSelector = document.querySelector("#menu");
+                        break;
+                    default:
+                        console.log("running")
+                        currentSelector = undefined;
+                        break;
+                }
+                currentSelector.style.border = borderStyle;
+            }
+
+            
+
+            function showInfo() {
+
+                    const element = document.getElementById("TODO");
+                    element.classList.add("show");
+
+
+                
+            }
+        </script>
+  </body>
+</html>
