@@ -102,10 +102,18 @@ chrome.runtime.onMessage.addListener(
                   });
   */
                   onlyValidResults = rulesToArray.map(rule => {
+                    /*
                     const results = rule.results.filter(item => {
-                      return item.verdict !== "inapplicable";
+                      return item.verdict !== "inapplicable" && item.verdict !== "";
                     });
-  
+                    */
+                    const results = rule.results.map(item => {
+                      return {
+                        ...item,
+                        verdict: item.verdict || "inapplicable"
+                      }
+                    })
+
                     return {
                       code: rule.code,
                       description: rule.description,

@@ -1326,7 +1326,7 @@ const options = {
 const rulesToArray = Object.values(result.rules);
 const onlyValidResults = rulesToArray.map(rule => {
     const results = rule.results.filter(item => {
-        return item.verdict !== "inapplicable";
+        return item.verdict !== "inapplicable" && item.verdict !== "";
     });
 
     return {
@@ -1357,6 +1357,7 @@ function generateCategoriesData(result, options) {
         pass: 0,
         fail: 0,
         inapplicable: 0,
+        warning: 0,
         categories: []
     };
 
@@ -1426,7 +1427,7 @@ function generateCategoriesData(result, options) {
                         ...result,
                         selected: false,
                         complete: true,
-                        manualAnswer: result.verdict,
+                        manualAnswer: "",
                         note: '',
                         type: 'auto'
                     });
@@ -1684,11 +1685,15 @@ function generateResult(result, index) {
     //console.log(result);
     let visible = '';
 
-    if(result.manualAnswer !== result.verdict) {
+    if(result.manualAnswer !== "" && result.manualAnswer !== result.verdict) {
         visible = 'visible';
     }
 
     const questionSection = document.querySelector('.ResultList');
+    let verdict = result.verdict;
+    if(verdict === "warning") {
+        verdict = "Cannot tell"
+    }
     const code = result.htmlCode.replace(/</g,"&lt;");
     questionSection.insertAdjacentHTML('beforeend', `<li>
         <div id="question-${index}">
@@ -1697,13 +1702,14 @@ function generateResult(result, index) {
                 ${code}
             </code></pre>
             <div class="CommunicateResult" id="question-area-${index}">
-                <div>Status: <span>${result.verdict}</span></div>
+                <div>Status: <span>${verdict}</span></div>
                 <div>Reason: <span>${result.description}</span></div>
                 <textarea placeholder="add an observation here">${result.note}</textarea>
             </div>
             <i class="material-icons selectwarning ${visible}">warning</i>
             <label class="checkmark" for="select-${index}">Manually change this result</label>
             <select id="select-${index}">
+                <option value="" selected>--</option>
                 <option value="passed">Pass</option>
                 <option value="failed">Fail</option>
                 <option value="inapplicable">Inapplicable</option>
@@ -1724,9 +1730,11 @@ function generateResult(result, index) {
     const checkmark = document.querySelector(`#checkmark-question-${index}`);
     const select = document.querySelector(`#select-${index}`);
 
-    var selectOptions = Array.apply(null, select.options).map(option => option.value);
+    //var selectOptions = Array.apply(null, select.options).map(option => option.value);
     console.log(result.manualAnswer)
-    document.querySelector(`#select-${index} [value=${result.manualAnswer}]`).selected = true;
+    if (result.manualAnswer !== "warning" && result.manualAnswer !== "") {
+        document.querySelector(`#select-${index} [value=${result.manualAnswer}]`).selected = true;
+    }
 
     checkPageHighlight(checkmark);
 
@@ -1845,6 +1853,7 @@ function updateTotal() {
     resultData.pass = 0;
     resultData.fail = 0;
     resultData.inapplicable = 0;
+    resultData.warning = 0;
     resultData.categories.forEach(function (category) {
         category.count = 0;
         category.rules.forEach(function(rule) {
@@ -1871,7 +1880,8 @@ function updateTotal() {
                         category.count++;
                         rule.count++;
                         if (!question.decisionTree) {
-                            switch(question.manualAnswer) {
+                            const changed = question.manualAnswer || question.verdict;
+                            switch(changed) {
                                 case 'passed':
                                     resultData.pass++;
                                     break;
@@ -1880,6 +1890,9 @@ function updateTotal() {
                                     break;
                                 case 'inapplicable':
                                     resultData.inapplicable++;
+                                    break;
+                                case 'warning':
+                                    resultData.warning++;
                                     break;
                             }
                         } else {
@@ -1893,6 +1906,9 @@ function updateTotal() {
                                 case 'Inapplicable':
                                     resultData.inapplicable++;
                                     break;
+                                case 'warning':
+                                    resultData.warning++;
+                                    break;
                             }
                         }
                     }
@@ -1904,7 +1920,7 @@ function updateTotal() {
 
 function generateResultCount() {
     const text = document.querySelector("#resultcount");
-    text.innerHTML = `Pass: <span id="passCount">${resultData.pass}</span> Fail: <span id="failCount">${resultData.fail}</span> Inapplicable: <span id="inappliacbleCount">${resultData.inapplicable}</span>`;
+    text.innerHTML = `Pass: <span id="passCount">${resultData.pass}</span> Fail: <span id="failCount">${resultData.fail}</span> Cannot tell: <span id="warningCount">${resultData.warning}</span> Inapplicable: <span id="inappliacbleCount">${resultData.inapplicable}</span>`;
 }
 
 function generateAccordions(category) {
