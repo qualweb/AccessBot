@@ -2,6 +2,9 @@ import rules from "./rules/index.js";
 import assessments from "./rules/assessments/index.js";
 import DecisionTree from "./DecisionTree.js";
 import ManualSteps from "./ManualSteps.js";
+//const generateEARLAssertions = require('./node_modules/@qualweb/earl-reporter/dist/index.js').generateEARLAssertions;
+import {generateEARLAssertions} from "@qualweb/earl-reporter";
+
 //import result from "./testData.js";
 
 let resultData = {};
@@ -15,6 +18,12 @@ chrome.runtime.onMessage.addListener(
             //console.log("request.values", request.values);
             resultData = generateManualTests(generateCategoriesData(request.values, request.options), request.options.manual);
             updateResults();
+            const exportButton = document.querySelectorAll('.ExportButton')[0];
+            exportButton.onclick = async function() {
+                console.log("new object");
+                console.log(request.result);
+                console.log(await generateEARLAssertions(request.result));
+            }
         }
     }
 );
@@ -272,7 +281,7 @@ function updateResults() {
 }
 
 function removeHTML() {
-    const questionSection = document.querySelectorAll('.ResultSection');
+    const questionSection = document.querySelectorAll('.result');
     questionSection.forEach(function(result, index) {
         result.innerHTML = '';
         if(index === 0) {
@@ -282,7 +291,7 @@ function removeHTML() {
 }
 
 function generateQuestionSection(rule) {
-    const questionSection = document.querySelector('.ResultPage .ResultSection:last-child');
+    const questionSection = document.querySelector('.ResultPage .result:last-child');
     questionSection.innerHTML = `<h2 class="RuleTitle">${rule.name}</h2>
     <span class="RuleLink">${rule.rule} ACT <a href="${rule.url}" target="_blank">${rule.id}</a></span>
     <p class="RuleDescription">${rule.description}</p>
@@ -301,7 +310,7 @@ function generateQuestionSection(rule) {
 }
 
 function generateManualTestSection(rule) {
-    const questionSection = document.querySelector('.ResultPage .ResultSection:last-child');
+    const questionSection = document.querySelector('.ResultPage .result:last-child');
     questionSection.innerHTML = `
     <h2 class="RuleTitle">${rule.name}</h2>
     <p class="RuleDescription">${rule.manualTest.description}</p>
@@ -429,7 +438,7 @@ function generateResult(result, index) {
     const select = document.querySelector(`#select-${index}`);
 
     var selectOptions = Array.apply(null, select.options).map(option => option.value);
-    //console.log(result.manualAnswer)
+    console.log(result.manualAnswer)
     document.querySelector(`#select-${index} [value=${result.manualAnswer}]`).selected = true;
 
     checkPageHighlight(checkmark);
@@ -612,9 +621,7 @@ function generateResultCount() {
 }
 
 function generateAccordions(category) {
-    const accordionSection = document.querySelector('.ResultPage .ResultSection:first-child');
-
-    //console.log(category);
+    const accordionSection = document.querySelector('.ResultPage .result:first-child');
 
     accordionSection.insertAdjacentHTML('beforeend', `<button id="category-button-${category.fixedName}" class="accordion">
         <div class=Flex-h>

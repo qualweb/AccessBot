@@ -1,30 +1,42 @@
+let fail = 0;
+let pass = 0;
+let innaplicable = 0;
+
 export default class DecisionTree {
-    static fail = 0;
-    static pass = 0;
-    static innaplicable = 0;
+    static fail() {
+        return fail;
+    }
+    
+    static pass() {
+        return pass;
+    }
+
+    static innaplicable() {
+        return innaplicable;
+    }
 
     static addToFail() {
-        DecisionTree.fail++;
+        fail++;
     }
 
     static removeFail() {
-        DecisionTree.fail--;
+        fail--;
     }
 
     static addToPass() {
-        DecisionTree.pass++;
+        pass++;
     }
 
     static addToInnaplicable() {
-        DecisionTree.innaplicable++;
+        innaplicable++;
     }
 
     static removeInnaplicable() {
-        DecisionTree.innaplicable--;
+        innaplicable--;
     }
 
     static removePass() {
-        DecisionTree.pass--;
+        pass--;
     }
 
     static count() {

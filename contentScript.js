@@ -1,5 +1,3 @@
-
-
 function pointerToElement (pointer) {
     const pointerArray = pointer.split(" > ");
     
@@ -31,5 +29,11 @@ chrome.runtime.onMessage.addListener(
             selectedElements.style.border = "";
         }
     }
+
+    //return string with whole page
+  if(request.message === "getDocument") {
+    sendResponse(document.all[0].outerHTML);
   }
+}
+
 );

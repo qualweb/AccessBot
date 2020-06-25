@@ -22,5 +22,10 @@
     "stew-select": "0.0.5",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10"
+  },
+  "dependencies": {
+    "@qualweb/act-rules": "^0.4.11",
+    "@qualweb/core": "^0.4.4",
+    "@qualweb/earl-reporter": "^0.2.5"
   }
 }

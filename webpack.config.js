@@ -2,24 +2,21 @@ const path = require('path')
 
 module.exports = [{
   entry: {
-    htmlPractices: './src/html-techniques/index.js',
-    cssPractices: './src/css-techniques/index.js',
-    act: './src/act/index.js',
-    bestPractices: './src/best-practices/index.js',
+    result: './result.js', // build foi modificado //require nao funciona browser
+    popup: './popup.js',
+    background: './background.js',
+    contentScript: './contentScript.js',
   },
-  node: { fs: 'empty', tls: 'empty', net: 'empty' },
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, ''),
+    path: path.resolve(__dirname, 'dist'),
     libraryTarget: 'var',
     library: ["[name]"],
-  }
-},
-{
-  entry:"./src/popup",
-  node: { fs: 'empty', tls: 'empty', net: 'empty' },
-  output: {
-  	path: path.join(__dirname, ''),
-  	filename: "popup.js"
   },
+  externals: {
+    puppeteer: 'require("puppeteer")', //remove puppeteer, stays as external dependency of output
+  },
+  optimization: {
+    minimize: false
+},
 }]

@@ -8,16 +8,15 @@
     <link rel="stylesheet" href="myStyles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/styles/railscasts.min.css" rel="stylesheet">
     <script src="./highlight.js"></script>
-    <script type="module" src="result.js" defer></script>
+    <script type="module" src="./dist/result.js" defer></script>
   </head>
   <body>
       <div class="ResultPage">
         <div class="ResultSection">
-            <div id="resultcount"></div>
-            <div id="accordions"></div>
-            <button class="ExportButton" >Export</button>
+            <div class="result"></div>
+            <button class="ExportButton">Export</button>
         </div>
-        <div class="ResultSection">
+        <div class="ResultSection result">
         </div>
       </div>        
     </div>

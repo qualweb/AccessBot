@@ -1,21 +1,27 @@
-export default class ManualSteps {
-    static fail = 0;
-    static pass = 0;
+let fail = 0;
+let pass = 0;
 
+export default class ManualSteps {
+    static fail() {
+        return fail;
+    }
+    static pass() {
+        return pass;
+    }
     static addToFail() {
-        ManualSteps.fail++;
+        fail++;
     }
 
     static removeFail() {
-        ManualSteps.fail--;
+        fail--;
     }
 
     static addToPass() {
-        ManualSteps.pass++;
+        pass++;
     }
 
     static removePass() {
-        ManualSteps.pass--;
+        pass--;
     }
 
     static count() {
