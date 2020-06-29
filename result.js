@@ -672,26 +672,34 @@ function generatePanelRule(category, rule) {
 
 
     const panel = `<button id="rule-button-${rule.rule}" class="Flex-h PanelButton ${rule.selected ? 'active' : ''}">
-        <span class="panelRuleName">${rule.name}</span>
+        <div class="panelRule">
+            <span class="panelRuleName">${rule.name}</span>
+        </div>
         <span class="panelRuleCount">${rule.count} / ${rule.total}</span>
     </button>`
 
+    
+
     accordion.insertAdjacentHTML('beforeend', panel);
 
-    const button = document.querySelector(`#rule-button-${rule.rule}`);
+    
+    //antes afterbegin
 
+    const ruleName = document.querySelector(`#rule-button-${rule.rule} .panelRuleName`);
     if (hasManual) {
-        button.insertAdjacentHTML('afterbegin', `<i class="material-icons testtype">person</i>`);
+        ruleName.insertAdjacentHTML('afterend', `<i class="material-icons testtype">person</i>`);
     }
 
     if (hasSemi) {
-        button.insertAdjacentHTML('afterbegin', `<i class="material-icons testtype">engineering</i>`);
+        ruleName.insertAdjacentHTML('afterend', `<i class="material-icons testtype">engineering</i>`);
     }
 
     if (hasAuto) {
-        button.insertAdjacentHTML('afterbegin', `<i class="material-icons testtype">miscellaneous_services</i>`);
+        ruleName.insertAdjacentHTML('afterend', `<i class="material-icons testtype">miscellaneous_services</i>`);
     }
 
+
+    const button = document.querySelector(`#rule-button-${rule.rule}`);
     button.onclick = function() {
         resultData.categories.forEach(function(category) {
             category.rules.forEach(function (changeRule) {

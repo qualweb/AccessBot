@@ -1,7 +1,7 @@
 {
-  "name": "QualWeb Assisted Evaluation",
+  "name": "AccessBot",
   "version": "1.0",
-  "description": "QualWeb Assisted Evaluation 1.1.1",
+  "description": "Assisted Evaluation powered by QualWeb.",
   "manifest_version": 2,
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "permissions": ["storage", "tabs", "activeTab", "http://127.0.0.1:9222/*"],

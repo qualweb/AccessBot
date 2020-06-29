@@ -248,9 +248,15 @@
         .visible {
             display: block;
         }
-        .panelRuleName {
+        .panelRule {
             flex: 1 1 auto;
             margin: 0 10px;
+            text-align: left;
+            display: flex;
+            align-items: center;
+        }
+        .panelRuleName {
+            margin-right: 10px;
         }
         .panelRuleCount { 
             display: block;

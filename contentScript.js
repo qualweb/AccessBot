@@ -6,6 +6,8 @@ function pointerToElement (pointer) {
     }
     
     //queryselector n funciona on polymer window.shadowRoot.
+    //https://github.com/qualweb/qualweb-extension/blob/develop/src/content.js
+    console.log(pointer);
     const resultsEvaluation = document.querySelector(pointer);
     console.log(resultsEvaluation);
     return resultsEvaluation;
