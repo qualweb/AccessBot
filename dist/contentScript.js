@@ -82,12 +82,12 @@ var contentScript =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 134);
+/******/ 	return __webpack_require__(__webpack_require__.s = 12);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 134:
+/***/ 12:
 /***/ (function(module, exports) {
 
 function pointerToElement (pointer) {

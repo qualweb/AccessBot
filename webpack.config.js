@@ -13,9 +13,6 @@ module.exports = [{
     libraryTarget: 'var',
     library: ["[name]"],
   },
-  externals: {
-    puppeteer: 'require("puppeteer")', //remove puppeteer, stays as external dependency of output
-  },
   optimization: {
     minimize: false
 },

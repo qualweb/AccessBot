@@ -1,6 +1,6 @@
 //const puppeteer = require('puppeteer');
 import {QWPage} from "@qualweb/qw-page";
-import { ACTRules } from "./node_modules/@qualweb/act-rules/dist/index.js"; //updated act
+//import { ACTRules } from "./node_modules/@qualweb/act-rules/dist/index.js"; //updated act - do act develop
 
 let onlyValidResults = [];
 let options = {};
@@ -38,7 +38,7 @@ chrome.runtime.onMessage.addListener(
                 console.log(pageDocument.documentElement);
                 console.log(pageDocument);
                 const result = new QWPage(pageDocument, window); //generate obj QWPAGE
-                let act = new ACTRules({ rules: [
+                /*let act = new ACTRules({ rules: [
                   'QW-ACT-R1',
                   'QW-ACT-R2',
                   'QW-ACT-R3',
@@ -78,7 +78,8 @@ chrome.runtime.onMessage.addListener(
                   'QW-ACT-R9',
                   'QW-ACT-R12',
                   'QW-ACT-R37'
-                ]});
+                ]});*/
+                let act = new ACTRules.ACTRules()
                 const actResult = await act.execute({},result,[]);
                 //act.execute({},result,[]).then(result =>{ //objecto json {} regras a incluir!!!!!!!
                 qualwebResult = actResult;

@@ -82,1925 +82,11 @@ var result =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 135);
+/******/ 	return __webpack_require__(__webpack_require__.s = 13);
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ 11:
-/***/ (function(module, exports) {
-
-module.exports = function(module) {
-	if (!module.webpackPolyfill) {
-		module.deprecate = function() {};
-		module.paths = [];
-		// module.parent = undefined by default
-		if (!module.children) module.children = [];
-		Object.defineProperty(module, "loaded", {
-			enumerable: true,
-			get: function() {
-				return module.l;
-			}
-		});
-		Object.defineProperty(module, "id", {
-			enumerable: true,
-			get: function() {
-				return module.i;
-			}
-		});
-		module.webpackPolyfill = 1;
-	}
-	return module;
-};
-
-
-/***/ }),
-
-/***/ 135:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-
-// CONCATENATED MODULE: ./rules/const.js
-//para actualizar qdo necessário
-
-/* harmony default export */ var rules_const = ({
-    IMAGE: "Image",
-    TITLE: "Title",
-    KEYBOARD: "Keyboard",
-    LANGUAGE: "Language",
-    TIME: "Time",
-    ORIENTATION: "Orientation",
-    SENSORYVISUALCLUES: "Sensory and Visual Clues",
-    AUDIOVIDEO: "Audio and Video",
-    PARSING: "Parsing",
-    ARIA: "Aria",
-    FORMS: "Forms",
-    HEADINGS: "Headings",
-    TABLES: "Tables",
-    CONTRAST: "Contrast",
-    LINKS: "Links",
-    IFRAMES: "iFrames",
-    BUTTONS: "Buttons",
-    LABEL: "Label"
-
-});
-
-
-// CONCATENATED MODULE: ./rules/R1.js
-
-
-
-/* harmony default export */ var R1 = ({
-    code: 'QW-ACT-R1',
-    category: rules_const.TITLE,
-    tree: [{
-        prerequisite: 'RC3',
-        fluxo: [
-            {
-                key: '1A',
-                title: 'Does title describes page?',
-                answerYes: 'Pass',
-                answerNo: 'Fail',
-            },
-            {
-                key: 'Pass',
-                title: "The \`title\` element exists and it's not empty and describes page. ",
-                
-            },
-            {
-                key: 'Fail',
-                title: "The \`title\` element exists and is not empy but does not describe page. ",
-            
-            }
-        ]
-    }]
-});
-// CONCATENATED MODULE: ./rules/R2.js
-
-
-
-/* harmony default export */ var R2 = ({
-    code: 'QW-ACT-R2',
-    category: rules_const.LANGUAGE,
-    tree: [{
-        prerequisite: 'RC1',
-        fluxo: [
-            {
-                key: '1A',
-                title: 'Is the content of the page according to the value of lang attribute?',
-                answerYes: 'Pass',
-                answerNo: 'Fail',
-            },
-            {
-                key: 'Pass',
-                title: "`The \`lang\` attribute exists and its value is according to the content of the page. ",
-                
-            },
-            {
-                key: 'Fail',
-                title: "`The \`lang\` attribute value  isn't according to the content of the page. ",
-            
-            }
-        ]
-    }]
-});
-// CONCATENATED MODULE: ./rules/R6.js
-
-
-/* harmony default export */ var R6 = ({
-    code: 'QW-ACT-R6',
-    category: rules_const.IMAGE,
-    tree: [{
-        prerequisite: 'RC1',
-        fluxo: [
-            {
-                key: '1A',
-                title: 'Accessible name describes purpose?',
-                answerYes: 'Pass',
-                answerNo: 'Fail',
-            },
-            {
-                key: 'Pass',
-                title: "The `image button` has an accessible name that describes purpose",
-                
-            },
-            {
-                key: 'Fail',
-                title: "The \`image button\` has an accessible name that doesn't describe purpose",
-            
-            }
-        ]
-    }]
-});
-// CONCATENATED MODULE: ./rules/R8.js
-
-
-
-/* harmony default export */ var R8 = ({
-    code: 'QW-ACT-R8',
-    category: rules_const.IMAGE,
-    tree: [{
-        prerequisite: 'RC1',
-        fluxo:[
-            {
-            key: '1A',
-            title: 'Accessible name describes purpose?',
-            answerYes: 'Pass',
-            answerNo: 'Fail',
-            },
-            {
-            key: 'Pass',
-            title: "This element's accessible name uses the filename which accurately describes the image and purpose",
-            
-            },
-            {
-            key: 'Fail',
-            title: "The presence of the file extension in the accessible name doesn't accurately describe purpose of the image",
-            }
-        ]
-    }]
-});
-// CONCATENATED MODULE: ./rules/R9.js
-
-
-
-/* harmony default export */ var R9 = ({
-    code: 'QW-ACT-R9',
-    category: rules_const.LINKS,
-    tree: [{
-        prerequisite: 'RC3',
-        fluxo: [
-            {
-                key: '1A',
-                title: 'Is the content equivalent?',
-                answerYes: 'Pass',
-                answerNo: 'Fail',
-            },
-            {
-                key: 'Pass',
-                title: "The \`links\` with the same accessible name have equivalent content.`",
-                
-            },
-            {
-                key: 'Fail',
-                title: "`The \`links\` with the same accessible name have different content.",
-            
-            }
-        ]
-    }]
-});
-// CONCATENATED MODULE: ./rules/R10.js
-
-
-
-/* harmony default export */ var R10 = ({
-    code: 'QW-ACT-R10',
-    category: rules_const.IFRAMES,
-    tree: [{
-        prerequisite: 'RC3',
-        fluxo: [
-            {
-                key: '1A',
-                title: 'Is the content equivalent?',
-                answerYes: 'Pass',
-                answerNo: 'Fail',
-            },
-            {
-                key: 'Pass',
-                title: "The \`iframes\` with the same accessible name have equal content.",
-                
-            },
-            {
-                key: 'Fail',
-                title: "`The \`iframes\` with the same accessible name have different content.",
-            
-            }
-        ]
-    }]
-});
-// CONCATENATED MODULE: ./rules/R11.js
-
-
-
-/* harmony default export */ var R11 = ({
-    code: 'QW-ACT-R11',
-    category: rules_const.BUTTONS,
-    tree: [{
-        prerequisite: 'RC1',
-        fluxo: [
-            {
-                key: '1A',
-                title: 'Accessible name describes purpose?',
-                answerYes: 'Pass',
-                answerNo: 'Fail',
-            },
-            {
-                key: 'Pass',
-                title: "The test target has a valid accessible name and it describes its purpose",
-                
-            },
-            {
-                key: 'Fail',
-                title: "The test target has a valid accessible name but doesn't describe its purpose.",
-            
-            }
-        ]
-    }]
-});
-// CONCATENATED MODULE: ./rules/R12.js
-
-
-
-/* harmony default export */ var R12 = ({
-    code: 'QW-ACT-R12',
-    category: rules_const.LINKS,
-    tree: [{
-        prerequisite: 'RC1',
-        fluxo: [
-            {
-                key: '1A',
-                title: 'accessible name describes purpose?',
-                answerYes: 'Pass',
-                answerNo: 'Fail',
-            },
-            {
-                key: 'Pass',
-                title: "The test target has a valid accessible name and it describes its purpose",
-                
-            },
-            {
-                key: 'Fail',
-                title: "The test target has a valid accessible name but doesn't describe its purpose.",
-            
-            }
-        ]
-    }]
-});
-// CONCATENATED MODULE: ./rules/R15.js
-
-
-
-/* harmony default export */ var R15 = ({
-    code: 'QW-ACT-R15',
-    category: rules_const.AUDIOVIDEO,
-    tree: [{
-        prerequisite: 'RC5',
-        fluxo: [
-            {
-                key: '1A',
-                title: 'Does the  target has a visible control mechanism?',
-                answerYes: 'Pass',
-                answerNo: 'Fail',
-            },
-            {
-                key: 'Pass',
-                title: "The test target has a control mechanism to stop or mute it.",
-                
-            },
-            {
-                key: 'Fail',
-                title: "The test target doesn't have a control mechanism to stop or mute it.",
-            
-            }
-        ]
-    }]
-});
-// CONCATENATED MODULE: ./rules/R16.js
-
-
-
-/* harmony default export */ var R16 = ({
-    code: 'QW-ACT-R16',
-    category: rules_const.FORMS,
-    tree: [{
-        prerequisite: 'RC1',
-        fluxo: [
-            {
-                key: '1A',
-                title: 'Does accessible name describes purpose?',
-                answerYes: 'Pass',
-                answerNo: 'Fail',
-            },
-            {
-                key: 'Pass',
-                title: "The test target has an accessible name and describes purpose",
-                
-            },
-            {
-                key: 'Fail',
-                title: "The test target has an accessible name but doesn't describe purpose",
-            
-            }
-        ]
-    }]
-});
-// CONCATENATED MODULE: ./rules/R17.js
-
-
-/* harmony default export */ var R17 = ({
-        code: 'QW-ACT-R17',
-        category: rules_const.IMAGE,
-        tree: [{
-            prerequisite: 'RC1',
-            fluxo: [
-                {
-                    key: '1A',
-                    title: 'is image decorative?',
-                    answerYes: 'Pass',
-                    answerNo: 'Fail',
-                },
-                {
-                    key: 'Pass',
-                    title: "The test target is decorative.",
-                },
-                {
-                    key: 'Fail',
-                    title: "The presence of the file extension in the accessible name doesn't accurately describe purpose of the image",
-                }
-            ]
-        },
-        {
-            prerequisite: 'RC3, RC6',
-            fluxo: [
-                {
-                    key: '1B',
-                    title: 'is image a complex image (ex. graph)?',
-                    answerYes: '2A',
-                    answerNo: '2B',
-                },
-                {
-                    key: '2A',
-                    title: "Accessible name describes purpose?",
-                    answerYes:"3A",
-                    answerNo: "2AFail"
-                },
-                {
-                    key: '3A',
-                    title: "Accessible name describes content?",
-                    answerYes:"3APass",
-                    answerNo: "3AFail"
-                    
-                },
-                {   key: '3APass',
-                    title: "Accessible name describes purpose and content"
-                },
-                {
-                    key: '3AFail',
-                    title: "Accessible names doesn't describe purpose and content"
-                },
-                {
-                    key: "2B",
-                    title: "Is image a CAPTCHA image?",
-                    answerYes: "3B",
-                    answerNo: "3C"
-                },
-                {
-                    key: "3B",
-                    title: "Accessible name comunicates purpose?",
-                    answerYes: "4A",
-                    answerNo: "3BFail"
-                },
-                {
-                    key: "4A",
-                    title: "Accessible name communicates content?",
-                    answerYes: "4AFail",
-                    answerNo: "4APass"
-                },
-                {
-                    key: '4AFail',
-                    title: "Accessible name communicates purpose and communicates content."
-            
-                },
-                {
-                    key: '4APass',
-                    title: "Accessible name communicates purpose and doesn't communicates content."
-            
-                },
-                {
-                    key: '3BFail',
-                    title: "Accessible name doesn't communicate purpose"
-            
-                },
-                {
-                    key: '3C',
-                    title: 'Is an image of text?',
-                    answerYes:"4B",
-                    answerNo:'5A'
-            
-                },
-                {
-                    key: '4B',
-                    title: 'Accessible name matches text within image',
-                    answerYes:"4BPass",
-                    answerNo:'4BFail'
-            
-                },
-                {
-                    key: '4BPass',
-                    title: 'Accessible name matches text ',
-            
-                },
-                {
-                    key: '4BFail',
-                    title: "Accessible name doesn't match text within image",
-                },
-                {
-                    key: "5A",
-                    title: "Accessible name describes purpose?",
-                    answerYes: "5APass",
-                    answerNo: "5AFail"
-                },
-                {
-                    key: '5APass',
-                    title: "This element's accessible name describes purpose.",
-                },
-                {
-                    key: '5AFail',
-                    title: "The element's accessible name doesn't describe purpose."
-                }
-            ]
-        }]
-});
-// CONCATENATED MODULE: ./rules/R19.js
-
-
-
-/* harmony default export */ var R19 = ({
-    code: 'QW-ACT-R19',
-    category: rules_const.IFRAMES,
-    tree: [{
-        prerequisite: 'RC2',
-        fluxo: [
-            {
-                key: '1A',
-                title: 'Does accessible name describes purpose?',
-                answerYes: 'Pass',
-                answerNo: 'Fail',
-            },
-            {
-                key: 'Pass',
-                title: "The test target has an accessible name and describes its purpose",
-                
-            },
-            {
-                key: 'Fail',
-                title: "The test target has a valid accessible name but doesn't describe its purpose.",
-            
-            }
-        ]
-    }]
-});
-// CONCATENATED MODULE: ./rules/R21.js
-
-
-/* harmony default export */ var R21 = ({
-    code: 'QW-ACT-R21',
-    category: rules_const.IMAGE,
-    tree: [{
-    prerequisite: 'RC2',
-    fluxo: [
-    {
-        key: '1A',
-        title: 'is image a complex image (ex. graph)?',
-        answerYes: '2A',
-        answerNo: '2B',
-    },
-    {
-        key: '2A',
-        title: "Accessible name describes purpose?",
-        answerYes:"3A",
-        answerNo: "2AFail"    
-    },
-    {
-        key: '3A',
-        title: "Accessible name describes content?",
-        answerYes:"3APass",
-        answerNo: "3AFail"
-            
-    },
-    {   key: '3APass',
-        title: "Accessible name describes purpose and content"
-    },
-    {
-        key: '3AFail',
-        title: "Accessible names doesn't describe purpose and content"
-    },
-    {
-        key: "2B",
-        title: "Is image a CAPTCHA image?",
-        answerYes: "3B",
-        answerNo: "3C"
-    },
-    {
-        key: "3B",
-        title: "Accessible name comunicates purpose?",
-        answerYes: "4A",
-        answerNo: "3BFail"
-    },
-    {
-        key: "4A",
-        title: "Accessible name communicates content?",
-        answerYes: "4AFail",
-        answerNo: "4APass"
-    },
-    {
-        key: '4AFail',
-        title: "Accessible name communicates purpose and communicates content."
-    },
-    {
-        key: '4APass',
-        title: "Accessible name communicates purpose and doesn't communicates content."
-    },
-    {
-        key: '3BFail',
-        title: "Accessible name doesn't communicate purpose"
-    
-    },
-    {
-        key: '3C',
-        title: 'Is an image of text?',
-        answerYes:"4B",
-        answerNo:'5A'
-    },
-    {
-        key: '4B',
-        title: 'Accessible name matches text within image',
-        answerYes:"4BPass",
-        answerNo:'4BFail'
-    },
-    {
-        key: '4BPass',
-        title: 'Accessible name matches text ',
-    },
-    {
-        key: '4BFail',
-        title: "Accessible name doesn't match text within image",
-    },
-    {
-        key: "5A",
-        title: "Accessible name describes purpose?",
-        answerYes: "5APass",
-        answerNo: "5AFail"
-    },
-    {
-        key: '5APass',
-        title: "This element's accessible name describes purpose.",
-    },
-    {
-        key: '5AFail',
-        title: "The element's accessible name doesn't describe purpose."
-
-    }
-]
-}]
-});
-
-// CONCATENATED MODULE: ./rules/R22.js
-
-
-
-/* harmony default export */ var R22 = ({
-    code: 'QW-ACT-R22',
-    category: rules_const.LANGUAGE,
-    tree: [{
-        prerequisite: 'RC2',
-        fluxo: [
-            {
-                key: '1A',
-                title: 'Is the language  of the content the same as the value of lang attribute?',
-                answerYes: 'Pass',
-                answerNo: 'Fail',
-            },
-            {
-                key: 'Pass',
-                title: "The test target has a valid `lang` attribute which is according to the language of  the content.",
-                
-            },
-            {
-                key: 'Fail',
-                title: "`The \`lang\` attribute value  isn't according to the language  of the content.",
-            
-            }
-        ]
-    }]
-});
-// CONCATENATED MODULE: ./rules/R23.js
-
-
-
-/* harmony default export */ var R23 = ({
-    code: 'QW-ACT-R23',
-    category: rules_const.AUDIOVIDEO,
-    tree: [{
-        prerequisite: 'RC3',
-        fluxo: [
-            {
-                key: '1A',
-                title: '  is it an  audio alternative (voice over)? ',
-                answerYes: '1B',
-                answerNo: '2B',
-            },
-            {
-                key: '1B',
-                title: "The audio content describes its purpose? ",
-                answerYes: "1BPass",
-                answerNO: "1BFail"
-                
-            },
-            {
-                key: '1BPass',
-                title: "The audio alternative describes the video content",
-            
-            },
-            {
-                key: '1BFail',
-                title: "'The audio alternative doesn/'t describe video content."
-
-            },
-            {
-                key:"2B",
-                title: "Is there text  overlaid when media is playing?",
-                answerYes:"2C" ,
-                answerNo: "3A"
-
-            },
-            {
-                key:"2C",
-                title: "Does they describe the content of the video?",
-                answerYes:"2CPass",
-                answerNo: "2CFail"
-
-            },
-            {
-                key: "2CPass",
-                title: "the `track` element correctly describes the auditive content of the video."
-
-            },
-            {
-                key:"2CFail",
-                title: "The track element doesn't describe the content of the video."
-            },
-            {
-                key: "3A",
-                title: "Do you have access to a transcript?",
-                answerYes: "3B",
-                answerNo: "4A"
-            },
-            {
-                key: "3B",
-                title: "Does the transcript describes the video?",
-                answerYes: "3BPass",
-                answerNo: "3BFail"
-            },
-            {
-                key: "3BPass",
-                title: "The transcript correctly describes the auditive content of the video."
-            },
-            {
-                key:"3BFail",
-                title: "The transcript doesn't describe the auditive content of the video."
-            },
-            {
-                key: "4A",
-                title: "Text on a page describes  enterily  video content? ",
-                answerYes: "4APass",
-                answerNo: "4AFail"
-            },
-            {
-                key: "4APass",
-                title: "The text on the page describes the content of the video."
-            },
-            {
-                key: "4AFail",
-                title: "The video doesn't have any content alternative."
-            }
-        ]
-    }]
-});
-// CONCATENATED MODULE: ./rules/R29.js
-
-
-
-/* harmony default export */ var R29 = ({
-    code: 'QW-ACT-R29',
-    category: rules_const.AUDIOVIDEO,
-    tree: [{
-        prerequisite: 'RC1',
-        fluxo: [
-            {
-                key: '1A',
-                title: 'Does it have a text  alternative?',
-                answerYes: '2A',
-                answerNo: '1AFail',
-            },
-            {
-                key: '1AFail',
-                title: "The audio element doesn't have a text alternative"
-                
-            },
-            {
-                key: '2A',
-                title: "Does it describe the purpose of audio?",
-                answerYes: "2APass",
-                answerNo: "2AFail"
-            
-            },
-            {
-                key: "2AFail",
-                title: "The text alternative doesn't describe the purpose of audio."
-            },
-            {
-                key: "2APass",
-                title: "The text alternative describes the purpose of audio."
-            }
-        ]
-    }]
-});
-// CONCATENATED MODULE: ./rules/R30.js
-
-
-
-/* harmony default export */ var R30 = ({
-    code: 'QW-ACT-R30',
-    category: rules_const.LABEL,
-    tree: [{
-        prerequisite: 'RC4',
-        fluxo: [
-            {
-                key: '1A',
-                title: 'Does accessible name describes purpose?',
-                answerYes: 'Pass',
-                answerNo: 'Fail',
-            },
-            {
-                key: 'Pass',
-                title: "The complete visible text content of the test target either matches or is contained within its accessible name. It's accessible name also describes purpose.",
-                
-            },
-            {
-                key: 'Fail',
-                title: "The complete visible text content of the test target either matches or is contained within its accessible name but it doesn't describe purpose.",
-            
-            }
-        ]
-    }]
-});
-// CONCATENATED MODULE: ./rules/R35.js
-
-
-
-/* harmony default export */ var R35 = ({
-    code: 'QW-ACT-R35',
-    category: rules_const.HEADINGS,
-    tree: [{
-        prerequisite: 'RC1',
-        fluxo: [
-            {
-                key: '1A',
-                title: 'Does the heading describe  the contents of its section?',
-                answerYes: 'Pass',
-                answerNo: 'Fail',
-            },
-            {
-                key: 'Pass',
-                title: "The heading describes the contents of its section."
-                
-            },
-            {
-                key: "Fail",
-                title: "The heading doesn't describe the contents of its section."
-            },
-        ]
-    }]
-});
-// CONCATENATED MODULE: ./rules/R36.js
-
-
-
-/* harmony default export */ var R36 = ({
-    code: 'QW-ACT-R36',
-    category: rules_const.TABLES,
-    tree: [{
-        prerequisite: 'RC7',
-        fluxo: [
-            {
-                key: '1A',
-                title: 'Has the data cells appropriate headers? ',
-                answerYes: 'Pass',
-                answerNo: 'Fail',
-            },
-            {
-                key: 'Pass',
-                title: "The data cells have appropriate headers."
-                
-            },
-            {
-                key: "Fail",
-                title: "The data cells don't have appropriate headers."
-            },
-        ]
-    }]
-});
-// CONCATENATED MODULE: ./rules/index.js
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* harmony default export */ var rules = ([R1, R2, R6, R8, R9, R10, R11, R12, R15, R16, R17, R19, R21, R22, R23, R29, R30, R35, R36]);
-// CONCATENATED MODULE: ./rules/assessments/Keyboard-focusable.js
-
-
-
-/* harmony default export */ var Keyboard_focusable = ({
-    code: '80af7b',
-    link: 'https://act-rules.github.io/rules/80af7b',
-    name: 'Is focusable with keyboard',
-    category: rules_const.KEYBOARD,
-    whyImportant: `Users must be able to access and interact with interface components using only the
-    keyboard because using a mouse is not possible when the user has no vision or low vision
-    or doesn't have the physical capability or dexterity to effectively control a pointing
-    device.`,
-    descriptionTest:`Users must be able to navigate away from all components
-    using a keyboard.`,
-    tree: [
-        {
-            key: '',
-            title: `Tab through content from start to finish by using  standard keyboard commands 
-            (Tab key; Shift+Tab; Arrow keys
-                Esc key
-                Enter key
-                Space key) to navigate through
-            all the interactive interface components in the target page.Check to see that keyboard focus is not trapped in any of the content.`,
-            question: 'Can you navigate?',
-            answerYes: 'Pass',
-            answerNo: 'nextStep1'
-        },
-        {
-            key: "nextStep1",
-            title: `If you can't navigate away from a component using standard keyboard commands 
-            (keyboard focus appears to be trapped in any of the content), check that help information is 
-            available explaining how to exit the content and can be accessed via the keyboard.
-            Examine the component's accessible name and accessible description to
-            determine whether they describe an alternative keyboard command.
-            If an alternative keyboard command is documented, test whether it works.`,
-            question: 'Could you find an alternative way to navigate?',
-            answerYes: "Pass",
-            answerNo: "Fail"
-        
-        },
-        {
-            key: 'Pass',
-            title: "No trap for keyboard navigation.",
-        },
-        {
-            key: 'Fail',
-            title: "There are traps in keyboard navigation",
-        }
-    ],
-
-
-    
-});
-// CONCATENATED MODULE: ./rules/assessments/index.js
-
-
-/* harmony default export */ var assessments = ([Keyboard_focusable]);
-// CONCATENATED MODULE: ./DecisionTree.js
-let fail = 0;
-let pass = 0;
-let innaplicable = 0;
-
-class DecisionTree {
-    static fail() {
-        return fail;
-    }
-    
-    static pass() {
-        return pass;
-    }
-
-    static innaplicable() {
-        return innaplicable;
-    }
-
-    static addToFail() {
-        fail++;
-    }
-
-    static removeFail() {
-        fail--;
-    }
-
-    static addToPass() {
-        pass++;
-    }
-
-    static addToInnaplicable() {
-        innaplicable++;
-    }
-
-    static removeInnaplicable() {
-        innaplicable--;
-    }
-
-    static removePass() {
-        pass--;
-    }
-
-    static count() {
-        return fail + pass + innaplicable;
-    }
-
-    constructor(data) {
-        this.data = data.fluxo;
-        this._current = this.data[0];
-        this.allValues = [this.data[0]];
-    }
-
-    next(result) {
-        let resultValue;
-
-        if (this._current.status) {
-            return this._current;
-        }
-
-        if (result === true) {
-            resultValue = "answerYes";
-        } else {
-            resultValue = "answerNo";
-        }
-
-        const resultIndex = this.data.findIndex(value => {
-            return value.key === this._current[resultValue];
-        });
-
-        this.allValues.push(this.data[resultIndex]);
-        this._current = this.data[resultIndex];
-
-        if (!this._current.answerYes && !this._current.answerNo) {
-            const checkPass = this._current.key.includes("Pass");
-            const checkFail = this._current.key.includes("Fail");
-            if (checkPass) {
-                DecisionTree.addToPass();
-                this._current.status = "Pass";
-            } else if (checkFail) {
-                DecisionTree.addToFail();
-                this._current.status = "Fail";
-            } else {
-                DecisionTree.addToInnaplicable();
-                this._current.status = "Innaplicable";
-            }
-        }
-
-        return this._current;
-    }
-
-    current() {
-        return this._current;
-    }
-
-    revert() {
-        if (this._current.status && this._current.status === "Pass") {
-            DecisionTree.removePass();
-        } else if (this._current.status && this._current.status === "Fail") {
-            DecisionTree.removeFail();
-        }
-
-        this.allValues = [this.allValues[0]];
-        this._current = this.allValues[0];
-        return this._current;
-    }
-
-    prev() {
-        if(this.allValues.length === 1) {
-            return this._current;
-        } 
-        const removedValue = this.allValues.pop();
-
-        if(removedValue === "Pass") {
-            DecisionTree.removePass();
-        }
-
-        if(removedValue === "Fail") {
-            DecisionTree.removeFail();
-        }
-
-        if(removedValue === "Innaplicable") {
-            DecisionTree.removeInnaplicable();
-        }
-
-        this._current = this.allValues[this.allValues.length - 1];
-
-        return this._current;
-    }
-
-    getStatus() {
-        return this._current.status;
-    }
-
-    firstElement() {
-        return this.allValues.length === 1;
-    }
-}
-// CONCATENATED MODULE: ./ManualSteps.js
-let ManualSteps_fail = 0;
-let ManualSteps_pass = 0;
-
-class ManualSteps {
-    static fail() {
-        return ManualSteps_fail;
-    }
-    static pass() {
-        return ManualSteps_pass;
-    }
-    static addToFail() {
-        ManualSteps_fail++;
-    }
-
-    static removeFail() {
-        ManualSteps_fail--;
-    }
-
-    static addToPass() {
-        ManualSteps_pass++;
-    }
-
-    static removePass() {
-        ManualSteps_pass--;
-    }
-
-    static count() {
-        return ManualSteps_fail + ManualSteps_pass;
-    }
-
-    constructor(data) {
-        this.data = data;
-        this._current = this.data[0];
-        this.allValues = [this.data[0]];
-    }
-
-    next(result) {
-        let resultValue;
-
-        if (this._current.status) {
-            return this._current;
-        }
-
-        if (result === true) {
-            resultValue = "answerYes";
-        } else {
-            resultValue = "answerNo";
-        }
-
-        const resultIndex = this.data.findIndex(value => {
-            return value.key === this._current[resultValue];
-        });
-
-        this.allValues.push(this.data[resultIndex]);
-        this._current = this.data[resultIndex];
-
-        if (!this._current.answerYes && !this._current.answerNo) {
-            const checkPass = this._current.key.includes("Pass");
-            const checkFail = this._current.key.includes("Fail");
-            if (checkPass) {
-                ManualSteps.addToPass();
-                this._current.status = "Pass";
-            } else {
-                ManualSteps.addToFail();
-                this._current.status = "Fail";
-            }
-        }
-
-        return this._current;
-    }
-
-    current() {
-        return this._current;
-    }
-
-    getQuestion() {
-        return this._current.question;
-    }
-
-    revert() {
-        if (this._current.status && this._current.status === "Pass") {
-            ManualSteps.removePass();
-        } else if (this._current.status && this._current.status === "Fail") {
-            ManualSteps.removeFail();
-        }
-
-        this.allValues = [this.allValues[0]];
-        this._current = this.allValues[0];
-        return this._current;
-    }
-
-    prev() {
-        if(this.allValues.length === 1) {
-            return this._current;
-        } 
-        const removedValue = this.allValues.pop();
-
-        if(removedValue === "Pass") {
-            ManualSteps.removePass();
-        }
-
-        if(removedValue === "Fail") {
-            ManualSteps.removeFail();
-        }
-
-        this._current = this.allValues[this.allValues.length - 1];
-
-        return this._current;
-    }
-
-    getStatus() {
-        return this._current.status;
-    }
-
-    firstElement() {
-        return this.allValues.length === 1;
-    }
-}
-// EXTERNAL MODULE: ./node_modules/@qualweb/earl-reporter/dist/index.js
-var dist = __webpack_require__(39);
-
-// CONCATENATED MODULE: ./result.js
-
-
-
-
-//const generateEARLAssertions = require('./node_modules/@qualweb/earl-reporter/dist/index.js').generateEARLAssertions;
-
-
-//import result from "./testData.js";
-
-let resultData = {};
-
-chrome.runtime.sendMessage({message:"resultLoaded"});
-
-chrome.runtime.onMessage.addListener(
-    function(request, sender, sendResponse) {
-        //console.log("receiving message");
-        if(request.message === "resultsToPopup") {
-            //console.log("request.values", request.values);
-            resultData = generateManualTests(generateCategoriesData(request.values, request.options), request.options.manual);
-            updateResults();
-            const exportButton = document.querySelectorAll('.ExportButton')[0];
-            exportButton.onclick = async function() {
-                console.log("new object");
-                console.log(request.result);
-                console.log(await Object(dist["generateEARLAssertions"])(request.result));
-            }
-        }
-    }
-);
-/*
-//for tests. remove this
-
-const options = {
-    manual: true,
-    semimanual: true,
-    automatic: true,
-}
-
-const rulesToArray = Object.values(result.rules);
-const onlyValidResults = rulesToArray.map(rule => {
-    const results = rule.results.filter(item => {
-        return item.verdict !== "inapplicable" && item.verdict !== "";
-    });
-
-    return {
-        code: rule.code,
-        description: rule.description,
-        results: results,
-        name: rule.name
-    }
-});
-
-resultData = generateManualTests(generateCategoriesData(result, options), options.manual);
-updateResults();
-//
-*/
-function isRuleValid(ruleToCheck, result) {
-    return ruleToCheck.tree.some(function(step) {
-        const prerequesiteArray = step.prerequisite.replace(/\s/g, '').split(',');
-        return prerequesiteArray.some(prerequesite => {
-            return result.resultCode === prerequesite;
-        })
-    });
-}
-
-function generateCategoriesData(result, options) {
-    const semiManualTests = {
-        total: 0,
-        count: 0,
-        pass: 0,
-        fail: 0,
-        inapplicable: 0,
-        warning: 0,
-        categories: []
-    };
-
-    for (let i = 0; i < result.length; i++) {
-        const ruleValue = result[i];
-        const ruleCode = ruleValue.code;
-        const ruleName = ruleValue.name;
-        const ruleDescription = ruleValue.description;
-        const url = ruleValue.url;
-        const id = ruleValue.id;
-
-        //console.log(ruleValue);
-
-        const indexValue = rules.findIndex(rule => {
-            if(Array.isArray(rule)) {
-                return rule[0].code === ruleCode;
-            }
-            return rule.code === ruleCode;
-        });
-
-        //console.log("values", result);
-        //console.log("ruleCode", ruleCode);
-        //console.log("results", ruleValue.results);
-        
-        if(indexValue > -1) {
-            const manualRule = rules[indexValue];
-
-            //console.log("manualRule", manualRule);
-
-            const currentCategory = manualRule.category;
-            const getCategoryIndex = semiManualTests.categories.findIndex(function(category) {
-                return category.name === currentCategory;
-            });
-
-            let total = 0;
-            let questions = [];
-
-            ruleValue.results.forEach((result) => {
-                if (isRuleValid(manualRule, result) && options.semimanual) {
-                    let ruleToDecisionTree;
-                    manualRule.tree.forEach(function(manual) {
-                        //console.log(manual.prerequisite);
-                        //console.log(result.resultCode);
-                        manual.prerequisite.split(',').forEach(function(prerequisite) {
-                            const prerequisiteNoSpace = prerequisite.replace(/\s/g, '');
-                            if (prerequisiteNoSpace === result.resultCode) {
-                                ruleToDecisionTree = manual;
-                            }
-                        })
-                    });
-
-                    //console.log(ruleToDecisionTree)
-
-                    total++;
-                    questions.push({
-                        ...result,
-                        decisionTree: new DecisionTree(ruleToDecisionTree),
-                        complete: false,
-                        selected: false,
-                        manualAnswer: "",
-                        note: '',
-                        type: 'semi'
-                    });
-                } else if(options.automatic) {
-                    total++;
-                    questions.push({
-                        ...result,
-                        selected: false,
-                        complete: true,
-                        manualAnswer: "",
-                        note: '',
-                        type: 'auto'
-                    });
-                }
-            });
-
-            semiManualTests.total += total;
-
-            if (getCategoryIndex === -1) {
-                semiManualTests.categories.push({
-                    name: currentCategory,
-                    fixedName: currentCategory.replace(/ /g, '').replace(/[^A-Za-z0-9]/g, ''),
-                    total: total,
-                    count: 0,
-                    selected: false,
-                    rules: [
-                        {
-                            rule: ruleCode,
-                            name: ruleName,
-                            description: ruleDescription,
-                            id,
-                            url,
-                            total: total,
-                            count: 0,
-                            questions: questions,
-                            selected: false,
-                        }
-                    ],
-                });
-            } else {
-                semiManualTests.categories[getCategoryIndex].rules.push(
-                    {
-                        rule: ruleCode,
-                        name: ruleName,
-                        description: ruleDescription,
-                        id,
-                        url,
-                        total: total,
-                        count: 0,
-                        questions: questions,
-                        selected: false,
-                    }
-                );
-                semiManualTests.categories[getCategoryIndex].total += total;
-            }
-        }
-    }
-    return semiManualTests;
-}
-
-function generateManualTests(manualTests, optionManual) {
-    if (!optionManual) {
-        return manualTests;
-    }
-    assessments.forEach(function(assessment) {
-        const getCategoryIndex = manualTests.categories.findIndex(function(category) {
-            return category.name === assessment.category;
-        });
-
-        //console.log("assessment", assessment);
-
-        if (getCategoryIndex === -1) {
-            manualTests.categories.push({
-                name: assessment.category,
-                fixedName: assessment.category.replace(/ /g, '').replace(/[^A-Za-z0-9]/g, ''),
-                total: 1,
-                count: 0,
-                selected: false,
-                rules: [
-                    {
-                        rule: assessment.code,
-                        name: assessment.name,
-                        description: assessment.description,
-                        id: assessment.id,
-                        total: 1,
-                        count: 0,
-                        selected: false,
-                        manualTest: {
-                            test: new ManualSteps(assessment.tree),
-                            description: assessment.descriptionTest,
-                            importance: assessment.whyImportant,
-                            complete: false,
-                            selected: false,
-                            note: '',
-                        } 
-                    }
-                ],
-            });
-        } else {
-            manualTests.categories[getCategoryIndex].rules.push(
-                {
-                    rule: assessment.code,
-                    name: assessment.name,
-                    description: ruleDescription,
-                    total: manualTests.categories[getCategoryIndex].rules.total++,
-                    count: 0,
-                    selected: false,
-                    manualTest: {
-                        test: new ManualSteps(assessment.tree),
-                        description: assessment.descriptionTest,
-                        importance: assessment.whyImportant,
-                        complete: false,
-                        selected: false,
-                        note: '',
-                    } 
-                }
-            );
-            manualTests.categories[getCategoryIndex].total++;
-        }
-    });
-
-    manualTests.categories.sort(function(a, b) {
-        if(a.name < b.name) { return -1; }
-        if(a.name > b.name) { return 1; }
-        return 0;
-    });
-
-    return manualTests;
-}
-
-function updateResults() {
-    //console.log(resultData);
-    updateTotal();
-    removeHTML();
-    generateResultCount();
-    resultData.categories.forEach(function (category){
-        generateAccordions(category);
-        category.rules.forEach(function(rule) {
-            generatePanelRule(category, rule);
-            if (rule.selected) {
-                if(rule.questions) {
-                    generateQuestionSection(rule);
-                } else if(rule.manualTest) {
-                    generateManualTestSection(rule);
-                }
-            }
-        })
-    })
-}
-
-function removeHTML() {
-    const questionSection = document.querySelectorAll('.result');
-    questionSection.forEach(function(result, index) {
-        result.innerHTML = '';
-        if(index === 0) {
-            result.innerHTML = '<div id="resultcount"></div>';
-        }
-     });
-}
-
-function generateQuestionSection(rule) {
-    const questionSection = document.querySelector('.ResultPage .result:last-child');
-    questionSection.innerHTML = `<h2 class="RuleTitle">${rule.name}</h2>
-    <span class="RuleLink">${rule.rule} ACT <a href="${rule.url}" target="_blank">${rule.id}</a></span>
-    <p class="RuleDescription">${rule.description}</p>
-    <ol class="ResultList"></ol>`
-    rule.questions.forEach(function(question, index) {
-        if(!question.decisionTree) {
-            generateResult(question, index);
-         } else {
-            generateQuestion(question, index);
-        }
-    });
-
-    document.querySelectorAll('pre code').forEach((block) => {
-        hljs.highlightBlock(block);
-    });
-}
-
-function generateManualTestSection(rule) {
-    const questionSection = document.querySelector('.ResultPage .result:last-child');
-    questionSection.innerHTML = `
-    <h2 class="RuleTitle">${rule.name}</h2>
-    <p class="RuleDescription">${rule.manualTest.description}</p>
-    <p class="RuleImportance"><span class="RuleWhy">Why is this important:</span> ${rule.manualTest.importance}</p>
-    <p class="stepsReproduce">Steps to reproduce:</p>
-    <ol class="ResultList ManualTest"></ol>`
-    generateManualTest(rule.manualTest, 0);
-}
-
-function generateManualTest(manualTest, index) {
-    const manualSection = document.querySelector('.ResultList');
-    const test = manualTest.test;
-    const title = test.current().title;
-    const status = test.getStatus();
-    const question = test.getQuestion();
-
-    if (!status) {
-        manualSection.insertAdjacentHTML('beforeend', `<li>
-            <div id="manualTest-${index}">
-                <div class="manualTestText" id="text-0">${title}</div>
-                <div class="Flex-h" id="manualTest-area-${index}">
-                    <div class="manualTest-area">
-                        <div class="manualTestQuestion" id="question-0">${question}</div>
-                        <div id="radios-${index}">
-                            <input type="radio" name="radio-${index}" value="1">yes
-                            <input type="radio" name="radio-${index}" value="0">no
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </li>`);
-    } else {
-        manualSection.insertAdjacentHTML('beforeend', `<li>
-            <div id="manualTest-${index}">
-                <div class="CommunicateResult" id="manualTest-area-${index}">
-                    <div>Status: <span>${status}</span></div>
-                    <div>Reason: <span>${test.current().title}</span></div>
-                    <textarea placeholder="add an observation here">${manualTest.note}</textarea>
-                </div>
-            </div>
-        </li>`);
-    }
-
-    if(!test.firstElement()) {
-        const manualTestArea = document.querySelector(`#manualTest-area-${index}`);
-        manualTestArea.insertAdjacentHTML('beforeend', `<button id="button-revert-${index}">Revert</button>`);
-    }
-
-    const radios = document.querySelectorAll("input[type='radio'][name='radio-"+ index +"']");
-    for (let f = 0; f < radios.length; f++) {
-        radios[f].onchange = function (e) {
-            if (e.target.value === "1") {
-                test.next(true);
-            } else {
-                test.next(false);
-            }
-            if(test.getStatus()) {
-                manualTest.complete = true;
-            }
-            updateResults();
-        }
-    }
-
-    const button = document.querySelector(`#button-revert-${index}`);
-    const textarea = document.querySelector(`#manualTest-area-${index} > textarea`);
-
-    if(button) {
-        button.onclick = function() {
-            test.revert(); 
-            manualTest.complete = false;
-            manualTest.note = '';
-            updateResults();
-        }
-    }
-
-    if(textarea) {
-        textarea.oninput = function(e) {
-            manualTest.note = e.target.value;
-        }
-    }
-}
-
-function generateResult(result, index) {
-    //console.log(result);
-    let visible = '';
-
-    if(result.manualAnswer !== "" && result.manualAnswer !== result.verdict) {
-        visible = 'visible';
-    }
-
-    const questionSection = document.querySelector('.ResultList');
-    let verdict = result.verdict;
-    if(verdict === "warning") {
-        verdict = "Cannot tell"
-    }
-    const code = result.htmlCode.replace(/</g,"&lt;");
-    questionSection.insertAdjacentHTML('beforeend', `<li>
-        <div id="question-${index}">
-            <label class="checkmark"><input type="checkbox" id="checkmark-question-${index}" name="checkmark-question-${index}" value="">Highlight on page</label>
-            <pre><code class="html">
-                ${code}
-            </code></pre>
-            <div class="CommunicateResult" id="question-area-${index}">
-                <div>Status: <span>${verdict}</span></div>
-                <div>Reason: <span>${result.description}</span></div>
-                <textarea placeholder="add an observation here">${result.note}</textarea>
-            </div>
-            <i class="material-icons selectwarning ${visible}">warning</i>
-            <label class="checkmark" for="select-${index}">Manually change this result</label>
-            <select id="select-${index}">
-                <option value="" selected>--</option>
-                <option value="passed">Pass</option>
-                <option value="failed">Fail</option>
-                <option value="inapplicable">Inapplicable</option>
-            </select>
-        </div>
-    </li>`);
-
-    function checkPageHighlight(checkmark) {
-        //console.log(question.selected);
-        checkmark.checked = result.selected;
-        if (checkmark.checked) {
-            chrome.runtime.sendMessage({message:"overResultElement", element: result.pointer});
-        } else {
-            chrome.runtime.sendMessage({message:"outResultElement", element: result.pointer});
-        }
-    }
-
-    const checkmark = document.querySelector(`#checkmark-question-${index}`);
-    const select = document.querySelector(`#select-${index}`);
-
-    //var selectOptions = Array.apply(null, select.options).map(option => option.value);
-    console.log(result.manualAnswer)
-    if (result.manualAnswer !== "warning" && result.manualAnswer !== "") {
-        document.querySelector(`#select-${index} [value=${result.manualAnswer}]`).selected = true;
-    }
-
-    checkPageHighlight(checkmark);
-
-    checkmark.onchange = function(e) {
-        result.selected = e.target.checked;
-        checkPageHighlight(checkmark);
-    }
-
-    select.onchange = function(e) {
-        //console.log(e.target.value)
-        result.manualAnswer = e.target.value;
-        updateResults();
-    }
-
-}
-
-function generateQuestion(question, index) {
-    const questionSection = document.querySelector('.ResultList');
-    const decisionTree = question.decisionTree;
-    const title = decisionTree.current().title;
-    const code = question.htmlCode.replace(/</g,"&lt;");
-    const status = decisionTree.getStatus();
-
-    if (!status) {
-        questionSection.insertAdjacentHTML('beforeend', `<li>
-            <div id="question-${index}">
-                <label class="checkmark"><input type="checkbox" id="checkmark-question-${index}" name="checkmark-question-${index}" value="">Highlight on page</label>
-                <pre><code class="html">
-                    ${code}
-                </code></pre>
-                <div class="QuestionText" id="text-0">${title}</div>
-                <div class="Flex-h" id="question-area-${index}">
-                    <div id="radios-${index}">
-                        <input type="radio" name="radio-${index}" value="1">yes
-                        <input type="radio" name="radio-${index}" value="0">no
-                    </div>
-                </div>
-            </div>
-        </li>`);
-    } else {
-        questionSection.insertAdjacentHTML('beforeend', `<li>
-            <div id="question-${index}">
-                <label class="checkmark"><input type="checkbox" id="checkmark-question-${index}" name="checkmark-question-${index}" value="">Highlight on page</label>
-                <pre><code class="html">
-                    ${code}
-                </code></pre>
-                <div class="CommunicateResult" id="question-area-${index}">
-                    <div>Status: <span>${status}</span></div>
-                    <div>Reason: <span>${decisionTree.current().title}</span></div>
-                    <textarea placeholder="add an observation here">${question.note}</textarea>
-                </div>
-            </div>
-        </li>`);
-    }
-
-    if(!decisionTree.firstElement()) {
-        const question = document.querySelector(`#question-area-${index}`);
-        question.insertAdjacentHTML('beforeend', `<button id="button-revert-${index}">Revert</button>`);
-    }
-
-    const radios = document.querySelectorAll("input[type='radio'][name='radio-"+ index +"']");
-    for (let f = 0; f < radios.length; f++) {
-        radios[f].onchange = function (e) {
-            if (e.target.value === "1") {
-                decisionTree.next(true);
-            } else {
-                decisionTree.next(false);
-            }
-            if(decisionTree.getStatus()) {
-                question.complete = true;
-            }
-            updateResults();
-        }
-    }
-
-    function checkPageHighlight(checkmark) {
-        //console.log(question.selected);
-        checkmark.checked = question.selected;
-        if (checkmark.checked) {
-            chrome.runtime.sendMessage({message:"overResultElement", element: question.pointer});
-        } else {
-            chrome.runtime.sendMessage({message:"outResultElement", element: question.pointer});
-        }
-    }
-
-    const button = document.querySelector(`#button-revert-${index}`);
-    const textarea = document.querySelector(`#question-area-${index} > textarea`);
-    const checkmark = document.querySelector(`#checkmark-question-${index}`);
-
-    if(button) {
-        button.onclick = function() {
-            decisionTree.revert(); 
-            question.complete = false;
-            question.note = '';
-            updateResults();
-        }
-    }
-
-    if(textarea) {
-        textarea.oninput = function(e) {
-            question.note = e.target.value;
-        }
-    }
-
-    if(checkmark) {
-        checkPageHighlight(checkmark);
-        checkmark.onchange = function(e) {
-            question.selected = e.target.checked;
-            checkPageHighlight(checkmark);
-        }
-    }
-}
-
-function updateTotal() {
-    resultData.count = 0;
-    resultData.pass = 0;
-    resultData.fail = 0;
-    resultData.inapplicable = 0;
-    resultData.warning = 0;
-    resultData.categories.forEach(function (category) {
-        category.count = 0;
-        category.rules.forEach(function(rule) {
-            rule.count = 0;
-            if (rule.manualTest) {
-                //console.log(rule.manualTest)
-                if(rule.manualTest.complete) {
-                    resultData.count++;
-                    category.count++;
-                    rule.count++;
-                    switch(rule.manualTest.test.getStatus()) {
-                        case 'Pass':
-                            resultData.pass++;
-                            break;
-                        case 'Fail':
-                            resultData.fail++;
-                            break;
-                    }
-                }
-            } else {
-                rule.questions.forEach(function(question) {
-                    if(question.complete) {
-                        resultData.count++;
-                        category.count++;
-                        rule.count++;
-                        if (!question.decisionTree) {
-                            const changed = question.manualAnswer || question.verdict;
-                            switch(changed) {
-                                case 'passed':
-                                    resultData.pass++;
-                                    break;
-                                case 'failed':
-                                    resultData.fail++;
-                                    break;
-                                case 'inapplicable':
-                                    resultData.inapplicable++;
-                                    break;
-                                case 'warning':
-                                    resultData.warning++;
-                                    break;
-                            }
-                        } else {
-                            switch(question.decisionTree.getStatus()) {
-                                case 'Pass':
-                                    resultData.pass++;
-                                    break;
-                                case 'Fail':
-                                    resultData.fail++;
-                                    break;
-                                case 'Inapplicable':
-                                    resultData.inapplicable++;
-                                    break;
-                                case 'warning':
-                                    resultData.warning++;
-                                    break;
-                            }
-                        }
-                    }
-                });
-            }
-        });
-    });
-}
-
-function generateResultCount() {
-    const text = document.querySelector("#resultcount");
-    text.innerHTML = `Pass: <span id="passCount">${resultData.pass}</span> Fail: <span id="failCount">${resultData.fail}</span> Cannot tell: <span id="warningCount">${resultData.warning}</span> Inapplicable: <span id="inappliacbleCount">${resultData.inapplicable}</span>`;
-}
-
-function generateAccordions(category) {
-    const accordionSection = document.querySelector('.ResultPage .result:first-child');
-
-    accordionSection.insertAdjacentHTML('beforeend', `<button id="category-button-${category.fixedName}" class="accordion">
-        <div class=Flex-h>
-            <span>${category.name}</span>
-            <span>${category.count} / ${category.total}</span>
-        </div>
-    </button>
-    <div id="panel-category-${category.fixedName}" class="panel ${category.selected ? 'active' : ''}">
-    </div>`);
-
-    const button = document.querySelector(`#category-button-${category.fixedName}`);
-    //console.log(button);
-    button.onclick = function() {
-        category.selected = !category.selected;
-        updateResults();
-    }
-}
-
-function generatePanelRule(category, rule) {
-    const accordion = document.querySelector(`#panel-category-${category.fixedName}`);
-
-    let hasAuto = false;
-    let hasSemi = false;
-    let hasManual = false;
-
-    if(rule.questions) {
-        hasAuto = rule.questions.some(question => question.type === 'auto');
-        hasSemi = rule.questions.some(question => question.type === 'semi');
-    } else {
-        hasManual = true;
-    }
-
-
-    const panel = `<button id="rule-button-${rule.rule}" class="Flex-h PanelButton ${rule.selected ? 'active' : ''}">
-        <div class="panelRule">
-            <span class="panelRuleName">${rule.name}</span>
-        </div>
-        <span class="panelRuleCount">${rule.count} / ${rule.total}</span>
-    </button>`
-
-    
-
-    accordion.insertAdjacentHTML('beforeend', panel);
-
-    
-    //antes afterbegin
-
-    const ruleName = document.querySelector(`#rule-button-${rule.rule} .panelRuleName`);
-    if (hasManual) {
-        ruleName.insertAdjacentHTML('afterend', `<i class="material-icons testtype">person</i>`);
-    }
-
-    if (hasSemi) {
-        ruleName.insertAdjacentHTML('afterend', `<i class="material-icons testtype">engineering</i>`);
-    }
-
-    if (hasAuto) {
-        ruleName.insertAdjacentHTML('afterend', `<i class="material-icons testtype">miscellaneous_services</i>`);
-    }
-
-
-    const button = document.querySelector(`#rule-button-${rule.rule}`);
-    button.onclick = function() {
-        resultData.categories.forEach(function(category) {
-            category.rules.forEach(function (changeRule) {
-                changeRule.selected = false;
-            });
-        });
-        rule.selected = true;
-        updateResults();
-    }
-}
-
-/***/ }),
-
-/***/ 39:
+/******/ ([
+/* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2009,11 +95,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const lodash_clonedeep_1 = __importDefault(__webpack_require__(7));
-const act_rules_reporter_1 = __importDefault(__webpack_require__(41));
-const html_techniques_reporter_1 = __importDefault(__webpack_require__(42));
-const css_techniques_reporter_1 = __importDefault(__webpack_require__(43));
-const best_practices_reporter_1 = __importDefault(__webpack_require__(44));
+const lodash_clonedeep_1 = __importDefault(__webpack_require__(2));
+const act_rules_reporter_1 = __importDefault(__webpack_require__(5));
+const html_techniques_reporter_1 = __importDefault(__webpack_require__(6));
+const css_techniques_reporter_1 = __importDefault(__webpack_require__(7));
+const best_practices_reporter_1 = __importDefault(__webpack_require__(8));
 async function generateEARLAssertions(report, date) {
     switch (report.type) {
         case 'act-rules':
@@ -2127,208 +213,8 @@ exports.generateEARLReport = generateEARLReport;
 
 
 /***/ }),
-
-/***/ 41:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-async function ACTRulesReportToEARL(report, date) {
-    const assertions = new Array();
-    for (const ruleName in report.assertions || {}) {
-        if (report.assertions[ruleName]) {
-            const rule = report.assertions[ruleName];
-            if (rule) {
-                const sources = new Array();
-                for (const result of rule.results || []) {
-                    const source = {
-                        result: {
-                            pointer: result.pointer,
-                            outcome: 'earl:' + (result.verdict !== 'warning' ? result.verdict : 'cantTell')
-                        }
-                    };
-                    sources.push(source);
-                }
-                const result = {
-                    '@type': 'TestResult',
-                    outcome: 'earl:' + (rule.metadata.outcome !== 'warning' ? rule.metadata.outcome : 'cantTell'),
-                    source: sources,
-                    description: rule.metadata.description,
-                    date: date ? date : new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
-                };
-                const assertion = {
-                    '@type': 'Assertion',
-                    test: {
-                        '@id': rule.metadata.url,
-                        '@type': 'TestCase',
-                        title: rule.name,
-                        description: rule.description
-                    },
-                    mode: 'earl:automatic',
-                    result
-                };
-                assertions.push(assertion);
-            }
-        }
-    }
-    return assertions;
-}
-module.exports = ACTRulesReportToEARL;
-
-
-/***/ }),
-
-/***/ 42:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-async function HTMLTechniquesReportToEARL(report, date) {
-    const assertions = new Array();
-    for (const techniqueName in report.assertions || {}) {
-        if (report.assertions[techniqueName]) {
-            const technique = report.assertions[techniqueName];
-            if (technique) {
-                const sources = new Array();
-                for (const result of technique.results || []) {
-                    const source = {
-                        result: {
-                            pointer: result.pointer,
-                            outcome: 'earl:' + (result.verdict !== 'warning' ? result.verdict : 'cantTell')
-                        }
-                    };
-                    sources.push(source);
-                }
-                const result = {
-                    '@type': 'TestResult',
-                    outcome: 'earl:' + (technique.metadata.outcome !== 'warning' ? technique.metadata.outcome : 'cantTell'),
-                    source: sources,
-                    description: technique.metadata.description,
-                    date: date ? date : new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
-                };
-                const assertion = {
-                    '@type': 'Assertion',
-                    test: {
-                        '@id': technique.metadata.url,
-                        '@type': 'TestCase',
-                        title: technique.name,
-                        description: technique.description
-                    },
-                    mode: 'earl:automatic',
-                    result
-                };
-                assertions.push(assertion);
-            }
-        }
-    }
-    return assertions;
-}
-module.exports = HTMLTechniquesReportToEARL;
-
-
-/***/ }),
-
-/***/ 43:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-async function CSSTechniquesReportToEARL(report, date) {
-    const assertions = new Array();
-    for (const techniqueName in report.assertions || {}) {
-        if (report.assertions[techniqueName]) {
-            const technique = report.assertions[techniqueName];
-            if (technique) {
-                const sources = new Array();
-                for (const result of technique.results || []) {
-                    const source = {
-                        result: {
-                            pointer: result.pointer,
-                            outcome: 'earl:' + (result.verdict !== 'warning' ? result.verdict : 'cantTell')
-                        }
-                    };
-                    sources.push(source);
-                }
-                const result = {
-                    '@type': 'TestResult',
-                    outcome: 'earl:' + (technique.metadata.outcome !== 'warning' ? technique.metadata.outcome : 'cantTell'),
-                    source: sources,
-                    description: technique.metadata.description,
-                    date: date ? date : new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
-                };
-                const assertion = {
-                    '@type': 'Assertion',
-                    test: {
-                        '@id': typeof technique.metadata.url === 'string' ? technique.metadata.url : technique.metadata.url[0],
-                        '@type': 'TestCase',
-                        title: technique.name,
-                        description: technique.description
-                    },
-                    mode: 'earl:automatic',
-                    result
-                };
-                assertions.push(assertion);
-            }
-        }
-    }
-    return assertions;
-}
-module.exports = CSSTechniquesReportToEARL;
-
-
-/***/ }),
-
-/***/ 44:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-async function BestPracticesReportToEARL(report, date) {
-    const assertions = new Array();
-    for (const bpName in report.assertions || {}) {
-        if (report.assertions[bpName]) {
-            const bestPractice = report.assertions[bpName];
-            if (bestPractice) {
-                const sources = new Array();
-                for (const result of bestPractice.results || []) {
-                    const source = {
-                        result: {
-                            pointer: result.pointer,
-                            outcome: 'earl:' + (result.verdict !== 'warning' ? result.verdict : 'cantTell')
-                        }
-                    };
-                    sources.push(source);
-                }
-                const result = {
-                    '@type': 'TestResult',
-                    outcome: 'earl:' + (bestPractice.metadata.outcome !== 'warning' ? bestPractice.metadata.outcome : 'cantTell'),
-                    source: sources,
-                    description: bestPractice.metadata.description,
-                    date: date ? date : new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
-                };
-                const assertion = {
-                    '@type': 'Assertion',
-                    test: {
-                        '@id': bestPractice.metadata.url || bestPractice.name,
-                        '@type': 'TestCase',
-                        title: bestPractice.name,
-                        description: bestPractice.description
-                    },
-                    mode: 'earl:automatic',
-                    result
-                };
-                assertions.push(assertion);
-            }
-        }
-    }
-    return assertions;
-}
-module.exports = BestPracticesReportToEARL;
-
-
-/***/ }),
-
-/***/ 7:
+/* 1 */,
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {/**
@@ -4080,11 +1966,10 @@ function stubFalse() {
 
 module.exports = cloneDeep;
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(8), __webpack_require__(11)(module)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3), __webpack_require__(4)(module)))
 
 /***/ }),
-
-/***/ 8:
+/* 3 */
 /***/ (function(module, exports) {
 
 var g;
@@ -4109,6 +1994,2145 @@ try {
 module.exports = g;
 
 
-/***/ })
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
 
-/******/ });
+module.exports = function(module) {
+	if (!module.webpackPolyfill) {
+		module.deprecate = function() {};
+		module.paths = [];
+		// module.parent = undefined by default
+		if (!module.children) module.children = [];
+		Object.defineProperty(module, "loaded", {
+			enumerable: true,
+			get: function() {
+				return module.l;
+			}
+		});
+		Object.defineProperty(module, "id", {
+			enumerable: true,
+			get: function() {
+				return module.i;
+			}
+		});
+		module.webpackPolyfill = 1;
+	}
+	return module;
+};
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+async function ACTRulesReportToEARL(report, date) {
+    const assertions = new Array();
+    for (const ruleName in report.assertions || {}) {
+        if (report.assertions[ruleName]) {
+            const rule = report.assertions[ruleName];
+            if (rule) {
+                const sources = new Array();
+                for (const result of rule.results || []) {
+                    const source = {
+                        result: {
+                            pointer: result.pointer,
+                            outcome: 'earl:' + (result.verdict !== 'warning' ? result.verdict : 'cantTell')
+                        }
+                    };
+                    sources.push(source);
+                }
+                const result = {
+                    '@type': 'TestResult',
+                    outcome: 'earl:' + (rule.metadata.outcome !== 'warning' ? rule.metadata.outcome : 'cantTell'),
+                    source: sources,
+                    description: rule.metadata.description,
+                    date: date ? date : new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
+                };
+                const assertion = {
+                    '@type': 'Assertion',
+                    test: {
+                        '@id': rule.metadata.url,
+                        '@type': 'TestCase',
+                        title: rule.name,
+                        description: rule.description
+                    },
+                    mode: 'earl:automatic',
+                    result
+                };
+                assertions.push(assertion);
+            }
+        }
+    }
+    return assertions;
+}
+module.exports = ACTRulesReportToEARL;
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+async function HTMLTechniquesReportToEARL(report, date) {
+    const assertions = new Array();
+    for (const techniqueName in report.assertions || {}) {
+        if (report.assertions[techniqueName]) {
+            const technique = report.assertions[techniqueName];
+            if (technique) {
+                const sources = new Array();
+                for (const result of technique.results || []) {
+                    const source = {
+                        result: {
+                            pointer: result.pointer,
+                            outcome: 'earl:' + (result.verdict !== 'warning' ? result.verdict : 'cantTell')
+                        }
+                    };
+                    sources.push(source);
+                }
+                const result = {
+                    '@type': 'TestResult',
+                    outcome: 'earl:' + (technique.metadata.outcome !== 'warning' ? technique.metadata.outcome : 'cantTell'),
+                    source: sources,
+                    description: technique.metadata.description,
+                    date: date ? date : new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
+                };
+                const assertion = {
+                    '@type': 'Assertion',
+                    test: {
+                        '@id': technique.metadata.url,
+                        '@type': 'TestCase',
+                        title: technique.name,
+                        description: technique.description
+                    },
+                    mode: 'earl:automatic',
+                    result
+                };
+                assertions.push(assertion);
+            }
+        }
+    }
+    return assertions;
+}
+module.exports = HTMLTechniquesReportToEARL;
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+async function CSSTechniquesReportToEARL(report, date) {
+    const assertions = new Array();
+    for (const techniqueName in report.assertions || {}) {
+        if (report.assertions[techniqueName]) {
+            const technique = report.assertions[techniqueName];
+            if (technique) {
+                const sources = new Array();
+                for (const result of technique.results || []) {
+                    const source = {
+                        result: {
+                            pointer: result.pointer,
+                            outcome: 'earl:' + (result.verdict !== 'warning' ? result.verdict : 'cantTell')
+                        }
+                    };
+                    sources.push(source);
+                }
+                const result = {
+                    '@type': 'TestResult',
+                    outcome: 'earl:' + (technique.metadata.outcome !== 'warning' ? technique.metadata.outcome : 'cantTell'),
+                    source: sources,
+                    description: technique.metadata.description,
+                    date: date ? date : new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
+                };
+                const assertion = {
+                    '@type': 'Assertion',
+                    test: {
+                        '@id': typeof technique.metadata.url === 'string' ? technique.metadata.url : technique.metadata.url[0],
+                        '@type': 'TestCase',
+                        title: technique.name,
+                        description: technique.description
+                    },
+                    mode: 'earl:automatic',
+                    result
+                };
+                assertions.push(assertion);
+            }
+        }
+    }
+    return assertions;
+}
+module.exports = CSSTechniquesReportToEARL;
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+async function BestPracticesReportToEARL(report, date) {
+    const assertions = new Array();
+    for (const bpName in report.assertions || {}) {
+        if (report.assertions[bpName]) {
+            const bestPractice = report.assertions[bpName];
+            if (bestPractice) {
+                const sources = new Array();
+                for (const result of bestPractice.results || []) {
+                    const source = {
+                        result: {
+                            pointer: result.pointer,
+                            outcome: 'earl:' + (result.verdict !== 'warning' ? result.verdict : 'cantTell')
+                        }
+                    };
+                    sources.push(source);
+                }
+                const result = {
+                    '@type': 'TestResult',
+                    outcome: 'earl:' + (bestPractice.metadata.outcome !== 'warning' ? bestPractice.metadata.outcome : 'cantTell'),
+                    source: sources,
+                    description: bestPractice.metadata.description,
+                    date: date ? date : new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
+                };
+                const assertion = {
+                    '@type': 'Assertion',
+                    test: {
+                        '@id': bestPractice.metadata.url || bestPractice.name,
+                        '@type': 'TestCase',
+                        title: bestPractice.name,
+                        description: bestPractice.description
+                    },
+                    mode: 'earl:automatic',
+                    result
+                };
+                assertions.push(assertion);
+            }
+        }
+    }
+    return assertions;
+}
+module.exports = BestPracticesReportToEARL;
+
+
+/***/ }),
+/* 9 */,
+/* 10 */,
+/* 11 */,
+/* 12 */,
+/* 13 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+// CONCATENATED MODULE: ./rules/const.js
+//para actualizar qdo necessário
+
+/* harmony default export */ var rules_const = ({
+    IMAGE: "Image",
+    TITLE: "Title",
+    KEYBOARD: "Keyboard",
+    LANGUAGE: "Language",
+    TIME: "Time",
+    ORIENTATION: "Orientation",
+    SENSORYVISUALCLUES: "Sensory and Visual Clues",
+    AUDIOVIDEO: "Audio and Video",
+    PARSING: "Parsing",
+    ARIA: "Aria",
+    FORMS: "Forms",
+    HEADINGS: "Headings",
+    TABLES: "Tables",
+    CONTRAST: "Contrast",
+    LINKS: "Links",
+    IFRAMES: "iFrames",
+    BUTTONS: "Buttons",
+    LABEL: "Label"
+
+});
+
+
+// CONCATENATED MODULE: ./rules/R1.js
+
+
+
+/* harmony default export */ var R1 = ({
+    code: 'QW-ACT-R1',
+    category: rules_const.TITLE,
+    tree: [{
+        prerequisite: 'RC3',
+        fluxo: [
+            {
+                key: '1A',
+                title: 'Does title describes page?',
+                answerYes: 'Pass',
+                answerNo: 'Fail',
+            },
+            {
+                key: 'Pass',
+                title: "The \`title\` element exists and it's not empty and describes page. ",
+                
+            },
+            {
+                key: 'Fail',
+                title: "The \`title\` element exists and is not empy but does not describe page. ",
+            
+            }
+        ]
+    }]
+});
+// CONCATENATED MODULE: ./rules/R2.js
+
+
+
+/* harmony default export */ var R2 = ({
+    code: 'QW-ACT-R2',
+    category: rules_const.LANGUAGE,
+    tree: [{
+        prerequisite: 'RC1',
+        fluxo: [
+            {
+                key: '1A',
+                title: 'Is the content of the page according to the value of lang attribute?',
+                answerYes: 'Pass',
+                answerNo: 'Fail',
+            },
+            {
+                key: 'Pass',
+                title: "`The \`lang\` attribute exists and its value is according to the content of the page. ",
+                
+            },
+            {
+                key: 'Fail',
+                title: "`The \`lang\` attribute value  isn't according to the content of the page. ",
+            
+            }
+        ]
+    }]
+});
+// CONCATENATED MODULE: ./rules/R6.js
+
+
+/* harmony default export */ var R6 = ({
+    code: 'QW-ACT-R6',
+    category: rules_const.IMAGE,
+    tree: [{
+        prerequisite: 'RC1',
+        fluxo: [
+            {
+                key: '1A',
+                title: 'Accessible name describes purpose?',
+                answerYes: 'Pass',
+                answerNo: 'Fail',
+            },
+            {
+                key: 'Pass',
+                title: "The `image button` has an accessible name that describes purpose",
+                
+            },
+            {
+                key: 'Fail',
+                title: "The \`image button\` has an accessible name that doesn't describe purpose",
+            
+            }
+        ]
+    }]
+});
+// CONCATENATED MODULE: ./rules/R8.js
+
+
+
+/* harmony default export */ var R8 = ({
+    code: 'QW-ACT-R8',
+    category: rules_const.IMAGE,
+    tree: [{
+        prerequisite: 'RC1',
+        fluxo:[
+            {
+            key: '1A',
+            title: 'Accessible name describes purpose?',
+            answerYes: 'Pass',
+            answerNo: 'Fail',
+            },
+            {
+            key: 'Pass',
+            title: "This element's accessible name uses the filename which accurately describes the image and purpose",
+            
+            },
+            {
+            key: 'Fail',
+            title: "The presence of the file extension in the accessible name doesn't accurately describe purpose of the image",
+            }
+        ]
+    }]
+});
+// CONCATENATED MODULE: ./rules/R9.js
+
+
+
+/* harmony default export */ var R9 = ({
+    code: 'QW-ACT-R9',
+    category: rules_const.LINKS,
+    tree: [{
+        prerequisite: 'RC3',
+        fluxo: [
+            {
+                key: '1A',
+                title: 'Is the content equivalent?',
+                answerYes: 'Pass',
+                answerNo: 'Fail',
+            },
+            {
+                key: 'Pass',
+                title: "The \`links\` with the same accessible name have equivalent content.`",
+                
+            },
+            {
+                key: 'Fail',
+                title: "`The \`links\` with the same accessible name have different content.",
+            
+            }
+        ]
+    }]
+});
+// CONCATENATED MODULE: ./rules/R10.js
+
+
+
+/* harmony default export */ var R10 = ({
+    code: 'QW-ACT-R10',
+    category: rules_const.IFRAMES,
+    tree: [{
+        prerequisite: 'RC3',
+        fluxo: [
+            {
+                key: '1A',
+                title: 'Is the content equivalent?',
+                answerYes: 'Pass',
+                answerNo: 'Fail',
+            },
+            {
+                key: 'Pass',
+                title: "The \`iframes\` with the same accessible name have equal content.",
+                
+            },
+            {
+                key: 'Fail',
+                title: "`The \`iframes\` with the same accessible name have different content.",
+            
+            }
+        ]
+    }]
+});
+// CONCATENATED MODULE: ./rules/R11.js
+
+
+
+/* harmony default export */ var R11 = ({
+    code: 'QW-ACT-R11',
+    category: rules_const.BUTTONS,
+    tree: [{
+        prerequisite: 'RC1',
+        fluxo: [
+            {
+                key: '1A',
+                title: 'Accessible name describes purpose?',
+                answerYes: 'Pass',
+                answerNo: 'Fail',
+            },
+            {
+                key: 'Pass',
+                title: "The test target has a valid accessible name and it describes its purpose",
+                
+            },
+            {
+                key: 'Fail',
+                title: "The test target has a valid accessible name but doesn't describe its purpose.",
+            
+            }
+        ]
+    }]
+});
+// CONCATENATED MODULE: ./rules/R12.js
+
+
+
+/* harmony default export */ var R12 = ({
+    code: 'QW-ACT-R12',
+    category: rules_const.LINKS,
+    tree: [{
+        prerequisite: 'RC1',
+        fluxo: [
+            {
+                key: '1A',
+                title: 'accessible name describes purpose?',
+                answerYes: 'Pass',
+                answerNo: 'Fail',
+            },
+            {
+                key: 'Pass',
+                title: "The test target has a valid accessible name and it describes its purpose",
+                
+            },
+            {
+                key: 'Fail',
+                title: "The test target has a valid accessible name but doesn't describe its purpose.",
+            
+            }
+        ]
+    }]
+});
+// CONCATENATED MODULE: ./rules/R15.js
+
+
+
+/* harmony default export */ var R15 = ({
+    code: 'QW-ACT-R15',
+    category: rules_const.AUDIOVIDEO,
+    tree: [{
+        prerequisite: 'RC5',
+        fluxo: [
+            {
+                key: '1A',
+                title: 'Does the  target has a visible control mechanism?',
+                answerYes: 'Pass',
+                answerNo: 'Fail',
+            },
+            {
+                key: 'Pass',
+                title: "The test target has a control mechanism to stop or mute it.",
+                
+            },
+            {
+                key: 'Fail',
+                title: "The test target doesn't have a control mechanism to stop or mute it.",
+            
+            }
+        ]
+    }]
+});
+// CONCATENATED MODULE: ./rules/R16.js
+
+
+
+/* harmony default export */ var R16 = ({
+    code: 'QW-ACT-R16',
+    category: rules_const.FORMS,
+    tree: [{
+        prerequisite: 'RC1',
+        fluxo: [
+            {
+                key: '1A',
+                title: 'Does accessible name describes purpose?',
+                answerYes: 'Pass',
+                answerNo: 'Fail',
+            },
+            {
+                key: 'Pass',
+                title: "The test target has an accessible name and describes purpose",
+                
+            },
+            {
+                key: 'Fail',
+                title: "The test target has an accessible name but doesn't describe purpose",
+            
+            }
+        ]
+    }]
+});
+// CONCATENATED MODULE: ./rules/R17.js
+
+
+/* harmony default export */ var R17 = ({
+        code: 'QW-ACT-R17',
+        category: rules_const.IMAGE,
+        tree: [{
+            prerequisite: 'RC1',
+            fluxo: [
+                {
+                    key: '1A',
+                    title: 'is image decorative?',
+                    answerYes: 'Pass',
+                    answerNo: 'Fail',
+                },
+                {
+                    key: 'Pass',
+                    title: "The test target is decorative.",
+                },
+                {
+                    key: 'Fail',
+                    title: "The presence of the file extension in the accessible name doesn't accurately describe purpose of the image",
+                }
+            ]
+        },
+        {
+            prerequisite: 'RC3, RC6',
+            fluxo: [
+                {
+                    key: '1B',
+                    title: 'is image a complex image (ex. graph)?',
+                    answerYes: '2A',
+                    answerNo: '2B',
+                },
+                {
+                    key: '2A',
+                    title: "Accessible name describes purpose?",
+                    answerYes:"3A",
+                    answerNo: "2AFail"
+                },
+                {
+                    key: '3A',
+                    title: "Accessible name describes content?",
+                    answerYes:"3APass",
+                    answerNo: "3AFail"
+                    
+                },
+                {   key: '3APass',
+                    title: "Accessible name describes purpose and content"
+                },
+                {
+                    key: '3AFail',
+                    title: "Accessible names doesn't describe purpose and content"
+                },
+                {
+                    key: "2B",
+                    title: "Is image a CAPTCHA image?",
+                    answerYes: "3B",
+                    answerNo: "3C"
+                },
+                {
+                    key: "3B",
+                    title: "Accessible name comunicates purpose?",
+                    answerYes: "4A",
+                    answerNo: "3BFail"
+                },
+                {
+                    key: "4A",
+                    title: "Accessible name communicates content?",
+                    answerYes: "4AFail",
+                    answerNo: "4APass"
+                },
+                {
+                    key: '4AFail',
+                    title: "Accessible name communicates purpose and communicates content."
+            
+                },
+                {
+                    key: '4APass',
+                    title: "Accessible name communicates purpose and doesn't communicates content."
+            
+                },
+                {
+                    key: '3BFail',
+                    title: "Accessible name doesn't communicate purpose"
+            
+                },
+                {
+                    key: '3C',
+                    title: 'Is an image of text?',
+                    answerYes:"4B",
+                    answerNo:'5A'
+            
+                },
+                {
+                    key: '4B',
+                    title: 'Accessible name matches text within image',
+                    answerYes:"4BPass",
+                    answerNo:'4BFail'
+            
+                },
+                {
+                    key: '4BPass',
+                    title: 'Accessible name matches text ',
+            
+                },
+                {
+                    key: '4BFail',
+                    title: "Accessible name doesn't match text within image",
+                },
+                {
+                    key: "5A",
+                    title: "Accessible name describes purpose?",
+                    answerYes: "5APass",
+                    answerNo: "5AFail"
+                },
+                {
+                    key: '5APass',
+                    title: "This element's accessible name describes purpose.",
+                },
+                {
+                    key: '5AFail',
+                    title: "The element's accessible name doesn't describe purpose."
+                }
+            ]
+        }]
+});
+// CONCATENATED MODULE: ./rules/R19.js
+
+
+
+/* harmony default export */ var R19 = ({
+    code: 'QW-ACT-R19',
+    category: rules_const.IFRAMES,
+    tree: [{
+        prerequisite: 'RC2',
+        fluxo: [
+            {
+                key: '1A',
+                title: 'Does accessible name describes purpose?',
+                answerYes: 'Pass',
+                answerNo: 'Fail',
+            },
+            {
+                key: 'Pass',
+                title: "The test target has an accessible name and describes its purpose",
+                
+            },
+            {
+                key: 'Fail',
+                title: "The test target has a valid accessible name but doesn't describe its purpose.",
+            
+            }
+        ]
+    }]
+});
+// CONCATENATED MODULE: ./rules/R21.js
+
+
+/* harmony default export */ var R21 = ({
+    code: 'QW-ACT-R21',
+    category: rules_const.IMAGE,
+    tree: [{
+    prerequisite: 'RC2',
+    fluxo: [
+    {
+        key: '1A',
+        title: 'is image a complex image (ex. graph)?',
+        answerYes: '2A',
+        answerNo: '2B',
+    },
+    {
+        key: '2A',
+        title: "Accessible name describes purpose?",
+        answerYes:"3A",
+        answerNo: "2AFail"    
+    },
+    {
+        key: '3A',
+        title: "Accessible name describes content?",
+        answerYes:"3APass",
+        answerNo: "3AFail"
+            
+    },
+    {   key: '3APass',
+        title: "Accessible name describes purpose and content"
+    },
+    {
+        key: '3AFail',
+        title: "Accessible names doesn't describe purpose and content"
+    },
+    {
+        key: "2B",
+        title: "Is image a CAPTCHA image?",
+        answerYes: "3B",
+        answerNo: "3C"
+    },
+    {
+        key: "3B",
+        title: "Accessible name comunicates purpose?",
+        answerYes: "4A",
+        answerNo: "3BFail"
+    },
+    {
+        key: "4A",
+        title: "Accessible name communicates content?",
+        answerYes: "4AFail",
+        answerNo: "4APass"
+    },
+    {
+        key: '4AFail',
+        title: "Accessible name communicates purpose and communicates content."
+    },
+    {
+        key: '4APass',
+        title: "Accessible name communicates purpose and doesn't communicates content."
+    },
+    {
+        key: '3BFail',
+        title: "Accessible name doesn't communicate purpose"
+    
+    },
+    {
+        key: '3C',
+        title: 'Is an image of text?',
+        answerYes:"4B",
+        answerNo:'5A'
+    },
+    {
+        key: '4B',
+        title: 'Accessible name matches text within image',
+        answerYes:"4BPass",
+        answerNo:'4BFail'
+    },
+    {
+        key: '4BPass',
+        title: 'Accessible name matches text ',
+    },
+    {
+        key: '4BFail',
+        title: "Accessible name doesn't match text within image",
+    },
+    {
+        key: "5A",
+        title: "Accessible name describes purpose?",
+        answerYes: "5APass",
+        answerNo: "5AFail"
+    },
+    {
+        key: '5APass',
+        title: "This element's accessible name describes purpose.",
+    },
+    {
+        key: '5AFail',
+        title: "The element's accessible name doesn't describe purpose."
+
+    }
+]
+}]
+});
+
+// CONCATENATED MODULE: ./rules/R22.js
+
+
+
+/* harmony default export */ var R22 = ({
+    code: 'QW-ACT-R22',
+    category: rules_const.LANGUAGE,
+    tree: [{
+        prerequisite: 'RC2',
+        fluxo: [
+            {
+                key: '1A',
+                title: 'Is the language  of the content the same as the value of lang attribute?',
+                answerYes: 'Pass',
+                answerNo: 'Fail',
+            },
+            {
+                key: 'Pass',
+                title: "The test target has a valid `lang` attribute which is according to the language of  the content.",
+                
+            },
+            {
+                key: 'Fail',
+                title: "`The \`lang\` attribute value  isn't according to the language  of the content.",
+            
+            }
+        ]
+    }]
+});
+// CONCATENATED MODULE: ./rules/R23.js
+
+
+
+/* harmony default export */ var R23 = ({
+    code: 'QW-ACT-R23',
+    category: rules_const.AUDIOVIDEO,
+    tree: [{
+        prerequisite: 'RC3',
+        fluxo: [
+            {
+                key: '1A',
+                title: '  is it an  audio alternative (voice over)? ',
+                answerYes: '1B',
+                answerNo: '2B',
+            },
+            {
+                key: '1B',
+                title: "The audio content describes its purpose? ",
+                answerYes: "1BPass",
+                answerNO: "1BFail"
+                
+            },
+            {
+                key: '1BPass',
+                title: "The audio alternative describes the video content",
+            
+            },
+            {
+                key: '1BFail',
+                title: "'The audio alternative doesn/'t describe video content."
+
+            },
+            {
+                key:"2B",
+                title: "Is there text  overlaid when media is playing?",
+                answerYes:"2C" ,
+                answerNo: "3A"
+
+            },
+            {
+                key:"2C",
+                title: "Does they describe the content of the video?",
+                answerYes:"2CPass",
+                answerNo: "2CFail"
+
+            },
+            {
+                key: "2CPass",
+                title: "the `track` element correctly describes the auditive content of the video."
+
+            },
+            {
+                key:"2CFail",
+                title: "The track element doesn't describe the content of the video."
+            },
+            {
+                key: "3A",
+                title: "Do you have access to a transcript?",
+                answerYes: "3B",
+                answerNo: "4A"
+            },
+            {
+                key: "3B",
+                title: "Does the transcript describes the video?",
+                answerYes: "3BPass",
+                answerNo: "3BFail"
+            },
+            {
+                key: "3BPass",
+                title: "The transcript correctly describes the auditive content of the video."
+            },
+            {
+                key:"3BFail",
+                title: "The transcript doesn't describe the auditive content of the video."
+            },
+            {
+                key: "4A",
+                title: "Text on a page describes  enterily  video content? ",
+                answerYes: "4APass",
+                answerNo: "4AFail"
+            },
+            {
+                key: "4APass",
+                title: "The text on the page describes the content of the video."
+            },
+            {
+                key: "4AFail",
+                title: "The video doesn't have any content alternative."
+            }
+        ]
+    }]
+});
+// CONCATENATED MODULE: ./rules/R29.js
+
+
+
+/* harmony default export */ var R29 = ({
+    code: 'QW-ACT-R29',
+    category: rules_const.AUDIOVIDEO,
+    tree: [{
+        prerequisite: 'RC1',
+        fluxo: [
+            {
+                key: '1A',
+                title: 'Does it have a text  alternative?',
+                answerYes: '2A',
+                answerNo: '1AFail',
+            },
+            {
+                key: '1AFail',
+                title: "The audio element doesn't have a text alternative"
+                
+            },
+            {
+                key: '2A',
+                title: "Does it describe the purpose of audio?",
+                answerYes: "2APass",
+                answerNo: "2AFail"
+            
+            },
+            {
+                key: "2AFail",
+                title: "The text alternative doesn't describe the purpose of audio."
+            },
+            {
+                key: "2APass",
+                title: "The text alternative describes the purpose of audio."
+            }
+        ]
+    }]
+});
+// CONCATENATED MODULE: ./rules/R30.js
+
+
+
+/* harmony default export */ var R30 = ({
+    code: 'QW-ACT-R30',
+    category: rules_const.LABEL,
+    tree: [{
+        prerequisite: 'RC4',
+        fluxo: [
+            {
+                key: '1A',
+                title: 'Does accessible name describes purpose?',
+                answerYes: 'Pass',
+                answerNo: 'Fail',
+            },
+            {
+                key: 'Pass',
+                title: "The complete visible text content of the test target either matches or is contained within its accessible name. It's accessible name also describes purpose.",
+                
+            },
+            {
+                key: 'Fail',
+                title: "The complete visible text content of the test target either matches or is contained within its accessible name but it doesn't describe purpose.",
+            
+            }
+        ]
+    }]
+});
+// CONCATENATED MODULE: ./rules/R35.js
+
+
+
+/* harmony default export */ var R35 = ({
+    code: 'QW-ACT-R35',
+    category: rules_const.HEADINGS,
+    tree: [{
+        prerequisite: 'RC1',
+        fluxo: [
+            {
+                key: '1A',
+                title: 'Does the heading describe  the contents of its section?',
+                answerYes: 'Pass',
+                answerNo: 'Fail',
+            },
+            {
+                key: 'Pass',
+                title: "The heading describes the contents of its section."
+                
+            },
+            {
+                key: "Fail",
+                title: "The heading doesn't describe the contents of its section."
+            },
+        ]
+    }]
+});
+// CONCATENATED MODULE: ./rules/R36.js
+
+
+
+/* harmony default export */ var R36 = ({
+    code: 'QW-ACT-R36',
+    category: rules_const.TABLES,
+    tree: [{
+        prerequisite: 'RC7',
+        fluxo: [
+            {
+                key: '1A',
+                title: 'Has the data cells appropriate headers? ',
+                answerYes: 'Pass',
+                answerNo: 'Fail',
+            },
+            {
+                key: 'Pass',
+                title: "The data cells have appropriate headers."
+                
+            },
+            {
+                key: "Fail",
+                title: "The data cells don't have appropriate headers."
+            },
+        ]
+    }]
+});
+// CONCATENATED MODULE: ./rules/R37.js
+
+
+
+/* harmony default export */ var R37 = ({
+    code: 'QW-ACT-R37',
+    category: rules_const.CONTRAST,
+    tree: [{
+        prerequisite: 'RC12',
+        fluxo: [
+            {
+                key: '1A',
+                title: 'Can you read text presented over the background?',
+                answerYes: 'Pass',
+                answerNo: 'Fail',
+            },
+            {
+                key: 'Pass',
+                title: "Text is readable over the background."
+                
+            },
+            {
+                key: "Fail",
+                title: "Text is not readable over the background"
+            },
+        ]
+    }]
+});
+// CONCATENATED MODULE: ./rules/index.js
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* harmony default export */ var rules = ([R1, R2, R6, R8, R9, R10, R11, R12, R15, R16, R17, R19, R21, R22, R23, R29, R30, R35, R36, R37]);
+// CONCATENATED MODULE: ./rules/assessments/Keyboard-focusable.js
+
+
+
+/* harmony default export */ var Keyboard_focusable = ({
+    code: '80af7b',
+    link: 'https://act-rules.github.io/rules/80af7b',
+    name: 'Is focusable with keyboard',
+    category: rules_const.KEYBOARD,
+    whyImportant: `Users must be able to access and interact with interface components using only the
+    keyboard because using a mouse is not possible when the user has no vision or low vision
+    or doesn't have the physical capability or dexterity to effectively control a pointing
+    device.`,
+    descriptionTest:`Users must be able to navigate away from all components
+    using a keyboard.`,
+    tree: [
+        {
+            key: '',
+            title: `Tab through content from start to finish by using  standard keyboard commands 
+            (Tab key; Shift+Tab; Arrow keys
+                Esc key
+                Enter key
+                Space key) to navigate through
+            all the interactive interface components in the target page.Check to see that keyboard focus is not trapped in any of the content.`,
+            question: 'Can you navigate?',
+            answerYes: 'Pass',
+            answerNo: 'nextStep1'
+        },
+        {
+            key: "nextStep1",
+            title: `If you can't navigate away from a component using standard keyboard commands 
+            (keyboard focus appears to be trapped in any of the content), check that help information is 
+            available explaining how to exit the content and can be accessed via the keyboard.
+            Examine the component's accessible name and accessible description to
+            determine whether they describe an alternative keyboard command.
+            If an alternative keyboard command is documented, test whether it works.`,
+            question: 'Could you find an alternative way to navigate?',
+            answerYes: "Pass",
+            answerNo: "Fail"
+        
+        },
+        {
+            key: 'Pass',
+            title: "No trap for keyboard navigation.",
+        },
+        {
+            key: 'Fail',
+            title: "There are traps in keyboard navigation",
+        }
+    ],
+
+
+    
+});
+// CONCATENATED MODULE: ./rules/assessments/index.js
+
+
+/* harmony default export */ var assessments = ([Keyboard_focusable]);
+// CONCATENATED MODULE: ./DecisionTree.js
+let fail = 0;
+let pass = 0;
+let innaplicable = 0;
+
+class DecisionTree {
+    static fail() {
+        return fail;
+    }
+    
+    static pass() {
+        return pass;
+    }
+
+    static innaplicable() {
+        return innaplicable;
+    }
+
+    static addToFail() {
+        fail++;
+    }
+
+    static removeFail() {
+        fail--;
+    }
+
+    static addToPass() {
+        pass++;
+    }
+
+    static addToInnaplicable() {
+        innaplicable++;
+    }
+
+    static removeInnaplicable() {
+        innaplicable--;
+    }
+
+    static removePass() {
+        pass--;
+    }
+
+    static count() {
+        return fail + pass + innaplicable;
+    }
+
+    constructor(data) {
+        this.data = data.fluxo;
+        this._current = this.data[0];
+        this.allValues = [this.data[0]];
+    }
+
+    next(result) {
+        let resultValue;
+
+        if (this._current.status) {
+            return this._current;
+        }
+
+        if (result === true) {
+            resultValue = "answerYes";
+        } else {
+            resultValue = "answerNo";
+        }
+
+        const resultIndex = this.data.findIndex(value => {
+            return value.key === this._current[resultValue];
+        });
+
+        this.allValues.push(this.data[resultIndex]);
+        this._current = this.data[resultIndex];
+
+        if (!this._current.answerYes && !this._current.answerNo) {
+            const checkPass = this._current.key.includes("Pass");
+            const checkFail = this._current.key.includes("Fail");
+            if (checkPass) {
+                DecisionTree.addToPass();
+                this._current.status = "Pass";
+            } else if (checkFail) {
+                DecisionTree.addToFail();
+                this._current.status = "Fail";
+            } else {
+                DecisionTree.addToInnaplicable();
+                this._current.status = "Innaplicable";
+            }
+        }
+
+        return this._current;
+    }
+
+    current() {
+        return this._current;
+    }
+
+    revert() {
+        if (this._current.status && this._current.status === "Pass") {
+            DecisionTree.removePass();
+        } else if (this._current.status && this._current.status === "Fail") {
+            DecisionTree.removeFail();
+        }
+
+        this.allValues = [this.allValues[0]];
+        this._current = this.allValues[0];
+        return this._current;
+    }
+
+    prev() {
+        if(this.allValues.length === 1) {
+            return this._current;
+        } 
+        const removedValue = this.allValues.pop();
+
+        if(removedValue === "Pass") {
+            DecisionTree.removePass();
+        }
+
+        if(removedValue === "Fail") {
+            DecisionTree.removeFail();
+        }
+
+        if(removedValue === "Innaplicable") {
+            DecisionTree.removeInnaplicable();
+        }
+
+        this._current = this.allValues[this.allValues.length - 1];
+
+        return this._current;
+    }
+
+    getStatus() {
+        return this._current.status;
+    }
+
+    firstElement() {
+        return this.allValues.length === 1;
+    }
+}
+// CONCATENATED MODULE: ./ManualSteps.js
+let ManualSteps_fail = 0;
+let ManualSteps_pass = 0;
+
+class ManualSteps {
+    static fail() {
+        return ManualSteps_fail;
+    }
+    static pass() {
+        return ManualSteps_pass;
+    }
+    static addToFail() {
+        ManualSteps_fail++;
+    }
+
+    static removeFail() {
+        ManualSteps_fail--;
+    }
+
+    static addToPass() {
+        ManualSteps_pass++;
+    }
+
+    static removePass() {
+        ManualSteps_pass--;
+    }
+
+    static count() {
+        return ManualSteps_fail + ManualSteps_pass;
+    }
+
+    constructor(data) {
+        this.data = data;
+        this._current = this.data[0];
+        this.allValues = [this.data[0]];
+    }
+
+    next(result) {
+        let resultValue;
+
+        if (this._current.status) {
+            return this._current;
+        }
+
+        if (result === true) {
+            resultValue = "answerYes";
+        } else {
+            resultValue = "answerNo";
+        }
+
+        const resultIndex = this.data.findIndex(value => {
+            return value.key === this._current[resultValue];
+        });
+
+        this.allValues.push(this.data[resultIndex]);
+        this._current = this.data[resultIndex];
+
+        if (!this._current.answerYes && !this._current.answerNo) {
+            const checkPass = this._current.key.includes("Pass");
+            const checkFail = this._current.key.includes("Fail");
+            if (checkPass) {
+                ManualSteps.addToPass();
+                this._current.status = "Pass";
+            } else {
+                ManualSteps.addToFail();
+                this._current.status = "Fail";
+            }
+        }
+
+        return this._current;
+    }
+
+    current() {
+        return this._current;
+    }
+
+    getQuestion() {
+        return this._current.question;
+    }
+
+    revert() {
+        if (this._current.status && this._current.status === "Pass") {
+            ManualSteps.removePass();
+        } else if (this._current.status && this._current.status === "Fail") {
+            ManualSteps.removeFail();
+        }
+
+        this.allValues = [this.allValues[0]];
+        this._current = this.allValues[0];
+        return this._current;
+    }
+
+    prev() {
+        if(this.allValues.length === 1) {
+            return this._current;
+        } 
+        const removedValue = this.allValues.pop();
+
+        if(removedValue === "Pass") {
+            ManualSteps.removePass();
+        }
+
+        if(removedValue === "Fail") {
+            ManualSteps.removeFail();
+        }
+
+        this._current = this.allValues[this.allValues.length - 1];
+
+        return this._current;
+    }
+
+    getStatus() {
+        return this._current.status;
+    }
+
+    firstElement() {
+        return this.allValues.length === 1;
+    }
+}
+// EXTERNAL MODULE: ./node_modules/@qualweb/earl-reporter/dist/index.js
+var dist = __webpack_require__(0);
+
+// CONCATENATED MODULE: ./result.js
+
+
+
+
+//const generateEARLAssertions = require('./node_modules/@qualweb/earl-reporter/dist/index.js').generateEARLAssertions;
+
+
+//import result from "./testData.js";
+
+let resultData = {};
+
+chrome.runtime.sendMessage({message:"resultLoaded"});
+
+chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+        //console.log("receiving message");
+        if(request.message === "resultsToPopup") {
+            //console.log("request.values", request.values);
+            resultData = generateManualTests(generateCategoriesData(request.values, request.options), request.options.manual);
+            updateResults();
+            const exportButton = document.querySelectorAll('.ExportButton')[0];
+            exportButton.onclick = async function() {
+                console.log("new object");
+                console.log(request.result);
+                console.log(await Object(dist["generateEARLAssertions"])(request.result));
+            }
+        }
+    }
+);
+/*
+//for tests. remove this
+
+const options = {
+    manual: true,
+    semimanual: true,
+    automatic: true,
+}
+
+const rulesToArray = Object.values(result.rules);
+const onlyValidResults = rulesToArray.map(rule => {
+    const results = rule.results.filter(item => {
+        return item.verdict !== "inapplicable" && item.verdict !== "";
+    });
+
+    return {
+        code: rule.code,
+        description: rule.description,
+        results: results,
+        name: rule.name
+    }
+});
+
+resultData = generateManualTests(generateCategoriesData(result, options), options.manual);
+updateResults();
+//
+*/
+function isRuleValid(ruleToCheck, result) {
+    return ruleToCheck.tree.some(function(step) {
+        const prerequesiteArray = step.prerequisite.replace(/\s/g, '').split(',');
+        return prerequesiteArray.some(prerequesite => {
+            return result.resultCode === prerequesite;
+        })
+    });
+}
+
+function generateCategoriesData(result, options) {
+    const semiManualTests = {
+        total: 0,
+        count: 0,
+        pass: 0,
+        fail: 0,
+        inapplicable: 0,
+        warning: 0,
+        categories: []
+    };
+
+    for (let i = 0; i < result.length; i++) {
+        const ruleValue = result[i];
+        const ruleCode = ruleValue.code;
+        const ruleName = ruleValue.name;
+        const ruleDescription = ruleValue.description;
+        const url = ruleValue.url;
+        const id = ruleValue.id;
+
+        //console.log(ruleValue);
+
+        const indexValue = rules.findIndex(rule => {
+            if(Array.isArray(rule)) {
+                return rule[0].code === ruleCode;
+            }
+            return rule.code === ruleCode;
+        });
+
+        //console.log("values", result);
+        //console.log("ruleCode", ruleCode);
+        //console.log("results", ruleValue.results);
+        
+        if(indexValue > -1) {
+            const manualRule = rules[indexValue];
+
+            //console.log("manualRule", manualRule);
+
+            const currentCategory = manualRule.category;
+            const getCategoryIndex = semiManualTests.categories.findIndex(function(category) {
+                return category.name === currentCategory;
+            });
+
+            let total = 0;
+            let questions = [];
+
+            ruleValue.results.forEach((result) => {
+                if (isRuleValid(manualRule, result) && options.semimanual) {
+                    let ruleToDecisionTree;
+                    manualRule.tree.forEach(function(manual) {
+                        //console.log(manual.prerequisite);
+                        //console.log(result.resultCode);
+                        manual.prerequisite.split(',').forEach(function(prerequisite) {
+                            const prerequisiteNoSpace = prerequisite.replace(/\s/g, '');
+                            if (prerequisiteNoSpace === result.resultCode) {
+                                ruleToDecisionTree = manual;
+                            }
+                        })
+                    });
+
+                    //console.log(ruleToDecisionTree)
+
+                    total++;
+                    questions.push({
+                        ...result,
+                        decisionTree: new DecisionTree(ruleToDecisionTree),
+                        complete: false,
+                        selected: false,
+                        manualAnswer: "",
+                        note: '',
+                        type: 'semi'
+                    });
+                } else if(options.automatic) {
+                    total++;
+                    questions.push({
+                        ...result,
+                        selected: false,
+                        complete: true,
+                        manualAnswer: "",
+                        note: '',
+                        type: 'auto'
+                    });
+                }
+            });
+
+            semiManualTests.total += total;
+
+            if (getCategoryIndex === -1) {
+                semiManualTests.categories.push({
+                    name: currentCategory,
+                    fixedName: currentCategory.replace(/ /g, '').replace(/[^A-Za-z0-9]/g, ''),
+                    total: total,
+                    count: 0,
+                    selected: false,
+                    rules: [
+                        {
+                            rule: ruleCode,
+                            name: ruleName,
+                            description: ruleDescription,
+                            id,
+                            url,
+                            total: total,
+                            count: 0,
+                            questions: questions,
+                            selected: false,
+                        }
+                    ],
+                });
+            } else {
+                semiManualTests.categories[getCategoryIndex].rules.push(
+                    {
+                        rule: ruleCode,
+                        name: ruleName,
+                        description: ruleDescription,
+                        id,
+                        url,
+                        total: total,
+                        count: 0,
+                        questions: questions,
+                        selected: false,
+                    }
+                );
+                semiManualTests.categories[getCategoryIndex].total += total;
+            }
+        }
+    }
+    return semiManualTests;
+}
+
+function generateManualTests(manualTests, optionManual) {
+    if (!optionManual) {
+        return manualTests;
+    }
+    assessments.forEach(function(assessment) {
+        const getCategoryIndex = manualTests.categories.findIndex(function(category) {
+            return category.name === assessment.category;
+        });
+
+        //console.log("assessment", assessment);
+
+        if (getCategoryIndex === -1) {
+            manualTests.categories.push({
+                name: assessment.category,
+                fixedName: assessment.category.replace(/ /g, '').replace(/[^A-Za-z0-9]/g, ''),
+                total: 1,
+                count: 0,
+                selected: false,
+                rules: [
+                    {
+                        rule: assessment.code,
+                        name: assessment.name,
+                        description: assessment.description,
+                        id: assessment.id,
+                        total: 1,
+                        count: 0,
+                        selected: false,
+                        manualTest: {
+                            test: new ManualSteps(assessment.tree),
+                            description: assessment.descriptionTest,
+                            importance: assessment.whyImportant,
+                            complete: false,
+                            selected: false,
+                            note: '',
+                        } 
+                    }
+                ],
+            });
+        } else {
+            manualTests.categories[getCategoryIndex].rules.push(
+                {
+                    rule: assessment.code,
+                    name: assessment.name,
+                    description: ruleDescription,
+                    total: manualTests.categories[getCategoryIndex].rules.total++,
+                    count: 0,
+                    selected: false,
+                    manualTest: {
+                        test: new ManualSteps(assessment.tree),
+                        description: assessment.descriptionTest,
+                        importance: assessment.whyImportant,
+                        complete: false,
+                        selected: false,
+                        note: '',
+                    } 
+                }
+            );
+            manualTests.categories[getCategoryIndex].total++;
+        }
+    });
+
+    manualTests.categories.sort(function(a, b) {
+        if(a.name < b.name) { return -1; }
+        if(a.name > b.name) { return 1; }
+        return 0;
+    });
+
+    return manualTests;
+}
+
+function updateResults() {
+    //console.log(resultData);
+    updateTotal();
+    removeHTML();
+    generateResultCount();
+    resultData.categories.forEach(function (category){
+        generateAccordions(category);
+        category.rules.forEach(function(rule) {
+            generatePanelRule(category, rule);
+            if (rule.selected) {
+                if(rule.questions) {
+                    generateQuestionSection(rule);
+                } else if(rule.manualTest) {
+                    generateManualTestSection(rule);
+                }
+            }
+        })
+    })
+}
+
+function removeHTML() {
+    const questionSection = document.querySelectorAll('.result');
+    questionSection.forEach(function(result, index) {
+        result.innerHTML = '';
+        if(index === 0) {
+            result.innerHTML = '<div id="resultcount"></div>';
+        }
+     });
+}
+
+function generateQuestionSection(rule) {
+    const questionSection = document.querySelector('.ResultPage .result:last-child');
+    questionSection.innerHTML = `<h2 class="RuleTitle">${rule.name}</h2>
+    <span class="RuleLink">${rule.rule} ACT <a href="${rule.url}" target="_blank">${rule.id}</a></span>
+    <p class="RuleDescription">${rule.description}</p>
+    <ol class="ResultList"></ol>`
+    rule.questions.forEach(function(question, index) {
+        if(!question.decisionTree) {
+            generateResult(question, index);
+         } else {
+            generateQuestion(question, index);
+        }
+    });
+
+    document.querySelectorAll('pre code').forEach((block) => {
+        hljs.highlightBlock(block);
+    });
+}
+
+function generateManualTestSection(rule) {
+    const questionSection = document.querySelector('.ResultPage .result:last-child');
+    questionSection.innerHTML = `
+    <h2 class="RuleTitle">${rule.name}</h2>
+    <p class="RuleDescription">${rule.manualTest.description}</p>
+    <p class="RuleImportance"><span class="RuleWhy">Why is this important:</span> ${rule.manualTest.importance}</p>
+    <p class="stepsReproduce">Steps to reproduce:</p>
+    <ol class="ResultList ManualTest"></ol>`
+    generateManualTest(rule.manualTest, 0);
+}
+
+function generateManualTest(manualTest, index) {
+    const manualSection = document.querySelector('.ResultList');
+    const test = manualTest.test;
+    const title = test.current().title;
+    const status = test.getStatus();
+    const question = test.getQuestion();
+
+    if (!status) {
+        manualSection.insertAdjacentHTML('beforeend', `<li>
+            <div id="manualTest-${index}">
+                <div class="manualTestText" id="text-0">${title}</div>
+                <div class="Flex-h" id="manualTest-area-${index}">
+                    <div class="manualTest-area">
+                        <div class="manualTestQuestion" id="question-0">${question}</div>
+                        <div id="radios-${index}">
+                            <input type="radio" name="radio-${index}" value="1">yes
+                            <input type="radio" name="radio-${index}" value="0">no
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>`);
+    } else {
+        manualSection.insertAdjacentHTML('beforeend', `<li>
+            <div id="manualTest-${index}">
+                <div class="CommunicateResult" id="manualTest-area-${index}">
+                    <div>Status: <span>${status}</span></div>
+                    <div>Reason: <span>${test.current().title}</span></div>
+                    <textarea placeholder="add an observation here">${manualTest.note}</textarea>
+                </div>
+            </div>
+        </li>`);
+    }
+
+    if(!test.firstElement()) {
+        const manualTestArea = document.querySelector(`#manualTest-area-${index}`);
+        manualTestArea.insertAdjacentHTML('beforeend', `<button id="button-revert-${index}">Revert</button>`);
+    }
+
+    const radios = document.querySelectorAll("input[type='radio'][name='radio-"+ index +"']");
+    for (let f = 0; f < radios.length; f++) {
+        radios[f].onchange = function (e) {
+            if (e.target.value === "1") {
+                test.next(true);
+            } else {
+                test.next(false);
+            }
+            if(test.getStatus()) {
+                manualTest.complete = true;
+            }
+            updateResults();
+        }
+    }
+
+    const button = document.querySelector(`#button-revert-${index}`);
+    const textarea = document.querySelector(`#manualTest-area-${index} > textarea`);
+
+    if(button) {
+        button.onclick = function() {
+            test.revert(); 
+            manualTest.complete = false;
+            manualTest.note = '';
+            updateResults();
+        }
+    }
+
+    if(textarea) {
+        textarea.oninput = function(e) {
+            manualTest.note = e.target.value;
+        }
+    }
+}
+
+function generateResult(result, index) {
+    //console.log(result);
+    let visible = '';
+
+    if(result.manualAnswer !== "" && result.manualAnswer !== result.verdict) {
+        visible = 'visible';
+    }
+
+    const questionSection = document.querySelector('.ResultList');
+    let verdict = result.verdict;
+    if(verdict === "warning") {
+        verdict = "Cannot tell"
+    }
+    const code = result.htmlCode.replace(/</g,"&lt;");
+    questionSection.insertAdjacentHTML('beforeend', `<li>
+        <div id="question-${index}">
+            <label class="checkmark"><input type="checkbox" id="checkmark-question-${index}" name="checkmark-question-${index}" value="">Highlight on page</label>
+            <pre><code class="html">
+                ${code}
+            </code></pre>
+            <div class="CommunicateResult" id="question-area-${index}">
+                <div>Status: <span>${verdict}</span></div>
+                <div>Reason: <span>${result.description}</span></div>
+                <textarea placeholder="add an observation here">${result.note}</textarea>
+            </div>
+            <i class="material-icons selectwarning ${visible}">warning</i>
+            <label class="checkmark" for="select-${index}">Manually change this result</label>
+            <select id="select-${index}">
+                <option value="" selected>--</option>
+                <option value="passed">Pass</option>
+                <option value="failed">Fail</option>
+                <option value="inapplicable">Inapplicable</option>
+            </select>
+        </div>
+    </li>`);
+
+    function checkPageHighlight(checkmark) {
+        //console.log(question.selected);
+        checkmark.checked = result.selected;
+        if (checkmark.checked) {
+            chrome.runtime.sendMessage({message:"overResultElement", element: result.pointer});
+        } else {
+            chrome.runtime.sendMessage({message:"outResultElement", element: result.pointer});
+        }
+    }
+
+    const checkmark = document.querySelector(`#checkmark-question-${index}`);
+    const select = document.querySelector(`#select-${index}`);
+
+    //var selectOptions = Array.apply(null, select.options).map(option => option.value);
+    console.log(result.manualAnswer)
+    if (result.manualAnswer !== "warning" && result.manualAnswer !== "") {
+        document.querySelector(`#select-${index} [value=${result.manualAnswer}]`).selected = true;
+    }
+
+    checkPageHighlight(checkmark);
+
+    checkmark.onchange = function(e) {
+        result.selected = e.target.checked;
+        checkPageHighlight(checkmark);
+    }
+
+    select.onchange = function(e) {
+        //console.log(e.target.value)
+        result.manualAnswer = e.target.value;
+        updateResults();
+    }
+
+}
+
+function generateQuestion(question, index) {
+    const questionSection = document.querySelector('.ResultList');
+    const decisionTree = question.decisionTree;
+    const title = decisionTree.current().title;
+    const code = question.htmlCode.replace(/</g,"&lt;");
+    const status = decisionTree.getStatus();
+
+    if (!status) {
+        questionSection.insertAdjacentHTML('beforeend', `<li>
+            <div id="question-${index}">
+                <label class="checkmark"><input type="checkbox" id="checkmark-question-${index}" name="checkmark-question-${index}" value="">Highlight on page</label>
+                <pre><code class="html">
+                    ${code}
+                </code></pre>
+                <div class="QuestionText" id="text-0">${title}</div>
+                <div class="Flex-h" id="question-area-${index}">
+                    <div id="radios-${index}">
+                        <input type="radio" name="radio-${index}" value="1">yes
+                        <input type="radio" name="radio-${index}" value="0">no
+                    </div>
+                </div>
+            </div>
+        </li>`);
+    } else {
+        questionSection.insertAdjacentHTML('beforeend', `<li>
+            <div id="question-${index}">
+                <label class="checkmark"><input type="checkbox" id="checkmark-question-${index}" name="checkmark-question-${index}" value="">Highlight on page</label>
+                <pre><code class="html">
+                    ${code}
+                </code></pre>
+                <div class="CommunicateResult" id="question-area-${index}">
+                    <div>Status: <span>${status}</span></div>
+                    <div>Reason: <span>${decisionTree.current().title}</span></div>
+                    <textarea placeholder="add an observation here">${question.note}</textarea>
+                </div>
+            </div>
+        </li>`);
+    }
+
+    if(!decisionTree.firstElement()) {
+        const question = document.querySelector(`#question-area-${index}`);
+        question.insertAdjacentHTML('beforeend', `<button id="button-revert-${index}">Revert</button>`);
+    }
+
+    const radios = document.querySelectorAll("input[type='radio'][name='radio-"+ index +"']");
+    for (let f = 0; f < radios.length; f++) {
+        radios[f].onchange = function (e) {
+            if (e.target.value === "1") {
+                decisionTree.next(true);
+            } else {
+                decisionTree.next(false);
+            }
+            if(decisionTree.getStatus()) {
+                question.complete = true;
+            }
+            updateResults();
+        }
+    }
+
+    function checkPageHighlight(checkmark) {
+        //console.log(question.selected);
+        checkmark.checked = question.selected;
+        if (checkmark.checked) {
+            chrome.runtime.sendMessage({message:"overResultElement", element: question.pointer});
+        } else {
+            chrome.runtime.sendMessage({message:"outResultElement", element: question.pointer});
+        }
+    }
+
+    const button = document.querySelector(`#button-revert-${index}`);
+    const textarea = document.querySelector(`#question-area-${index} > textarea`);
+    const checkmark = document.querySelector(`#checkmark-question-${index}`);
+
+    if(button) {
+        button.onclick = function() {
+            decisionTree.revert(); 
+            question.complete = false;
+            question.note = '';
+            updateResults();
+        }
+    }
+
+    if(textarea) {
+        textarea.oninput = function(e) {
+            question.note = e.target.value;
+        }
+    }
+
+    if(checkmark) {
+        checkPageHighlight(checkmark);
+        checkmark.onchange = function(e) {
+            question.selected = e.target.checked;
+            checkPageHighlight(checkmark);
+        }
+    }
+}
+
+function updateTotal() {
+    resultData.count = 0;
+    resultData.pass = 0;
+    resultData.fail = 0;
+    resultData.inapplicable = 0;
+    resultData.warning = 0;
+    resultData.categories.forEach(function (category) {
+        category.count = 0;
+        category.rules.forEach(function(rule) {
+            rule.count = 0;
+            if (rule.manualTest) {
+                //console.log(rule.manualTest)
+                if(rule.manualTest.complete) {
+                    resultData.count++;
+                    category.count++;
+                    rule.count++;
+                    switch(rule.manualTest.test.getStatus()) {
+                        case 'Pass':
+                            resultData.pass++;
+                            break;
+                        case 'Fail':
+                            resultData.fail++;
+                            break;
+                    }
+                }
+            } else {
+                rule.questions.forEach(function(question) {
+                    if(question.complete) {
+                        resultData.count++;
+                        category.count++;
+                        rule.count++;
+                        if (!question.decisionTree) {
+                            const changed = question.manualAnswer || question.verdict;
+                            switch(changed) {
+                                case 'passed':
+                                    resultData.pass++;
+                                    break;
+                                case 'failed':
+                                    resultData.fail++;
+                                    break;
+                                case 'inapplicable':
+                                    resultData.inapplicable++;
+                                    break;
+                                case 'warning':
+                                    resultData.warning++;
+                                    break;
+                            }
+                        } else {
+                            switch(question.decisionTree.getStatus()) {
+                                case 'Pass':
+                                    resultData.pass++;
+                                    break;
+                                case 'Fail':
+                                    resultData.fail++;
+                                    break;
+                                case 'Inapplicable':
+                                    resultData.inapplicable++;
+                                    break;
+                                case 'warning':
+                                    resultData.warning++;
+                                    break;
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    });
+}
+
+function generateResultCount() {
+    const text = document.querySelector("#resultcount");
+    text.innerHTML = `Pass: <span id="passCount">${resultData.pass}</span> Fail: <span id="failCount">${resultData.fail}</span> Cannot tell: <span id="warningCount">${resultData.warning}</span> Inapplicable: <span id="inappliacbleCount">${resultData.inapplicable}</span>`;
+}
+
+function generateAccordions(category) {
+    const accordionSection = document.querySelector('.ResultPage .result:first-child');
+
+    accordionSection.insertAdjacentHTML('beforeend', `<button id="category-button-${category.fixedName}" class="accordion">
+        <div class=Flex-h>
+            <span>${category.name}</span>
+            <span>${category.count} / ${category.total}</span>
+        </div>
+    </button>
+    <div id="panel-category-${category.fixedName}" class="panel ${category.selected ? 'active' : ''}">
+    </div>`);
+
+    const button = document.querySelector(`#category-button-${category.fixedName}`);
+    //console.log(button);
+    button.onclick = function() {
+        category.selected = !category.selected;
+        updateResults();
+    }
+}
+
+function generatePanelRule(category, rule) {
+    const accordion = document.querySelector(`#panel-category-${category.fixedName}`);
+
+    let hasAuto = false;
+    let hasSemi = false;
+    let hasManual = false;
+
+    if(rule.questions) {
+        hasAuto = rule.questions.some(question => question.type === 'auto');
+        hasSemi = rule.questions.some(question => question.type === 'semi');
+    } else {
+        hasManual = true;
+    }
+
+
+    const panel = `<button id="rule-button-${rule.rule}" class="Flex-h PanelButton ${rule.selected ? 'active' : ''}">
+        <div class="panelRule">
+            <span class="panelRuleName">${rule.name}</span>
+        </div>
+        <span class="panelRuleCount">${rule.count} / ${rule.total}</span>
+    </button>`
+
+    
+
+    accordion.insertAdjacentHTML('beforeend', panel);
+
+    
+    //antes afterbegin
+
+    const ruleName = document.querySelector(`#rule-button-${rule.rule} .panelRuleName`);
+    if (hasManual) {
+        ruleName.insertAdjacentHTML('afterend', `<i class="material-icons testtype">person</i>`);
+    }
+
+    if (hasSemi) {
+        ruleName.insertAdjacentHTML('afterend', `<i class="material-icons testtype">engineering</i>`);
+    }
+
+    if (hasAuto) {
+        ruleName.insertAdjacentHTML('afterend', `<i class="material-icons testtype">miscellaneous_services</i>`);
+    }
+
+
+    const button = document.querySelector(`#rule-button-${rule.rule}`);
+    button.onclick = function() {
+        resultData.categories.forEach(function(category) {
+            category.rules.forEach(function (changeRule) {
+                changeRule.selected = false;
+            });
+        });
+        rule.selected = true;
+        updateResults();
+    }
+}
+
+/***/ })
+/******/ ]);
