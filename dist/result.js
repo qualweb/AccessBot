@@ -82,7 +82,7 @@ var result =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 13);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -95,11 +95,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const lodash_clonedeep_1 = __importDefault(__webpack_require__(2));
-const act_rules_reporter_1 = __importDefault(__webpack_require__(5));
-const html_techniques_reporter_1 = __importDefault(__webpack_require__(6));
-const css_techniques_reporter_1 = __importDefault(__webpack_require__(7));
-const best_practices_reporter_1 = __importDefault(__webpack_require__(8));
+const lodash_clonedeep_1 = __importDefault(__webpack_require__(1));
+const act_rules_reporter_1 = __importDefault(__webpack_require__(4));
+const html_techniques_reporter_1 = __importDefault(__webpack_require__(5));
+const css_techniques_reporter_1 = __importDefault(__webpack_require__(6));
+const best_practices_reporter_1 = __importDefault(__webpack_require__(7));
 async function generateEARLAssertions(report, date) {
     switch (report.type) {
         case 'act-rules':
@@ -134,7 +134,6 @@ function reportModule(module, options) {
         }
     }
 }
-
 async function generateSingleEarlReport(report, options) {
     const earlReport = {
         '@context': 'https://act-rules.github.io/earl-context.json',
@@ -213,8 +212,7 @@ exports.generateEARLReport = generateEARLReport;
 
 
 /***/ }),
-/* 1 */,
-/* 2 */
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {/**
@@ -1966,10 +1964,10 @@ function stubFalse() {
 
 module.exports = cloneDeep;
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3), __webpack_require__(4)(module)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2), __webpack_require__(3)(module)))
 
 /***/ }),
-/* 3 */
+/* 2 */
 /***/ (function(module, exports) {
 
 var g;
@@ -1995,7 +1993,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -2023,7 +2021,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2072,7 +2070,7 @@ module.exports = ACTRulesReportToEARL;
 
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2121,7 +2119,7 @@ module.exports = HTMLTechniquesReportToEARL;
 
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2170,7 +2168,7 @@ module.exports = CSSTechniquesReportToEARL;
 
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2219,11 +2217,10 @@ module.exports = BestPracticesReportToEARL;
 
 
 /***/ }),
+/* 8 */,
 /* 9 */,
 /* 10 */,
-/* 11 */,
-/* 12 */,
-/* 13 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

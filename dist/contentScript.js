@@ -82,12 +82,12 @@ var contentScript =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 12);
+/******/ 	return __webpack_require__(__webpack_require__.s = 10);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 12:
+/***/ 10:
 /***/ (function(module, exports) {
 
 function pointerToElement (pointer) {
@@ -106,7 +106,7 @@ function pointerToElement (pointer) {
 }
 
 chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
+  async function(request, sender, sendResponse) {
     if(request.message === "overResultElement") {
         const selectedElements = pointerToElement(request.element);
 
@@ -126,11 +126,12 @@ chrome.runtime.onMessage.addListener(
 
     //return string with whole page
   if(request.message === "getDocument") {
-    sendResponse(document.all[0].outerHTML);
+    const result = new QWPage.QWPage(document, window);
+    let act = new ACTRules.ACTRules()
+    const actResult = await act.execute({},result,[]);
+    sendResponse(actResult);
   }
-}
-
-);
+});
 
 /***/ })
 
