@@ -8,6 +8,7 @@ import {generateEARLAssertions} from "@qualweb/earl-reporter";
 //import result from "./testData.js";
 
 let resultData = {};
+let highlightedItems = [];
 
 chrome.runtime.sendMessage({message:"resultLoaded"});
 
@@ -19,10 +20,33 @@ chrome.runtime.onMessage.addListener(
             resultData = generateManualTests(generateCategoriesData(request.values, request.options), request.options.manual);
             updateResults();
             const exportButton = document.querySelectorAll('.ExportButton')[0];
+            const removeHighlights = document.querySelectorAll('.HighlightButton')[0];
             exportButton.onclick = async function() {
                 console.log("new object");
                 console.log(request.result);
                 console.log(await generateEARLAssertions(request.result));
+            }
+            removeHighlights.onclick = async function() {
+                highlightedItems.forEach(pointer => {
+                    chrome.runtime.sendMessage({message:"outResultElement", element: pointer});
+                });
+                highlightedItems = [];
+                resultData.categories.forEach(category => {
+                    
+                    category.rules.forEach(rule => {
+                        if(rule.questions) {
+                            rule.questions.forEach(question => {
+                                if(question.selected === true) {
+                                    question.selected = false;
+                                }
+                            });
+                        }
+                        if(rule.manualTest) {
+                            rule.manualTest.selected = false
+                        }
+                    });
+                });
+                updateResults();
             }
         }
     }
@@ -434,8 +458,13 @@ function generateResult(result, index) {
         //console.log(question.selected);
         checkmark.checked = result.selected;
         if (checkmark.checked) {
+            highlightedItems.push(result.pointer);
             chrome.runtime.sendMessage({message:"overResultElement", element: result.pointer});
         } else {
+            const index = highlightedItems.findIndex(pointer => pointer === result.pointer);
+            if (index > -1) {
+                highlightedItems.splice(index, 1);
+            }
             chrome.runtime.sendMessage({message:"outResultElement", element: result.pointer});
         }
     }
