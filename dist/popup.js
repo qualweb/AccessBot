@@ -121,6 +121,8 @@ document.addEventListener("DOMContentLoaded",
               automatic: automatic.checked,
             }
             chrome.runtime.sendMessage({message:"clickedStartPopup", options})
+
+            window.close()
         }
     }
 );

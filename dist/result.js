@@ -2239,17 +2239,17 @@ __webpack_require__.r(__webpack_exports__);
     LANGUAGE: "Language",
     TIME: "Time",
     ORIENTATION: "Orientation",
-    SENSORYVISUALCLUES: "Sensory and Visual Clues",
+    SENSORYVISUALCLUES: "Sensory and Visual Clue",
     AUDIOVIDEO: "Audio and Video",
     PARSING: "Parsing",
     ARIA: "Aria",
-    FORMS: "Forms",
-    HEADINGS: "Headings",
-    TABLES: "Tables",
+    FORMS: "Form",
+    HEADINGS: "Heading",
+    TABLES: "Table",
     CONTRAST: "Contrast",
-    LINKS: "Links",
-    IFRAMES: "iFrames",
-    BUTTONS: "Buttons",
+    LINKS: "Link",
+    IFRAMES: "iFrame",
+    BUTTONS: "Button",
     LABEL: "Label"
 
 });
@@ -2324,7 +2324,7 @@ __webpack_require__.r(__webpack_exports__);
         fluxo: [
             {
                 key: '1A',
-                title: 'Accessible name describes purpose?',
+                title: 'Does accessible name describe purpose?',
                 answerYes: 'Pass',
                 answerNo: 'Fail',
             },
@@ -2335,7 +2335,7 @@ __webpack_require__.r(__webpack_exports__);
             },
             {
                 key: 'Fail',
-                title: "The \`image button\` has an accessible name that doesn't describe purpose",
+                title: "The \`image button\` has an accessible name that does not describe purpose",
             
             }
         ]
@@ -2353,18 +2353,18 @@ __webpack_require__.r(__webpack_exports__);
         fluxo:[
             {
             key: '1A',
-            title: 'Accessible name describes purpose?',
+            title: 'Does accessible name describes purpose?',
             answerYes: 'Pass',
             answerNo: 'Fail',
             },
             {
             key: 'Pass',
-            title: "This element's accessible name uses the filename which accurately describes the image and purpose",
+            title: "The element's accessible name uses the filename which accurately describes the image and purpose",
             
             },
             {
             key: 'Fail',
-            title: "The presence of the file extension in the accessible name doesn't accurately describe purpose of the image",
+            title: "The presence of the file extension in the accessible name does not accurately describe purpose of the image",
             }
         ]
     }]
@@ -2439,7 +2439,7 @@ __webpack_require__.r(__webpack_exports__);
         fluxo: [
             {
                 key: '1A',
-                title: 'Accessible name describes purpose?',
+                title: 'Does accessible name describe purpose?',
                 answerYes: 'Pass',
                 answerNo: 'Fail',
             },
@@ -2468,7 +2468,7 @@ __webpack_require__.r(__webpack_exports__);
         fluxo: [
             {
                 key: '1A',
-                title: 'accessible name describes purpose?',
+                title: 'Does accessible name describe purpose?',
                 answerYes: 'Pass',
                 answerNo: 'Fail',
             },
@@ -2497,7 +2497,7 @@ __webpack_require__.r(__webpack_exports__);
         fluxo: [
             {
                 key: '1A',
-                title: 'Does the  target has a visible control mechanism?',
+                title: 'Can you verify if target has a visible control mechanism?',
                 answerYes: 'Pass',
                 answerNo: 'Fail',
             },
@@ -2508,7 +2508,7 @@ __webpack_require__.r(__webpack_exports__);
             },
             {
                 key: 'Fail',
-                title: "The test target doesn't have a control mechanism to stop or mute it.",
+                title: "The test target does not have a control mechanism to stop or mute it.",
             
             }
         ]
@@ -2537,7 +2537,7 @@ __webpack_require__.r(__webpack_exports__);
             },
             {
                 key: 'Fail',
-                title: "The test target has an accessible name but doesn't describe purpose",
+                title: "The test target has an accessible name but does not describe purpose",
             
             }
         ]
@@ -2554,7 +2554,7 @@ __webpack_require__.r(__webpack_exports__);
             fluxo: [
                 {
                     key: '1A',
-                    title: 'is image decorative?',
+                    title: 'Is the image decorative?',
                     answerYes: 'Pass',
                     answerNo: 'Fail',
                 },
@@ -2564,7 +2564,7 @@ __webpack_require__.r(__webpack_exports__);
                 },
                 {
                     key: 'Fail',
-                    title: "The presence of the file extension in the accessible name doesn't accurately describe purpose of the image",
+                    title: "The presence of the file extension in the accessible name does not accurately describe purpose of the image",
                 }
             ]
         },
@@ -2573,29 +2573,29 @@ __webpack_require__.r(__webpack_exports__);
             fluxo: [
                 {
                     key: '1B',
-                    title: 'is image a complex image (ex. graph)?',
+                    title: 'Is image a complex image (for example, a graph)?',
                     answerYes: '2A',
                     answerNo: '2B',
                 },
                 {
                     key: '2A',
-                    title: "Accessible name describes purpose?",
+                    title: "Does accessible name describe purpose?",
                     answerYes:"3A",
                     answerNo: "2AFail"
                 },
                 {
                     key: '3A',
-                    title: "Accessible name describes content?",
+                    title: "Does accessible name describe content?",
                     answerYes:"3APass",
                     answerNo: "3AFail"
                     
                 },
                 {   key: '3APass',
-                    title: "Accessible name describes purpose and content"
+                    title: "Accessible name describes purpose and content."
                 },
                 {
                     key: '3AFail',
-                    title: "Accessible names doesn't describe purpose and content"
+                    title: "Accessible name does not describe purpose and content."
                 },
                 {
                     key: "2B",
@@ -2622,12 +2622,12 @@ __webpack_require__.r(__webpack_exports__);
                 },
                 {
                     key: '4APass',
-                    title: "Accessible name communicates purpose and doesn't communicates content."
+                    title: "Accessible name communicates purpose and does not communicate content."
             
                 },
                 {
                     key: '3BFail',
-                    title: "Accessible name doesn't communicate purpose"
+                    title: "Accessible name does not communicate purpose"
             
                 },
                 {
@@ -2639,33 +2639,33 @@ __webpack_require__.r(__webpack_exports__);
                 },
                 {
                     key: '4B',
-                    title: 'Accessible name matches text within image',
+                    title: 'Does accessible name matche text within image?',
                     answerYes:"4BPass",
                     answerNo:'4BFail'
             
                 },
                 {
                     key: '4BPass',
-                    title: 'Accessible name matches text ',
+                    title: 'Accessible name matches text.',
             
                 },
                 {
                     key: '4BFail',
-                    title: "Accessible name doesn't match text within image",
+                    title: "Accessible name does not match text within image.",
                 },
                 {
                     key: "5A",
-                    title: "Accessible name describes purpose?",
+                    title: "Does accessible name describe purpose?",
                     answerYes: "5APass",
                     answerNo: "5AFail"
                 },
                 {
                     key: '5APass',
-                    title: "This element's accessible name describes purpose.",
+                    title: "The element's accessible name describes purpose.",
                 },
                 {
                     key: '5AFail',
-                    title: "The element's accessible name doesn't describe purpose."
+                    title: "The element's accessible name does not describe purpose."
                 }
             ]
         }]
@@ -2682,7 +2682,7 @@ __webpack_require__.r(__webpack_exports__);
         fluxo: [
             {
                 key: '1A',
-                title: 'Does accessible name describes purpose?',
+                title: 'Does accessible name describe purpose?',
                 answerYes: 'Pass',
                 answerNo: 'Fail',
             },
@@ -2693,7 +2693,7 @@ __webpack_require__.r(__webpack_exports__);
             },
             {
                 key: 'Fail',
-                title: "The test target has a valid accessible name but doesn't describe its purpose.",
+                title: "The test target has a valid accessible name but does not describe its purpose.",
             
             }
         ]
@@ -2710,19 +2710,19 @@ __webpack_require__.r(__webpack_exports__);
     fluxo: [
     {
         key: '1A',
-        title: 'is image a complex image (ex. graph)?',
+        title: 'Is image a complex image (for example, a graph)?',
         answerYes: '2A',
         answerNo: '2B',
     },
     {
         key: '2A',
-        title: "Accessible name describes purpose?",
+        title: "Does accessible name describe purpose?",
         answerYes:"3A",
         answerNo: "2AFail"    
     },
     {
         key: '3A',
-        title: "Accessible name describes content?",
+        title: "Does accessible name describe content?",
         answerYes:"3APass",
         answerNo: "3AFail"
             
@@ -2732,7 +2732,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     {
         key: '3AFail',
-        title: "Accessible names doesn't describe purpose and content"
+        title: "Accessible name does not describe purpose and content"
     },
     {
         key: "2B",
@@ -2742,13 +2742,13 @@ __webpack_require__.r(__webpack_exports__);
     },
     {
         key: "3B",
-        title: "Accessible name comunicates purpose?",
+        title: "Does accessible name comunicate purpose?",
         answerYes: "4A",
         answerNo: "3BFail"
     },
     {
         key: "4A",
-        title: "Accessible name communicates content?",
+        title: "Does accessible name communicate content?",
         answerYes: "4AFail",
         answerNo: "4APass"
     },
@@ -2758,11 +2758,11 @@ __webpack_require__.r(__webpack_exports__);
     },
     {
         key: '4APass',
-        title: "Accessible name communicates purpose and doesn't communicates content."
+        title: "Accessible name communicates purpose and does not communicate content."
     },
     {
         key: '3BFail',
-        title: "Accessible name doesn't communicate purpose"
+        title: "Accessible name does not communicate purpose."
     
     },
     {
@@ -2773,31 +2773,31 @@ __webpack_require__.r(__webpack_exports__);
     },
     {
         key: '4B',
-        title: 'Accessible name matches text within image',
+        title: 'Does accessible name match text within image?',
         answerYes:"4BPass",
         answerNo:'4BFail'
     },
     {
         key: '4BPass',
-        title: 'Accessible name matches text ',
+        title: 'Accessible name matches text.',
     },
     {
         key: '4BFail',
-        title: "Accessible name doesn't match text within image",
+        title: "Accessible name does not match text within image.",
     },
     {
         key: "5A",
-        title: "Accessible name describes purpose?",
+        title: "Does accessible name describe purpose?",
         answerYes: "5APass",
         answerNo: "5AFail"
     },
     {
         key: '5APass',
-        title: "This element's accessible name describes purpose.",
+        title: "The element's accessible name describes purpose.",
     },
     {
         key: '5AFail',
-        title: "The element's accessible name doesn't describe purpose."
+        title: "The element's accessible name does not describe purpose."
 
     }
 ]
@@ -2816,18 +2816,18 @@ __webpack_require__.r(__webpack_exports__);
         fluxo: [
             {
                 key: '1A',
-                title: 'Is the language  of the content the same as the value of lang attribute?',
+                title: 'Is the language content of the page the same as the value of lang attribute?',
                 answerYes: 'Pass',
                 answerNo: 'Fail',
             },
             {
                 key: 'Pass',
-                title: "The test target has a valid `lang` attribute which is according to the language of  the content.",
+                title: "The test target has a valid `lang` attribute which is according to the language of the page content.",
                 
             },
             {
                 key: 'Fail',
-                title: "`The \`lang\` attribute value  isn't according to the language  of the content.",
+                title: "`The \`lang\` attribute value  is not according to the language of the page content.",
             
             }
         ]
@@ -2845,20 +2845,20 @@ __webpack_require__.r(__webpack_exports__);
         fluxo: [
             {
                 key: '1A',
-                title: '  is it an  audio alternative (voice over)? ',
+                title: "Is it an  audio alternative (voice over)?",
                 answerYes: '1B',
                 answerNo: '2B',
             },
             {
                 key: '1B',
-                title: "The audio content describes its purpose? ",
+                title: "Does the audio content describe its purpose?",
                 answerYes: "1BPass",
                 answerNO: "1BFail"
                 
             },
             {
                 key: '1BPass',
-                title: "The audio alternative describes the video content",
+                title: "The audio alternative describes the video content.",
             
             },
             {
@@ -2868,7 +2868,7 @@ __webpack_require__.r(__webpack_exports__);
             },
             {
                 key:"2B",
-                title: "Is there text  overlaid when media is playing?",
+                title: "Is there text overlaid when media is playing?",
                 answerYes:"2C" ,
                 answerNo: "3A"
 
@@ -2882,12 +2882,12 @@ __webpack_require__.r(__webpack_exports__);
             },
             {
                 key: "2CPass",
-                title: "the `track` element correctly describes the auditive content of the video."
+                title: "The `track` element correctly describes the auditive content of the video."
 
             },
             {
                 key:"2CFail",
-                title: "The track element doesn't describe the content of the video."
+                title: "The track element does not describe the content of the video."
             },
             {
                 key: "3A",
@@ -2897,7 +2897,7 @@ __webpack_require__.r(__webpack_exports__);
             },
             {
                 key: "3B",
-                title: "Does the transcript describes the video?",
+                title: "Does the transcript describe the video?",
                 answerYes: "3BPass",
                 answerNo: "3BFail"
             },
@@ -2907,11 +2907,11 @@ __webpack_require__.r(__webpack_exports__);
             },
             {
                 key:"3BFail",
-                title: "The transcript doesn't describe the auditive content of the video."
+                title: "The transcript does not describe the auditive content of the video."
             },
             {
                 key: "4A",
-                title: "Text on a page describes  enterily  video content? ",
+                title: "Does text on a page describe enterily the video content?",
                 answerYes: "4APass",
                 answerNo: "4AFail"
             },
@@ -2921,7 +2921,7 @@ __webpack_require__.r(__webpack_exports__);
             },
             {
                 key: "4AFail",
-                title: "The video doesn't have any content alternative."
+                title: "The video does not have any content alternative."
             }
         ]
     }]
@@ -2938,13 +2938,13 @@ __webpack_require__.r(__webpack_exports__);
         fluxo: [
             {
                 key: '1A',
-                title: 'Does it have a text  alternative?',
+                title: 'Does it have a text alternative?',
                 answerYes: '2A',
                 answerNo: '1AFail',
             },
             {
                 key: '1AFail',
-                title: "The audio element doesn't have a text alternative"
+                title: "The audio element does not have a text alternative"
                 
             },
             {
@@ -2956,7 +2956,7 @@ __webpack_require__.r(__webpack_exports__);
             },
             {
                 key: "2AFail",
-                title: "The text alternative doesn't describe the purpose of audio."
+                title: "The text alternative does not describe the purpose of audio."
             },
             {
                 key: "2APass",
@@ -2977,18 +2977,18 @@ __webpack_require__.r(__webpack_exports__);
         fluxo: [
             {
                 key: '1A',
-                title: 'Does accessible name describes purpose?',
+                title: 'Does accessible name describe purpose?',
                 answerYes: 'Pass',
                 answerNo: 'Fail',
             },
             {
                 key: 'Pass',
-                title: "The complete visible text content of the test target either matches or is contained within its accessible name. It's accessible name also describes purpose.",
+                title: "The complete visible text content of the test target either matches or is contained within its accessible name and it's accessible name also describes purpose.",
                 
             },
             {
                 key: 'Fail',
-                title: "The complete visible text content of the test target either matches or is contained within its accessible name but it doesn't describe purpose.",
+                title: "The complete visible text content of the test target either matches or is contained within its accessible name but the accessible name does not describe purpose.",
             
             }
         ]
@@ -3006,7 +3006,7 @@ __webpack_require__.r(__webpack_exports__);
         fluxo: [
             {
                 key: '1A',
-                title: 'Does the heading describe  the contents of its section?',
+                title: 'Does the heading describe the contents of its section?',
                 answerYes: 'Pass',
                 answerNo: 'Fail',
             },
@@ -3017,7 +3017,7 @@ __webpack_require__.r(__webpack_exports__);
             },
             {
                 key: "Fail",
-                title: "The heading doesn't describe the contents of its section."
+                title: "The heading does not describe the contents of its section."
             },
         ]
     }]
@@ -3034,7 +3034,7 @@ __webpack_require__.r(__webpack_exports__);
         fluxo: [
             {
                 key: '1A',
-                title: 'Has the data cells appropriate headers? ',
+                title: 'Does the data cells have appropriate headers?',
                 answerYes: 'Pass',
                 answerNo: 'Fail',
             },
@@ -3045,7 +3045,7 @@ __webpack_require__.r(__webpack_exports__);
             },
             {
                 key: "Fail",
-                title: "The data cells don't have appropriate headers."
+                title: "The data cells do not have appropriate headers."
             },
         ]
     }]
@@ -3073,7 +3073,7 @@ __webpack_require__.r(__webpack_exports__);
             },
             {
                 key: "Fail",
-                title: "Text is not readable over the background"
+                title: "Text is not readable over the background."
             },
         ]
     }]
@@ -3110,7 +3110,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ var Keyboard_focusable = ({
     code: '80af7b',
     link: 'https://act-rules.github.io/rules/80af7b',
-    name: 'Is focusable with keyboard',
+    name: 'Are elements focusable with keyboard?',
     category: rules_const.KEYBOARD,
     whyImportant: `Users must be able to access and interact with interface components using only the
     keyboard because using a mouse is not possible when the user has no vision or low vision
@@ -4062,13 +4062,14 @@ function generateResultCount() {
 function generateAccordions(category) {
     const accordionSection = document.querySelector('.ResultPage .result:first-child');
 
-    accordionSection.insertAdjacentHTML('beforeend', `<button id="category-button-${category.fixedName}" class="accordion">
+    accordionSection.insertAdjacentHTML('beforeend', `<div class="accordion-group">
+    <button id="category-button-${category.fixedName}" class="accordion">
         <div class=Flex-h>
             <span>${category.name}</span>
             <span>${category.count} / ${category.total}</span>
         </div>
     </button>
-    <div id="panel-category-${category.fixedName}" class="panel ${category.selected ? 'active' : ''}">
+    <div id="panel-category-${category.fixedName}" class="panel ${category.selected ? 'active' : ''}"></div>
     </div>`);
 
     const button = document.querySelector(`#category-button-${category.fixedName}`);

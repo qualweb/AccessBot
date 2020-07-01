@@ -639,13 +639,14 @@ function generateResultCount() {
 function generateAccordions(category) {
     const accordionSection = document.querySelector('.ResultPage .result:first-child');
 
-    accordionSection.insertAdjacentHTML('beforeend', `<button id="category-button-${category.fixedName}" class="accordion">
+    accordionSection.insertAdjacentHTML('beforeend', `<div class="accordion-group">
+    <button id="category-button-${category.fixedName}" class="accordion">
         <div class=Flex-h>
             <span>${category.name}</span>
             <span>${category.count} / ${category.total}</span>
         </div>
     </button>
-    <div id="panel-category-${category.fixedName}" class="panel ${category.selected ? 'active' : ''}">
+    <div id="panel-category-${category.fixedName}" class="panel ${category.selected ? 'active' : ''}"></div>
     </div>`);
 
     const button = document.querySelector(`#category-button-${category.fixedName}`);

@@ -80,6 +80,9 @@
             font-weight: bold;
         }
         /* Style the buttons that are used to open and close the accordion panel */
+        .accordion-group {
+            margin-bottom: 5px;
+        }
         .accordion {
         background-color: #eee;
         color: #444;
