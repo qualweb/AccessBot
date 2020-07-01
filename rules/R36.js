@@ -9,7 +9,7 @@ export default {
         fluxo: [
             {
                 key: '1A',
-                title: 'Has the data cells appropriate headers? ',
+                title: 'Does the data cells have appropriate headers?',
                 answerYes: 'Pass',
                 answerNo: 'Fail',
             },
@@ -20,7 +20,7 @@ export default {
             },
             {
                 key: "Fail",
-                title: "The data cells don't have appropriate headers."
+                title: "The data cells do not have appropriate headers."
             },
         ]
     }]

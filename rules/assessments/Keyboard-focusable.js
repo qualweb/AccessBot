@@ -4,7 +4,7 @@ import CategoryConst from "../const.js";
 export default {
     code: '80af7b',
     link: 'https://act-rules.github.io/rules/80af7b',
-    name: 'Is focusable with keyboard',
+    name: 'Are elements focusable with keyboard?',
     category: CategoryConst.KEYBOARD,
     whyImportant: `Users must be able to access and interact with interface components using only the
     keyboard because using a mouse is not possible when the user has no vision or low vision

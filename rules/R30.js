@@ -9,18 +9,18 @@ export default {
         fluxo: [
             {
                 key: '1A',
-                title: 'Does accessible name describes purpose?',
+                title: 'Does accessible name describe purpose?',
                 answerYes: 'Pass',
                 answerNo: 'Fail',
             },
             {
                 key: 'Pass',
-                title: "The complete visible text content of the test target either matches or is contained within its accessible name. It's accessible name also describes purpose.",
+                title: "The complete visible text content of the test target either matches or is contained within its accessible name and it's accessible name also describes purpose.",
                 
             },
             {
                 key: 'Fail',
-                title: "The complete visible text content of the test target either matches or is contained within its accessible name but it doesn't describe purpose.",
+                title: "The complete visible text content of the test target either matches or is contained within its accessible name but the accessible name does not describe purpose.",
             
             }
         ]

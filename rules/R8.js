@@ -9,18 +9,18 @@ export default {
         fluxo:[
             {
             key: '1A',
-            title: 'Accessible name describes purpose?',
+            title: 'Does accessible name describes purpose?',
             answerYes: 'Pass',
             answerNo: 'Fail',
             },
             {
             key: 'Pass',
-            title: "This element's accessible name uses the filename which accurately describes the image and purpose",
+            title: "The element's accessible name uses the filename which accurately describes the image and purpose",
             
             },
             {
             key: 'Fail',
-            title: "The presence of the file extension in the accessible name doesn't accurately describe purpose of the image",
+            title: "The presence of the file extension in the accessible name does not accurately describe purpose of the image",
             }
         ]
     }]

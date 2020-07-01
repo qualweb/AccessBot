@@ -20,7 +20,7 @@ export default {
             },
             {
                 key: 'Fail',
-                title: "The test target has an accessible name but doesn't describe purpose",
+                title: "The test target has an accessible name but does not describe purpose",
             
             }
         ]

@@ -8,19 +8,19 @@ export default {
     fluxo: [
     {
         key: '1A',
-        title: 'is image a complex image (ex. graph)?',
+        title: 'Is image a complex image (for example, a graph)?',
         answerYes: '2A',
         answerNo: '2B',
     },
     {
         key: '2A',
-        title: "Accessible name describes purpose?",
+        title: "Does accessible name describe purpose?",
         answerYes:"3A",
         answerNo: "2AFail"    
     },
     {
         key: '3A',
-        title: "Accessible name describes content?",
+        title: "Does accessible name describe content?",
         answerYes:"3APass",
         answerNo: "3AFail"
             
@@ -30,7 +30,7 @@ export default {
     },
     {
         key: '3AFail',
-        title: "Accessible names doesn't describe purpose and content"
+        title: "Accessible name does not describe purpose and content"
     },
     {
         key: "2B",
@@ -40,13 +40,13 @@ export default {
     },
     {
         key: "3B",
-        title: "Accessible name comunicates purpose?",
+        title: "Does accessible name comunicate purpose?",
         answerYes: "4A",
         answerNo: "3BFail"
     },
     {
         key: "4A",
-        title: "Accessible name communicates content?",
+        title: "Does accessible name communicate content?",
         answerYes: "4AFail",
         answerNo: "4APass"
     },
@@ -56,11 +56,11 @@ export default {
     },
     {
         key: '4APass',
-        title: "Accessible name communicates purpose and doesn't communicates content."
+        title: "Accessible name communicates purpose and does not communicate content."
     },
     {
         key: '3BFail',
-        title: "Accessible name doesn't communicate purpose"
+        title: "Accessible name does not communicate purpose."
     
     },
     {
@@ -71,31 +71,31 @@ export default {
     },
     {
         key: '4B',
-        title: 'Accessible name matches text within image',
+        title: 'Does accessible name match text within image?',
         answerYes:"4BPass",
         answerNo:'4BFail'
     },
     {
         key: '4BPass',
-        title: 'Accessible name matches text ',
+        title: 'Accessible name matches text.',
     },
     {
         key: '4BFail',
-        title: "Accessible name doesn't match text within image",
+        title: "Accessible name does not match text within image.",
     },
     {
         key: "5A",
-        title: "Accessible name describes purpose?",
+        title: "Does accessible name describe purpose?",
         answerYes: "5APass",
         answerNo: "5AFail"
     },
     {
         key: '5APass',
-        title: "This element's accessible name describes purpose.",
+        title: "The element's accessible name describes purpose.",
     },
     {
         key: '5AFail',
-        title: "The element's accessible name doesn't describe purpose."
+        title: "The element's accessible name does not describe purpose."
 
     }
 ]

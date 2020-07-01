@@ -9,20 +9,20 @@ export default {
         fluxo: [
             {
                 key: '1A',
-                title: '  is it an  audio alternative (voice over)? ',
+                title: "Is it an  audio alternative (voice over)?",
                 answerYes: '1B',
                 answerNo: '2B',
             },
             {
                 key: '1B',
-                title: "The audio content describes its purpose? ",
+                title: "Does the audio content describe its purpose?",
                 answerYes: "1BPass",
                 answerNO: "1BFail"
                 
             },
             {
                 key: '1BPass',
-                title: "The audio alternative describes the video content",
+                title: "The audio alternative describes the video content.",
             
             },
             {
@@ -32,7 +32,7 @@ export default {
             },
             {
                 key:"2B",
-                title: "Is there text  overlaid when media is playing?",
+                title: "Is there text overlaid when media is playing?",
                 answerYes:"2C" ,
                 answerNo: "3A"
 
@@ -46,12 +46,12 @@ export default {
             },
             {
                 key: "2CPass",
-                title: "the `track` element correctly describes the auditive content of the video."
+                title: "The `track` element correctly describes the auditive content of the video."
 
             },
             {
                 key:"2CFail",
-                title: "The track element doesn't describe the content of the video."
+                title: "The track element does not describe the content of the video."
             },
             {
                 key: "3A",
@@ -61,7 +61,7 @@ export default {
             },
             {
                 key: "3B",
-                title: "Does the transcript describes the video?",
+                title: "Does the transcript describe the video?",
                 answerYes: "3BPass",
                 answerNo: "3BFail"
             },
@@ -71,11 +71,11 @@ export default {
             },
             {
                 key:"3BFail",
-                title: "The transcript doesn't describe the auditive content of the video."
+                title: "The transcript does not describe the auditive content of the video."
             },
             {
                 key: "4A",
-                title: "Text on a page describes  enterily  video content? ",
+                title: "Does text on a page describe enterily the video content?",
                 answerYes: "4APass",
                 answerNo: "4AFail"
             },
@@ -85,7 +85,7 @@ export default {
             },
             {
                 key: "4AFail",
-                title: "The video doesn't have any content alternative."
+                title: "The video does not have any content alternative."
             }
         ]
     }]

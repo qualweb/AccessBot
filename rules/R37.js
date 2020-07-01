@@ -20,7 +20,7 @@ export default {
             },
             {
                 key: "Fail",
-                title: "Text is not readable over the background"
+                title: "Text is not readable over the background."
             },
         ]
     }]

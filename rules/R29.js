@@ -9,13 +9,13 @@ export default {
         fluxo: [
             {
                 key: '1A',
-                title: 'Does it have a text  alternative?',
+                title: 'Does it have a text alternative?',
                 answerYes: '2A',
                 answerNo: '1AFail',
             },
             {
                 key: '1AFail',
-                title: "The audio element doesn't have a text alternative"
+                title: "The audio element does not have a text alternative"
                 
             },
             {
@@ -27,7 +27,7 @@ export default {
             },
             {
                 key: "2AFail",
-                title: "The text alternative doesn't describe the purpose of audio."
+                title: "The text alternative does not describe the purpose of audio."
             },
             {
                 key: "2APass",

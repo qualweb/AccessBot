@@ -9,7 +9,7 @@ export default {
         fluxo: [
             {
                 key: '1A',
-                title: 'Does the heading describe  the contents of its section?',
+                title: 'Does the heading describe the contents of its section?',
                 answerYes: 'Pass',
                 answerNo: 'Fail',
             },
@@ -20,7 +20,7 @@ export default {
             },
             {
                 key: "Fail",
-                title: "The heading doesn't describe the contents of its section."
+                title: "The heading does not describe the contents of its section."
             },
         ]
     }]

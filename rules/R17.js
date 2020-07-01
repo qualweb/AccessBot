@@ -8,7 +8,7 @@ export default {
             fluxo: [
                 {
                     key: '1A',
-                    title: 'is image decorative?',
+                    title: 'Is the image decorative?',
                     answerYes: 'Pass',
                     answerNo: 'Fail',
                 },
@@ -18,7 +18,7 @@ export default {
                 },
                 {
                     key: 'Fail',
-                    title: "The presence of the file extension in the accessible name doesn't accurately describe purpose of the image",
+                    title: "The presence of the file extension in the accessible name does not accurately describe purpose of the image",
                 }
             ]
         },
@@ -27,29 +27,29 @@ export default {
             fluxo: [
                 {
                     key: '1B',
-                    title: 'is image a complex image (ex. graph)?',
+                    title: 'Is image a complex image (for example, a graph)?',
                     answerYes: '2A',
                     answerNo: '2B',
                 },
                 {
                     key: '2A',
-                    title: "Accessible name describes purpose?",
+                    title: "Does accessible name describe purpose?",
                     answerYes:"3A",
                     answerNo: "2AFail"
                 },
                 {
                     key: '3A',
-                    title: "Accessible name describes content?",
+                    title: "Does accessible name describe content?",
                     answerYes:"3APass",
                     answerNo: "3AFail"
                     
                 },
                 {   key: '3APass',
-                    title: "Accessible name describes purpose and content"
+                    title: "Accessible name describes purpose and content."
                 },
                 {
                     key: '3AFail',
-                    title: "Accessible names doesn't describe purpose and content"
+                    title: "Accessible name does not describe purpose and content."
                 },
                 {
                     key: "2B",
@@ -76,12 +76,12 @@ export default {
                 },
                 {
                     key: '4APass',
-                    title: "Accessible name communicates purpose and doesn't communicates content."
+                    title: "Accessible name communicates purpose and does not communicate content."
             
                 },
                 {
                     key: '3BFail',
-                    title: "Accessible name doesn't communicate purpose"
+                    title: "Accessible name does not communicate purpose"
             
                 },
                 {
@@ -93,33 +93,33 @@ export default {
                 },
                 {
                     key: '4B',
-                    title: 'Accessible name matches text within image',
+                    title: 'Does accessible name matche text within image?',
                     answerYes:"4BPass",
                     answerNo:'4BFail'
             
                 },
                 {
                     key: '4BPass',
-                    title: 'Accessible name matches text ',
+                    title: 'Accessible name matches text.',
             
                 },
                 {
                     key: '4BFail',
-                    title: "Accessible name doesn't match text within image",
+                    title: "Accessible name does not match text within image.",
                 },
                 {
                     key: "5A",
-                    title: "Accessible name describes purpose?",
+                    title: "Does accessible name describe purpose?",
                     answerYes: "5APass",
                     answerNo: "5AFail"
                 },
                 {
                     key: '5APass',
-                    title: "This element's accessible name describes purpose.",
+                    title: "The element's accessible name describes purpose.",
                 },
                 {
                     key: '5AFail',
-                    title: "The element's accessible name doesn't describe purpose."
+                    title: "The element's accessible name does not describe purpose."
                 }
             ]
         }]

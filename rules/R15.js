@@ -9,7 +9,7 @@ export default {
         fluxo: [
             {
                 key: '1A',
-                title: 'Does the  target has a visible control mechanism?',
+                title: 'Can you verify if target has a visible control mechanism?',
                 answerYes: 'Pass',
                 answerNo: 'Fail',
             },
@@ -20,7 +20,7 @@ export default {
             },
             {
                 key: 'Fail',
-                title: "The test target doesn't have a control mechanism to stop or mute it.",
+                title: "The test target does not have a control mechanism to stop or mute it.",
             
             }
         ]
