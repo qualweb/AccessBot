@@ -737,6 +737,7 @@ function generatePanelRule(category, rule) {
             });
         });
         rule.selected = true;
+        document.querySelector(`.ResultSection.result`).scrollTop = 0;
         updateResults();
     }
 }
