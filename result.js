@@ -668,11 +668,20 @@ function generateResultCount() {
 function generateAccordions(category) {
     const accordionSection = document.querySelector('.ResultPage .result:first-child');
 
+    let text = "";
+    if (category.total === 0) {
+        text = `No tests available.`;
+    } else if (category.total === category.count) {
+            text = `All tests completed.`;
+    } else {
+        text = `Completed ${category.count} out of ${category.total} tests.`;
+    }
+
     accordionSection.insertAdjacentHTML('beforeend', `<div class="accordion-group">
     <button id="category-button-${category.fixedName}" class="accordion">
         <div class=Flex-h>
             <span>${category.name}</span>
-            <span>${category.count} / ${category.total}</span>
+            <span>${text}</span>
         </div>
     </button>
     <div id="panel-category-${category.fixedName}" class="panel ${category.selected ? 'active' : ''}"></div>
@@ -700,12 +709,21 @@ function generatePanelRule(category, rule) {
         hasManual = true;
     }
 
+    let text = "";
+    if (rule.total === 0) {
+        text = `No tests available.`;
+    } else if (rule.total === rule.count) {
+            text = `All tests completed.`;
+    } else {
+        text = `Completed ${rule.count} out of ${rule.total} tests.`;
+    }
+
 
     const panel = `<button id="rule-button-${rule.rule}" class="Flex-h PanelButton ${rule.selected ? 'active' : ''}">
         <div class="panelRule">
             <span class="panelRuleName">${rule.name}</span>
         </div>
-        <span class="panelRuleCount">${rule.count} / ${rule.total}</span>
+        <span class="panelRuleCount">${text}</span>
     </button>`
 
     

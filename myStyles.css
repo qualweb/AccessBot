@@ -145,8 +145,8 @@
             background-color: aquamarine;
         }
         .PanelButton > span {
-            text-align: left;
-            max-width: calc(100% - 50px);
+            text-align: right;
+            width: 30%;
         }
         .QuestionText {
             text-align: left;
