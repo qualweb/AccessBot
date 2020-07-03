@@ -20912,18 +20912,22 @@ function showFilters() {
 
     passFilter.onchange = function(e) {
         filters.pass = e.target.checked;
+        storedQuestions = [];
         updateResults();
     }
     failFilter.onchange = function(e) {
         filters.fail = e.target.checked;
+        storedQuestions = [];
         updateResults();
     }
     cannotTellFilter.onchange = function(e) {
         filters.cannotTell = e.target.checked;
+        storedQuestions = [];
         updateResults();
     }
     inapplicableFilter.onchange = function(e) {
         filters.inapplicable = e.target.checked;
+        storedQuestions = [];
         updateResults();
     }
     uncompletedTestsFilter.onchange = function(e) {
