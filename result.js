@@ -4,11 +4,19 @@ import DecisionTree from "./DecisionTree.js";
 import ManualSteps from "./ManualSteps.js";
 //const generateEARLAssertions = require('./node_modules/@qualweb/earl-reporter/dist/index.js').generateEARLAssertions;
 import {generateEARLAssertions} from "@qualweb/earl-reporter";
+import { result } from "lodash";
 
 //import result from "./testData.js";
-
 let resultData = {};
 let highlightedItems = [];
+
+let filters = {
+    pass : true,
+    fail : true,
+    cannotTell : true,
+    inapplicable : true,
+    uncompletedTests : true
+}
 
 chrome.runtime.sendMessage({message:"resultLoaded"});
 
@@ -95,6 +103,7 @@ function generateCategoriesData(result, options) {
         fail: 0,
         inapplicable: 0,
         warning: 0,
+        missing: 0,
         categories: []
     };
 
@@ -286,7 +295,7 @@ function generateManualTests(manualTests, optionManual) {
 }
 
 function updateResults() {
-    //console.log(resultData);
+    console.log(resultData);
     updateTotal();
     removeHTML();
     generateResultCount();
@@ -297,12 +306,80 @@ function updateResults() {
             if (rule.selected) {
                 if(rule.questions) {
                     generateQuestionSection(rule);
+                    showFilters()
                 } else if(rule.manualTest) {
                     generateManualTestSection(rule);
                 }
             }
         })
     })
+}
+
+
+function showQuestion(question) {
+    if(question.complete === false) {
+        return filters.uncompletedTests;
+    }else if (question.decisionTree) {
+        return filters.uncompletedTests;
+    } else {
+        switch(question.verdict) {
+            case "passed":
+                return filters.pass;
+            case "failed":
+                return filters.fail;
+            case "inapplicable":
+                return filters.inapplicable;
+            case "warning":
+                return filters.cannotTell;
+            case "":
+                return filters.cannotTell;
+        }
+    }
+}
+
+function showFilters() {
+    const resultSection = document.querySelector('.ResultList');
+    resultSection.insertAdjacentHTML('beforeBegin', `<div class="resultFilters">
+    Pass<input type="checkbox" id="passFilter" name="passFilter">
+    Fail<input type="checkbox" id="failFilter" name="failFilter">
+    Cannot tell<input type="checkbox" id="cannotTellFilter" name="cannotTellFilter">
+    Inapplicable<input type="checkbox" id="inapplicableFilter" name="inapplicableFilter">
+    Uncompleted tests <input type="checkbox" id="uncompletedTestsFilter" name="uncompletedTestsFilter">
+    </div>`);
+
+    const passFilter = document.querySelector('#passFilter');
+    const failFilter = document.querySelector('#failFilter');
+    const cannotTellFilter = document.querySelector('#cannotTellFilter');
+    const inapplicableFilter = document.querySelector('#inapplicableFilter');
+    const uncompletedTestsFilter = document.querySelector('#uncompletedTestsFilter');
+
+    passFilter.checked = filters.pass;
+    failFilter.checked = filters.fail;
+    cannotTellFilter.checked = filters.cannotTell;
+    inapplicableFilter.checked = filters.inapplicable;
+    uncompletedTestsFilter.checked = filters.uncompletedTests;
+
+    passFilter.onchange = function(e) {
+        filters.pass = e.target.checked;
+        updateResults();
+    }
+    failFilter.onchange = function(e) {
+        filters.fail = e.target.checked;
+        updateResults();
+    }
+    cannotTellFilter.onchange = function(e) {
+        filters.cannotTell = e.target.checked;
+        updateResults();
+    }
+    inapplicableFilter.onchange = function(e) {
+        filters.inapplicable = e.target.checked;
+        updateResults();
+    }
+    uncompletedTestsFilter.onchange = function(e) {
+        filters.uncompletedTests = e.target.checked;
+        updateResults();
+    }
+
 }
 
 function removeHTML() {
@@ -322,10 +399,13 @@ function generateQuestionSection(rule) {
     <p class="RuleDescription">${rule.description}</p>
     <ol class="ResultList"></ol>`
     rule.questions.forEach(function(question, index) {
-        if(!question.decisionTree) {
-            generateResult(question, index);
-         } else {
-            generateQuestion(question, index);
+        const isVisible = showQuestion(question);
+        if (isVisible) {
+            if(!question.decisionTree) {
+                generateResult(question, index);
+            } else {
+                generateQuestion(question, index);
+            }
         }
     });
 
@@ -656,13 +736,18 @@ function updateTotal() {
                     }
                 });
             }
+            resultData.missing = resultData.total - resultData.count;
         });
     });
 }
 
 function generateResultCount() {
     const text = document.querySelector("#resultcount");
-    text.innerHTML = `Pass: <span id="passCount">${resultData.pass}</span> Fail: <span id="failCount">${resultData.fail}</span> Cannot tell: <span id="warningCount">${resultData.warning}</span> Inapplicable: <span id="inappliacbleCount">${resultData.inapplicable}</span>`;
+    text.innerHTML = `Pass: <span id="passCount">${resultData.pass}</span>  
+    Fail: <span id="failCount">${resultData.fail}</span> 
+    Cannot tell: <span id="warningCount">${resultData.warning}</span> 
+    Inapplicable: <span id="inappliacbleCount">${resultData.inapplicable}</span> 
+    Uncompleted tests: <span id="missingCount">${resultData.missing}</span>`;
 }
 
 function generateAccordions(category) {
@@ -713,7 +798,7 @@ function generatePanelRule(category, rule) {
     if (rule.total === 0) {
         text = `No tests available.`;
     } else if (rule.total === rule.count) {
-            text = `All tests completed.`;
+            text = `All ${rule.total} tests completed.`;
     } else {
         text = `Completed ${rule.count} out of ${rule.total} tests.`;
     }
