@@ -134,6 +134,7 @@ function reportModule(module, options) {
         }
     }
 }
+
 async function generateSingleEarlReport(report, options) {
     const earlReport = {
         '@context': 'https://act-rules.github.io/earl-context.json',
@@ -3447,7 +3448,6 @@ chrome.runtime.onMessage.addListener(
                 console.log(await Object(dist["generateEARLAssertions"])(request.result));
             }
             removeHighlights.onclick = async function() {
-                console.log("click");
                 highlightedItems.forEach(pointer => {
                     chrome.runtime.sendMessage({message:"outResultElement", element: pointer});
                 });
