@@ -20928,9 +20928,7 @@ function showFilters() {
     }
     uncompletedTestsFilter.onchange = function(e) {
         filters.uncompletedTests = e.target.checked;
-        if(e.target.checked === true) {
-            storedQuestions = [];
-        }
+        storedQuestions = [];
         updateResults();
     }
 
