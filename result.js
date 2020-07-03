@@ -18,6 +18,8 @@ let filters = {
     uncompletedTests : true
 }
 
+let storedQuestions = [];
+
 chrome.runtime.sendMessage({message:"resultLoaded"});
 
 chrome.runtime.onMessage.addListener(
@@ -35,6 +37,7 @@ chrome.runtime.onMessage.addListener(
                 console.log(await generateEARLAssertions(request.result));
             }
             removeHighlights.onclick = async function() {
+                console.log(highlightedItems);
                 highlightedItems.forEach(pointer => {
                     chrome.runtime.sendMessage({message:"outResultElement", element: pointer});
                 });
@@ -319,8 +322,21 @@ function updateResults() {
 function showQuestion(question) {
     if(question.complete === false) {
         return filters.uncompletedTests;
-    }else if (question.decisionTree) {
+    } else if (question.decisionTree && question.decisionTree.status === "") {
         return filters.uncompletedTests;
+    } else if (question.decisionTree && question.decisionTree.status !== "") {
+        console.log(storedQuestions);
+        console.log(question);
+        const findIndex = storedQuestions.findIndex(storeQuestion => storeQuestion.pointer === question.pointer);
+        if(findIndex > -1) {
+            return filters.uncompletedTests;
+        }
+        switch(question.decisionTree.getStatus()) {
+            case "Pass":
+                return filters.pass;
+            case "Fail":
+                return filters.fail; 
+        }
     } else {
         switch(question.verdict) {
             case "passed":
@@ -377,6 +393,9 @@ function showFilters() {
     }
     uncompletedTestsFilter.onchange = function(e) {
         filters.uncompletedTests = e.target.checked;
+        if(e.target.checked === true) {
+            storedQuestions = [];
+        }
         updateResults();
     }
 
@@ -561,6 +580,7 @@ function generateResult(result, index) {
     checkPageHighlight(checkmark);
 
     checkmark.onchange = function(e) {
+        console.log("changed highlight state");
         result.selected = e.target.checked;
         checkPageHighlight(checkmark);
     }
@@ -626,6 +646,7 @@ function generateQuestion(question, index) {
                 decisionTree.next(false);
             }
             if(decisionTree.getStatus()) {
+                storedQuestions.push(question);
                 question.complete = true;
             }
             updateResults();
@@ -636,8 +657,13 @@ function generateQuestion(question, index) {
         //console.log(question.selected);
         checkmark.checked = question.selected;
         if (checkmark.checked) {
+            highlightedItems.push(question.pointer);
             chrome.runtime.sendMessage({message:"overResultElement", element: question.pointer});
         } else {
+            const index = highlightedItems.findIndex(pointer => pointer === question.pointer);
+            if (index > -1) {
+                highlightedItems.splice(index, 1);
+            }
             chrome.runtime.sendMessage({message:"outResultElement", element: question.pointer});
         }
     }
@@ -650,6 +676,10 @@ function generateQuestion(question, index) {
         button.onclick = function() {
             decisionTree.revert(); 
             question.complete = false;
+            const storedQuestionIndex = storedQuestions.findIndex(storedQuestion => storedQuestion.pointer === question.pointer);
+            if (storedQuestionIndex > -1) {
+                storedQuestions.splice(storedQuestionIndex, 1);
+            }
             question.note = '';
             updateResults();
         }
@@ -841,6 +871,7 @@ function generatePanelRule(category, rule) {
         });
         rule.selected = true;
         document.querySelector(`.ResultSection.result`).scrollTop = 0;
+        storedQuestions = [];
         updateResults();
     }
 }
