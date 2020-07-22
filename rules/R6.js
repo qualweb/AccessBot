@@ -8,18 +8,18 @@ export default {
         fluxo: [
             {
                 key: '1A',
-                title: 'Does accessible name describe purpose?',
+                title: 'Does accessible name #{a} describe purpose?',
                 answerYes: 'Pass',
                 answerNo: 'Fail',
             },
             {
                 key: 'Pass',
-                title: "The `image button` has an accessible name that describes purpose",
+                title: "The `image button` has an accessible name #{a} that describes purpose",
                 
             },
             {
                 key: 'Fail',
-                title: "The \`image button\` has an accessible name that does not describe purpose",
+                title: "The \`image button\` has an accessible name #{a} that does not describe purpose",
             
             }
         ]

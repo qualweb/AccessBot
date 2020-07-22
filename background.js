@@ -25,6 +25,9 @@ chrome.runtime.onMessage.addListener(
               chrome.tabs.sendMessage(activeTabId, {message: "getDocument"}, async function(actResult) {
                 qualwebResult = actResult;
                 
+                console.log("resultado sem filtro")
+                console.log(actResult);
+
                 const rulesToArray = Object.values(actResult.assertions);
 
                 onlyValidResults = rulesToArray.map(rule => {
@@ -41,7 +44,8 @@ chrome.runtime.onMessage.addListener(
                     results: results,
                     name: rule.name,
                     id: rule.mapping,
-                    url: rule.metadata.url
+                    url: rule.metadata.url,
+                    accessiblename: rule.accessiblename
                   }
                 });
                 

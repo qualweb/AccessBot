@@ -14,19 +14,19 @@ export default {
     },
     {
         key: '2A',
-        title: "Does accessible name describe purpose?",
+        title: "Does accessible name #{a} describe purpose?",
         answerYes:"3A",
         answerNo: "2AFail"    
     },
     {
         key: '3A',
-        title: "Does accessible name describe content?",
+        title: "Does accessible name #{a} describe content?",
         answerYes:"3APass",
         answerNo: "3AFail"
             
     },
     {   key: '3APass',
-        title: "Accessible name describes purpose and content"
+        title: "Accessible name #{a} describes purpose and content"
     },
     {
         key: '3AFail',
@@ -40,13 +40,13 @@ export default {
     },
     {
         key: "3B",
-        title: "Does accessible name comunicate purpose?",
+        title: "Does accessible name #{a} comunicate purpose?",
         answerYes: "4A",
         answerNo: "3BFail"
     },
     {
         key: "4A",
-        title: "Does accessible name communicate content?",
+        title: "Does accessible name #{a} communicate content?",
         answerYes: "4AFail",
         answerNo: "4APass"
     },
@@ -71,7 +71,7 @@ export default {
     },
     {
         key: '4B',
-        title: 'Does accessible name match text within image?',
+        title: 'Does accessible name #{a} match text within image?',
         answerYes:"4BPass",
         answerNo:'4BFail'
     },
@@ -85,7 +85,7 @@ export default {
     },
     {
         key: "5A",
-        title: "Does accessible name describe purpose?",
+        title: "Does accessible name #{a} describe purpose?",
         answerYes: "5APass",
         answerNo: "5AFail"
     },

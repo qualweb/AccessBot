@@ -82,12 +82,12 @@ var background =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 10);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 10:
+/***/ 9:
 /***/ (function(module, exports) {
 
 let onlyValidResults = [];
@@ -117,6 +117,9 @@ chrome.runtime.onMessage.addListener(
               chrome.tabs.sendMessage(activeTabId, {message: "getDocument"}, async function(actResult) {
                 qualwebResult = actResult;
                 
+                console.log("resultado sem filtro")
+                console.log(actResult);
+
                 const rulesToArray = Object.values(actResult.assertions);
 
                 onlyValidResults = rulesToArray.map(rule => {
@@ -133,7 +136,8 @@ chrome.runtime.onMessage.addListener(
                     results: results,
                     name: rule.name,
                     id: rule.mapping,
-                    url: rule.metadata.url
+                    url: rule.metadata.url,
+                    accessiblename: rule.accessiblename
                   }
                 });
                 

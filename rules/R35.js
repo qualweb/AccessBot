@@ -4,6 +4,7 @@ import CategoryConst from "./const.js";
 export default {
     code: 'QW-ACT-R35',
     category: CategoryConst.HEADINGS,
+    plusRule: [{plusRuleCode:'b49b2e', plusRuleUrl: 'https://act-rules.github.io/rules/b49b2e', plusRuleName: 'Heading is descriptive.'}],
     tree: [{
         prerequisite: 'RC1',
         fluxo: [

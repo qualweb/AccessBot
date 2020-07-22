@@ -18,7 +18,9 @@ export default {
     LINKS: "Link",
     IFRAMES: "iFrame",
     BUTTONS: "Button",
-    LABEL: "Label"
+    LABEL: "Label",
+    OBJECT: "Object",
+    TEXT: "Text"
 
 }
 

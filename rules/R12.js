@@ -4,12 +4,13 @@ import CategoryConst from "./const.js";
 export default {
     code: 'QW-ACT-R12',
     category: CategoryConst.LINKS,
+    plusRule: [ {plusRuleCode:'5effbb', plusRuleUrl: 'https://act-rules.github.io/rules/5effbb', plusRuleName: 'Link in context is descriptive.'}],
     tree: [{
         prerequisite: 'RC1',
         fluxo: [
             {
                 key: '1A',
-                title: 'Does accessible name describe purpose?',
+                title: 'Does accessible name #{a} describe purpose?',
                 answerYes: 'Pass',
                 answerNo: 'Fail',
             },

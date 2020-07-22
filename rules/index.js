@@ -1,3 +1,5 @@
+//import only semi-automatic rules
+
 import R1 from './R1.js';
 import R2 from './R2.js';
 import R6 from './R6.js';
@@ -18,7 +20,11 @@ import R30 from './R30.js';
 import R35 from './R35.js';
 import R36 from './R36.js';
 import R37 from './R37.js';
+import R40 from './R40.js';
+import R41 from './R41.js';
+import R42 from './R42.js';
+import R44 from './R44.js';
 
 
 
-export default [R1, R2, R6, R8, R9, R10, R11, R12, R15, R16, R17, R19, R21, R22, R23, R29, R30, R35, R36, R37];
+export default [R1, R2, R6, R8, R9, R10, R11, R12, R15, R16, R17, R19, R21, R22, R23, R29, R30, R35, R36, R37, R40, R41, R42, R44];

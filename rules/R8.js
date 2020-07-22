@@ -9,7 +9,7 @@ export default {
         fluxo:[
             {
             key: '1A',
-            title: 'Does accessible name describes purpose?',
+            title: 'Does accessible name #{a} describes purpose?',
             answerYes: 'Pass',
             answerNo: 'Fail',
             },

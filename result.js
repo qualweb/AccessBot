@@ -1,10 +1,10 @@
 import rules from "./rules/index.js";
+import rulesCategories from "./rules/categories.js"; 
 import assessments from "./rules/assessments/index.js";
 import DecisionTree from "./DecisionTree.js";
 import ManualSteps from "./ManualSteps.js";
 //const generateEARLAssertions = require('./node_modules/@qualweb/earl-reporter/dist/index.js').generateEARLAssertions;
 import {generateEARLAssertions} from "@qualweb/earl-reporter";
-import { result } from "lodash";
 
 //import result from "./testData.js";
 let resultData = {};
@@ -119,12 +119,19 @@ function generateCategoriesData(result, options) {
         const id = ruleValue.id;
 
         //console.log(ruleValue);
-
+/*
         const indexValue = rules.findIndex(rule => {
             if(Array.isArray(rule)) {
                 return rule[0].code === ruleCode;
             }
             return rule.code === ruleCode;
+        });
+*/
+
+        const rulesArray = Object.entries(rulesCategories);
+
+        const indexValue = rulesArray.findIndex(rule => {
+            return rule[1].some(ruleCategoryValue => ruleCategoryValue === ruleCode.split("-")[2]); 
         });
 
         //console.log("values", result);
@@ -132,6 +139,7 @@ function generateCategoriesData(result, options) {
         //console.log("results", ruleValue.results);
         
         if(indexValue > -1) {
+            /*
             const manualRule = rules[indexValue];
 
             //console.log("manualRule", manualRule);
@@ -140,12 +148,28 @@ function generateCategoriesData(result, options) {
             const getCategoryIndex = semiManualTests.categories.findIndex(function(category) {
                 return category.name === currentCategory;
             });
+            */
+
+            const currentCategory = rulesArray[indexValue][0];
+            const getCategoryIndex = semiManualTests.categories.findIndex(function(category) {
+                return category.name === currentCategory;
+            });
+
+            const manualRuleIndex = rules.findIndex(manualRule => {
+                return manualRule.code === ruleCode;
+            });
+
+            let manualRule;
+
+            if (manualRuleIndex > -1) {
+                manualRule = rules[manualRuleIndex];
+            }
 
             let total = 0;
             let questions = [];
 
             ruleValue.results.forEach((result) => {
-                if (isRuleValid(manualRule, result) && options.semimanual) {
+                if (manualRule && isRuleValid(manualRule, result) && options.semimanual) {
                     let ruleToDecisionTree;
                     manualRule.tree.forEach(function(manual) {
                         //console.log(manual.prerequisite);
@@ -168,7 +192,7 @@ function generateCategoriesData(result, options) {
                         selected: false,
                         manualAnswer: "",
                         note: '',
-                        type: 'semi'
+                        type: 'semi',
                     });
                 } else if(options.automatic) {
                     total++;
@@ -203,6 +227,7 @@ function generateCategoriesData(result, options) {
                             count: 0,
                             questions: questions,
                             selected: false,
+                            plusRule: manualRule && manualRule.plusRule ? manualRule.plusRule : []
                         }
                     ],
                 });
@@ -218,6 +243,7 @@ function generateCategoriesData(result, options) {
                         count: 0,
                         questions: questions,
                         selected: false,
+                        plusRule: manualRule && manualRule.plusRule ? manualRule.plusRule : []
                     }
                 );
                 semiManualTests.categories[getCategoryIndex].total += total;
@@ -270,9 +296,10 @@ function generateManualTests(manualTests, optionManual) {
                 {
                     rule: assessment.code,
                     name: assessment.name,
-                    description: ruleDescription,
-                    total: manualTests.categories[getCategoryIndex].rules.total++,
+                    description: assessment.description,
+                    id: assessment.id,
                     count: 0,
+                    total: 1,
                     selected: false,
                     manualTest: {
                         test: new ManualSteps(assessment.tree),
@@ -416,7 +443,11 @@ function removeHTML() {
 function generateQuestionSection(rule) {
     const questionSection = document.querySelector('.ResultPage .result:last-child');
     questionSection.innerHTML = `<h2 class="RuleTitle">${rule.name}</h2>
-    <span class="RuleLink">${rule.rule} ACT <a href="${rule.url}" target="_blank">${rule.id}</a></span>
+    <div class="plusRule">
+        <span class="RuleLink">
+            ${rule.rule} ACT <a href="${rule.url}" target="_blank">${rule.id}</a>
+        </span>
+    </div>
     <p class="RuleDescription">${rule.description}</p>
     <ol class="ResultList"></ol>`
     rule.questions.forEach(function(question, index) {
@@ -429,6 +460,11 @@ function generateQuestionSection(rule) {
             }
         }
     });
+
+    rule.plusRule.forEach(function (plusLink) {
+        const plusRuleSelection = document.querySelector('.ResultPage .result:last-child .plusRule .RuleLink');
+        plusRuleSelection.insertAdjacentHTML('beforeend', `, <a href="${plusLink.plusRuleUrl}" target="_blank">${plusLink.plusRuleCode}</a>`);
+    })
 
     document.querySelectorAll('pre code').forEach((block) => {
         hljs.highlightBlock(block);
@@ -461,8 +497,10 @@ function generateManualTest(manualTest, index) {
                     <div class="manualTest-area">
                         <div class="manualTestQuestion" id="question-0">${question}</div>
                         <div id="radios-${index}">
-                            <input type="radio" name="radio-${index}" value="1">yes
-                            <input type="radio" name="radio-${index}" value="0">no
+                            <label for="yes">yes</label>
+                            <input id="yes" type="radio" name="radio-${index}" value="1">
+                            <label for="no">no</label>
+                            <input id="no" type="radio" name="radio-${index}" value="0">
                         </div>
                     </div>
                 </div>
@@ -598,7 +636,7 @@ function generateResult(result, index) {
 function generateQuestion(question, index) {
     const questionSection = document.querySelector('.ResultList');
     const decisionTree = question.decisionTree;
-    const title = decisionTree.current().title;
+    const title = decisionTree.current().title.replace("#{a}", `"${question.accessibleName}"` || "");
     const code = question.htmlCode.replace(/</g,"&lt;");
     const status = decisionTree.getStatus();
 
@@ -612,8 +650,10 @@ function generateQuestion(question, index) {
                 <div class="QuestionText" id="text-0">${title}</div>
                 <div class="Flex-h" id="question-area-${index}">
                     <div id="radios-${index}">
-                        <input type="radio" name="radio-${index}" value="1">yes
-                        <input type="radio" name="radio-${index}" value="0">no
+                        <label for="yes">yes</label>
+                        <input id="yes" type="radio" name="radio-${index}" value="1">
+                        <label for="no">no</label>
+                        <input id="no" type="radio" name="radio-${index}" value="0">
                     </div>
                 </div>
             </div>
