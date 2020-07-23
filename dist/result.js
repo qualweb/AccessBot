@@ -3982,7 +3982,12 @@ function showQuestion(question) {
     } else if (question.decisionTree && question.decisionTree.status !== "") {
         console.log(storedQuestions);
         console.log(question);
-        const findIndex = storedQuestions.findIndex(storeQuestion => storeQuestion.pointer === question.pointer);
+        const findIndex = storedQuestions.findIndex(storeQuestion => {
+            if(!storedQuestion.elements[0] || !question.elements[0]) {
+                return false;
+            }
+            return storeQuestion.elements[0].pointer === question.elements[0].pointer
+        });
         if(findIndex > -1) {
             return filters.uncompletedTests;
         }
@@ -4198,13 +4203,11 @@ function generateResult(result, index) {
     if(verdict === "warning") {
         verdict = "Cannot tell"
     }
-    const code = result.htmlCode.replace(/</g,"&lt;");
+
     questionSection.insertAdjacentHTML('beforeend', `<li>
         <div id="question-${index}">
-            <label class="checkmark"><input type="checkbox" id="checkmark-question-${index}" name="checkmark-question-${index}" value="">Highlight on page</label>
-            <pre><code class="html">
-                ${code}
-            </code></pre>
+            <div class="htmlCodeWrapper">
+            </div>
             <div class="CommunicateResult" id="question-area-${index}">
                 <div>Status: <span>${verdict}</span></div>
                 <div>Reason: <span>${result.description}</span></div>
@@ -4220,19 +4223,32 @@ function generateResult(result, index) {
             </select>
         </div>
     </li>`);
+    
+    result.elements.forEach(function(htmlElement) {
+        document.querySelector(`.ResultList #question-${index} .htmlCodeWrapper`).insertAdjacentHTML('beforeend', `<pre><code class="html">
+        ${htmlElement.htmlCode.replace(/</g,"&lt;")}</code></pre>`);
+    });
+
+    if (result.elements[0]) {
+        document.querySelector(`#question-${index}`).insertAdjacentHTML('afterbegin', `<label class="checkmark"><input type="checkbox" id="checkmark-question-${index}" name="checkmark-question-${index}" value="">Highlight on page</label>`);
+    }
 
     function checkPageHighlight(checkmark) {
         //console.log(question.selected);
         checkmark.checked = result.selected;
         if (checkmark.checked) {
-            highlightedItems.push(result.pointer);
-            chrome.runtime.sendMessage({message:"overResultElement", element: result.pointer});
+            result.elements.forEach(function(htmlElement) {
+                highlightedItems.push(htmlElement.pointer);
+                chrome.runtime.sendMessage({message:"overResultElement", element: htmlElement.pointer});
+            });
         } else {
-            const index = highlightedItems.findIndex(pointer => pointer === result.pointer);
-            if (index > -1) {
-                highlightedItems.splice(index, 1);
-            }
-            chrome.runtime.sendMessage({message:"outResultElement", element: result.pointer});
+            result.elements.forEach(function(htmlElement) {
+                const index = highlightedItems.findIndex(pointer => pointer === htmlElement.pointer);
+                if (index > -1) {
+                    highlightedItems.splice(index, 1);
+                }
+                chrome.runtime.sendMessage({message:"outResultElement", element: htmlElement.pointer});
+            });
         }
     }
 
@@ -4245,12 +4261,13 @@ function generateResult(result, index) {
         document.querySelector(`#select-${index} [value=${result.manualAnswer}]`).selected = true;
     }
 
-    checkPageHighlight(checkmark);
-
-    checkmark.onchange = function(e) {
-        console.log("changed highlight state");
-        result.selected = e.target.checked;
+    if (checkmark) {
         checkPageHighlight(checkmark);
+        checkmark.onchange = function(e) {
+            console.log("changed highlight state");
+            result.selected = e.target.checked;
+            checkPageHighlight(checkmark);
+        }
     }
 
     select.onchange = function(e) {
@@ -4265,16 +4282,13 @@ function generateQuestion(question, index) {
     const questionSection = document.querySelector('.ResultList');
     const decisionTree = question.decisionTree;
     const title = decisionTree.current().title.replace("#{a}", `"${question.accessibleName}"` || "");
-    const code = question.htmlCode.replace(/</g,"&lt;");
     const status = decisionTree.getStatus();
 
     if (!status) {
         questionSection.insertAdjacentHTML('beforeend', `<li>
             <div id="question-${index}">
-                <label class="checkmark"><input type="checkbox" id="checkmark-question-${index}" name="checkmark-question-${index}" value="">Highlight on page</label>
-                <pre><code class="html">
-                    ${code}
-                </code></pre>
+                <div class="htmlCodeWrapper"> 
+                </div>
                 <div class="QuestionText" id="text-0">${title}</div>
                 <div class="Flex-h" id="question-area-${index}">
                     <div id="radios-${index}">
@@ -4289,10 +4303,8 @@ function generateQuestion(question, index) {
     } else {
         questionSection.insertAdjacentHTML('beforeend', `<li>
             <div id="question-${index}">
-                <label class="checkmark"><input type="checkbox" id="checkmark-question-${index}" name="checkmark-question-${index}" value="">Highlight on page</label>
-                <pre><code class="html">
-                    ${code}
-                </code></pre>
+                <div class="htmlCodeWrapper"> 
+                </div>
                 <div class="CommunicateResult" id="question-area-${index}">
                     <div>Status: <span>${status}</span></div>
                     <div>Reason: <span>${decisionTree.current().title}</span></div>
@@ -4302,6 +4314,11 @@ function generateQuestion(question, index) {
         </li>`);
     }
 
+    question.elements.forEach(function(htmlElement) {
+        document.querySelector(`.ResultList #question-${index} .htmlCodeWrapper`).insertAdjacentHTML('beforeend', `<pre><code class="html">
+        ${htmlElement.htmlCode.replace(/</g,"&lt;")}</code></pre>`);
+    });
+    
     if(!decisionTree.firstElement()) {
         const question = document.querySelector(`#question-area-${index}`);
         question.insertAdjacentHTML('beforeend', `<button id="button-revert-${index}">Revert</button>`);
@@ -4323,18 +4340,26 @@ function generateQuestion(question, index) {
         }
     }
 
+    if (question.elements[0]) {
+        document.querySelector(`#question-${index}`).insertAdjacentHTML('afterbegin', `<label class="checkmark"><input type="checkbox" id="checkmark-question-${index}" name="checkmark-question-${index}" value="">Highlight on page</label>`);
+    }
+
     function checkPageHighlight(checkmark) {
         //console.log(question.selected);
         checkmark.checked = question.selected;
         if (checkmark.checked) {
-            highlightedItems.push(question.pointer);
-            chrome.runtime.sendMessage({message:"overResultElement", element: question.pointer});
+            question.elements.forEach(function(htmlElement) {
+                highlightedItems.push(htmlElement.pointer);
+                chrome.runtime.sendMessage({message:"overResultElement", element: htmlElement.pointer});
+            });
         } else {
-            const index = highlightedItems.findIndex(pointer => pointer === question.pointer);
-            if (index > -1) {
-                highlightedItems.splice(index, 1);
-            }
-            chrome.runtime.sendMessage({message:"outResultElement", element: question.pointer});
+            question.elements.forEach(function(htmlElement) {
+                const index = highlightedItems.findIndex(pointer => pointer === htmlElement.pointer);
+                if (index > -1) {
+                    highlightedItems.splice(index, 1);
+                }
+                chrome.runtime.sendMessage({message:"outResultElement", element: htmlElement.pointer});
+            });
         }
     }
 
@@ -4346,7 +4371,12 @@ function generateQuestion(question, index) {
         button.onclick = function() {
             decisionTree.revert(); 
             question.complete = false;
-            const storedQuestionIndex = storedQuestions.findIndex(storedQuestion => storedQuestion.pointer === question.pointer);
+            const storedQuestionIndex = storedQuestions.findIndex(storedQuestion => {
+                if(!storedQuestion.elements[0]  || !question.elements[0]) {
+                    return false;
+                }
+                return storedQuestion.elements[0].pointer === question.elements[0].pointer;
+            });
             if (storedQuestionIndex > -1) {
                 storedQuestions.splice(storedQuestionIndex, 1);
             }
