@@ -276,6 +276,8 @@ function generateManualTests(manualTests, optionManual) {
                         rule: assessment.code,
                         name: assessment.name,
                         description: assessment.description,
+                        code: assessment.code,
+                        url: assessment.url,
                         id: assessment.id,
                         total: 1,
                         count: 0,
@@ -297,6 +299,8 @@ function generateManualTests(manualTests, optionManual) {
                     rule: assessment.code,
                     name: assessment.name,
                     description: assessment.description,
+                    code: assessment.code,
+                    url: assessment.url,
                     id: assessment.id,
                     count: 0,
                     total: 1,
@@ -478,8 +482,10 @@ function generateQuestionSection(rule) {
 
 function generateManualTestSection(rule) {
     const questionSection = document.querySelector('.ResultPage .result:last-child');
+    console.log(rule);
     questionSection.innerHTML = `
     <h2 class="RuleTitle">${rule.name}</h2>
+    <p class ="RuleLink"><a href="${rule.url}">${rule.code}</a></p>
     <p class="RuleDescription">${rule.manualTest.description}</p>
     <p class="RuleImportance"><span class="RuleWhy">Why is this important:</span> ${rule.manualTest.importance}</p>
     <p class="stepsReproduce">Steps to reproduce:</p>

@@ -3268,7 +3268,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ var Keyboard_focusable = ({
     code: '80af7b',
-    link: 'https://act-rules.github.io/rules/80af7b',
+    url: 'https://act-rules.github.io/rules/80af7b',
     name: 'Are elements focusable with keyboard?',
     category: rules_const.KEYBOARD,
     whyImportant: `Users must be able to access and interact with interface components using only the
@@ -3322,7 +3322,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ var Text_content_automatically_changes = ({
     code: 'efbfc7',
-    link: 'https://act-rules.github.io/rules/efbfc7',
+    url: 'https://act-rules.github.io/rules/efbfc7',
     name: 'Text content that changes automatically can be paused, stopped or hidden.',
     category: rules_const.TIME,
     whyImportant: `The intent of this Success Criterion is to avoid distracting users during their interaction with a Web page.`,
@@ -3904,6 +3904,8 @@ function generateManualTests(manualTests, optionManual) {
                         rule: assessment.code,
                         name: assessment.name,
                         description: assessment.description,
+                        code: assessment.code,
+                        url: assessment.url,
                         id: assessment.id,
                         total: 1,
                         count: 0,
@@ -3925,6 +3927,8 @@ function generateManualTests(manualTests, optionManual) {
                     rule: assessment.code,
                     name: assessment.name,
                     description: assessment.description,
+                    code: assessment.code,
+                    url: assessment.url,
                     id: assessment.id,
                     count: 0,
                     total: 1,
@@ -4106,8 +4110,10 @@ function generateQuestionSection(rule) {
 
 function generateManualTestSection(rule) {
     const questionSection = document.querySelector('.ResultPage .result:last-child');
+    console.log(rule);
     questionSection.innerHTML = `
     <h2 class="RuleTitle">${rule.name}</h2>
+    <p class ="RuleLink"><a href="${rule.url}">${rule.code}</a></p>
     <p class="RuleDescription">${rule.manualTest.description}</p>
     <p class="RuleImportance"><span class="RuleWhy">Why is this important:</span> ${rule.manualTest.importance}</p>
     <p class="stepsReproduce">Steps to reproduce:</p>

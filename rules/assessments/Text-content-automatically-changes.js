@@ -3,7 +3,7 @@ import CategoryConst from "../const.js";
 
 export default {
     code: 'efbfc7',
-    link: 'https://act-rules.github.io/rules/efbfc7',
+    url: 'https://act-rules.github.io/rules/efbfc7',
     name: 'Text content that changes automatically can be paused, stopped or hidden.',
     category: CategoryConst.TIME,
     whyImportant: `The intent of this Success Criterion is to avoid distracting users during their interaction with a Web page.`,
