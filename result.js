@@ -485,7 +485,7 @@ function generateManualTestSection(rule) {
     console.log(rule);
     questionSection.innerHTML = `
     <h2 class="RuleTitle">${rule.name}</h2>
-    <p class ="RuleLink"><a href="${rule.url}">${rule.code}</a></p>
+    <p class ="RuleLink">ACT <a href="${rule.url}">${rule.code}</a></p>
     <p class="RuleDescription">${rule.manualTest.description}</p>
     <p class="RuleImportance"><span class="RuleWhy">Why is this important:</span> ${rule.manualTest.importance}</p>
     <p class="stepsReproduce">Steps to reproduce:</p>
