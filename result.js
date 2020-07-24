@@ -666,7 +666,11 @@ function generateResult(result, index) {
 function generateQuestion(question, index) {
     const questionSection = document.querySelector('.ResultList');
     const decisionTree = question.decisionTree;
-    const title = decisionTree.current().title.replace("#{a}", `"${question.accessibleName}"` || "");
+    let title = "";
+    if (question.elements[0] && question.elements[0].accessibleName) {
+        title = decisionTree.current().title.replace("#{a}", `"${question.elements[0].accessibleName}"`);
+    }
+    
     const status = decisionTree.getStatus();
 
     if (!status) {
