@@ -257,6 +257,9 @@ function generateManualTests(manualTests, optionManual) {
     if (!optionManual) {
         return manualTests;
     }
+
+    let total = 0;
+
     assessments.forEach(function(assessment) {
         const getCategoryIndex = manualTests.categories.findIndex(function(category) {
             return category.name === assessment.category;
@@ -293,6 +296,7 @@ function generateManualTests(manualTests, optionManual) {
                     }
                 ],
             });
+            total++;
         } else {
             manualTests.categories[getCategoryIndex].rules.push(
                 {
@@ -316,6 +320,7 @@ function generateManualTests(manualTests, optionManual) {
                 }
             );
             manualTests.categories[getCategoryIndex].total++;
+            total++;
         }
     });
 
@@ -324,6 +329,8 @@ function generateManualTests(manualTests, optionManual) {
         if(a.name > b.name) { return 1; }
         return 0;
     });
+
+    manualTests.total += total;
 
     return manualTests;
 }
@@ -358,11 +365,11 @@ function showQuestion(question) {
     } else if (question.decisionTree && question.decisionTree.status !== "") {
         console.log(storedQuestions);
         console.log(question);
-        const findIndex = storedQuestions.findIndex(storeQuestion => {
+        const findIndex = storedQuestions.findIndex(storedQuestion => {
             if(!storedQuestion.elements[0] || !question.elements[0]) {
                 return false;
             }
-            return storeQuestion.elements[0].pointer === question.elements[0].pointer
+            return storedQuestion.elements[0].pointer === question.elements[0].pointer
         });
         if(findIndex > -1) {
             return filters.uncompletedTests;
