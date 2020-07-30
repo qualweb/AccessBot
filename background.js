@@ -1,6 +1,7 @@
 let onlyValidResults = [];
 let options = {};
 let qualwebResult = {};
+let url = ""; 
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
@@ -22,6 +23,7 @@ chrome.runtime.onMessage.addListener(
 
             chrome.tabs.query({active: true, windowId: windowId}, function(tabs) {
               const activeTabId = tabs[0].id;
+              url = tabs[0].url;
               chrome.tabs.sendMessage(activeTabId, {message: "getDocument"}, async function(actResult) {
                 qualwebResult = actResult;
                 
@@ -69,7 +71,7 @@ chrome.runtime.onMessage.addListener(
         });
     }
     if (request.message === "resultLoaded") {
-      chrome.runtime.sendMessage({message: "resultsToPopup", values: onlyValidResults, options, result: qualwebResult });
+      chrome.runtime.sendMessage({message: "resultsToPopup", values: onlyValidResults, options, result: qualwebResult, website: url });
     }
 
       //from background to content

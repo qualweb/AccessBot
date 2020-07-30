@@ -82,18 +82,20 @@ var popup =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 8:
+/***/ 9:
 /***/ (function(module, exports) {
 
 document.addEventListener("DOMContentLoaded", 
     function(event) {
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
             document.getElementById('URL').innerHTML = "URL: " + tabs[0].url;
+        
+        //url = tabs[0].url;
         });
 
         const manual = document.getElementById("manual");
@@ -133,6 +135,8 @@ chrome.runtime.onMessage.addListener(
     }
   }
 );
+
+
 
 /***/ })
 

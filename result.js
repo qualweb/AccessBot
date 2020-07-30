@@ -4,7 +4,7 @@ import assessments from "./rules/assessments/index.js";
 import DecisionTree from "./DecisionTree.js";
 import ManualSteps from "./ManualSteps.js";
 //const generateEARLAssertions = require('./node_modules/@qualweb/earl-reporter/dist/index.js').generateEARLAssertions;
-import {generateEARLAssertions} from "@qualweb/earl-reporter";
+import resultToEarl from "./earl.js";
 
 //import result from "./testData.js";
 let resultData = {};
@@ -26,16 +26,16 @@ chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         //console.log("receiving message");
         if(request.message === "resultsToPopup") {
-            //console.log("request.values", request.values);
+            //console.log("request.values", request);
             resultData = generateManualTests(generateCategoriesData(request.values, request.options), request.options.manual);
             updateResults();
             const exportButton = document.querySelectorAll('.ExportButton')[0];
             const removeHighlights = document.querySelectorAll('.HighlightButton')[0];
             exportButton.onclick = async function() {
-                console.log("new object");
-                console.log(request.result);
-                console.log(await generateEARLAssertions(request.result));
+                const name = "Tânia Frazão";
+                console.log(await resultToEarl(request.result, resultData, request.website, name));
             }
+
             removeHighlights.onclick = async function() {
                 console.log(highlightedItems);
                 highlightedItems.forEach(pointer => {

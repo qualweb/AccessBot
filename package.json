@@ -26,6 +26,6 @@
   "dependencies": {
     "@qualweb/act-rules": "^0.4.18",
     "@qualweb/core": "^0.4.11",
-    "@qualweb/earl-reporter": "^0.2.6"
+    "@qualweb/earl-reporter": "^0.2.7"
   }
 }

@@ -82,11 +82,17 @@ var result =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
+/******/ 	return __webpack_require__(__webpack_require__.s = 12);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module) {
+
+module.exports = JSON.parse("{\"b\":\"AccessBot\",\"c\":\"1.1.1\",\"a\":\"Assisted Evaluation powered by QualWeb.\"}");
+
+/***/ }),
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -95,11 +101,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const lodash_clonedeep_1 = __importDefault(__webpack_require__(1));
-const act_rules_reporter_1 = __importDefault(__webpack_require__(4));
-const html_techniques_reporter_1 = __importDefault(__webpack_require__(5));
-const css_techniques_reporter_1 = __importDefault(__webpack_require__(6));
-const best_practices_reporter_1 = __importDefault(__webpack_require__(7));
+exports.generateEARLReport = exports.generateEARLAssertions = void 0;
+const lodash_clonedeep_1 = __importDefault(__webpack_require__(2));
+const act_rules_reporter_1 = __importDefault(__webpack_require__(5));
+const html_techniques_reporter_1 = __importDefault(__webpack_require__(6));
+const css_techniques_reporter_1 = __importDefault(__webpack_require__(7));
+const best_practices_reporter_1 = __importDefault(__webpack_require__(8));
 async function generateEARLAssertions(report, date) {
     switch (report.type) {
         case 'act-rules':
@@ -135,6 +142,7 @@ function reportModule(module, options) {
     }
 }
 async function generateSingleEarlReport(report, options) {
+    var _a;
     const earlReport = {
         '@context': 'https://act-rules.github.io/earl-context.json',
         '@graph': new Array()
@@ -149,11 +157,11 @@ async function generateSingleEarlReport(report, options) {
     };
     const testSubject = {
         '@type': 'TestSubject',
-        source: report.system.url.inputUrl,
+        source: ((_a = report.system.url) === null || _a === void 0 ? void 0 : _a.inputUrl) || '',
         assertor,
         assertions: new Array()
     };
-    if (report.system.url.inputUrl !== report.system.url.completeUrl) {
+    if (report.system.url && report.system.url.inputUrl !== report.system.url.completeUrl) {
         testSubject.redirectedTo = report.system.url.completeUrl;
     }
     if (report.modules['act-rules'] && reportModule('act', options)) {
@@ -212,7 +220,7 @@ exports.generateEARLReport = generateEARLReport;
 
 
 /***/ }),
-/* 1 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {/**
@@ -1964,10 +1972,10 @@ function stubFalse() {
 
 module.exports = cloneDeep;
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2), __webpack_require__(3)(module)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3), __webpack_require__(4)(module)))
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports) {
 
 var g;
@@ -1993,7 +2001,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -2021,12 +2029,13 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 async function ACTRulesReportToEARL(report, date) {
+    var _a;
     const assertions = new Array();
     for (const ruleName in report.assertions || {}) {
         if (report.assertions[ruleName]) {
@@ -2036,7 +2045,7 @@ async function ACTRulesReportToEARL(report, date) {
                 for (const result of rule.results || []) {
                     const source = {
                         result: {
-                            pointer: result.pointer,
+                            pointer: (_a = result.elements) === null || _a === void 0 ? void 0 : _a.filter(e => e.pointer !== undefined).map(e => e.pointer).join(', '),
                             outcome: 'earl:' + (result.verdict !== 'warning' ? result.verdict : 'cantTell')
                         }
                     };
@@ -2070,7 +2079,7 @@ module.exports = ACTRulesReportToEARL;
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2119,7 +2128,7 @@ module.exports = HTMLTechniquesReportToEARL;
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2168,7 +2177,7 @@ module.exports = CSSTechniquesReportToEARL;
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2217,10 +2226,10 @@ module.exports = BestPracticesReportToEARL;
 
 
 /***/ }),
-/* 8 */,
 /* 9 */,
 /* 10 */,
-/* 11 */
+/* 11 */,
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3622,9 +3631,233 @@ class ManualSteps {
         return this.allValues.length === 1;
     }
 }
-// EXTERNAL MODULE: ./node_modules/@qualweb/earl-reporter/dist/index.js
-var dist = __webpack_require__(0);
+// EXTERNAL MODULE: ./manifest.json
+var manifest = __webpack_require__(0);
 
+// EXTERNAL MODULE: ./node_modules/@qualweb/earl-reporter/dist/index.js
+var dist = __webpack_require__(1);
+
+// CONCATENATED MODULE: ./earl.js
+
+
+
+let origin;
+
+async function resultToEarl(earlResult, accessbotResult, website, user) {
+    origin = Object.assign({},accessbotResult);
+
+    let test = {
+        system: {
+            name: manifest["b" /* name */],
+            description: manifest["a" /* description */],
+            version: manifest["c" /* version */],
+            homepage: "https://github.com/qualweb/AccessBot",
+            date: new Date(),
+            url: {
+                inputUrl: website,
+                completeUrl: website
+            },
+        },
+        modules: {
+            "act-rules": earlResult
+        },
+    };
+
+    const generatedEarl = await Object(dist["generateEARLReport"])({[test.system.url.completeUrl]: test});
+
+    const assign = Object.assign({}, generatedEarl[website]["@graph"][0].assertor);
+    const newAssertor = {
+        name: user
+    }
+    
+    generatedEarl[website]["@graph"][0].assertor = [assign, newAssertor]
+
+    const newAssertions = generateAssertions();
+
+    newAssertions.forEach(assert => {
+        generatedEarl[website]["@graph"][0].assertions.push(assert)
+    })
+
+    return generatedEarl;
+}
+
+function generateAssertions() {
+    const assertions = [];
+
+    const semiRules = filterRulesByType("semi");
+    const manualRules = filterRulesByType("manual");
+
+    return assertions.concat(addSemiRules(semiRules), addManualRules(manualRules));
+}
+
+function addRules(rules, mode) {
+    let tests;
+    let earlMode;
+    let tree;
+
+    if (!mode) {
+        return;
+    }
+
+    switch(mode) {
+        case "semi":
+            tests = "questions"
+            earlMode = "earl:semiAuto"
+            tree = "decisionTree"
+        break;
+        case "manual":
+            tests = "manualTest"
+            earlMode = "earl:manual"
+            tree = "manualTest"
+        break;
+        default:
+        break;
+    }
+
+    const assertions = [];
+
+    for (const rule of rules) {
+        const autoAssertions = {
+            "@type" : "Assertion",
+            mode: earlMode,
+            result: {},
+            test: {
+                "@id": rule.url,
+                "@type": "TestCase",
+                description: mode === "manual" ? rule[tests].description : rule.description,
+                title: rule.name
+            }
+        }
+
+        let getStatus;
+        let questions = [];
+
+        if(mode !== "manual") {
+            for (const question of rule[tests]) {
+
+                const status = question[tree].getStatus();
+
+                if (!question.complete) {
+                    continue;
+                }
+
+                switch (status) {
+                    case "Pass":
+                        getStatus = "passed"
+                        break;
+                    case "Fail":
+                        getStatus = "failed"
+                        break;
+                    default:
+                        getStatus = ""
+                }
+
+                if (!getStatus) {
+                    continue;
+                }
+
+                autoAssertions.result = {
+                    date: new Date(),
+                    description: "",       
+                    source: [],
+                    "@type": "TestResult",
+                }
+
+                let pointer = "";
+
+                if (question.elements)
+                    question.elements.forEach(element => {
+                        autoAssertions.result.source.push({
+                            result:{
+                                outcome: getStatus === "passed" ? "earl:passed" : "earl:failed", 
+                                pointer: element.pointer || ""
+                            }
+                        })
+                    })
+                }
+        } else {
+            const status = rule[tests].test.getStatus();
+
+            if (!rule.manualTest.complete) {
+                continue;
+            }
+
+            switch (status) {
+                case "Pass":
+                    getStatus = "passed"
+                    break;
+                case "Fail":
+                    getStatus = "failed"
+                    break;
+                default:
+                    getStatus = ""
+            }
+
+            if (!getStatus) {
+                continue;
+            }
+
+            autoAssertions.result.source.push({
+                result:{
+                    outcome: getStatus === "passed" ? "earl:passed" : "earl:failed", 
+                    pointer: ""
+                }
+            })
+        }
+
+        if(!questions.length) {
+            continue;
+        }
+
+        console.log("questions i got");
+        console.log(questions);
+
+        autoAssertions.result.source = questions;
+
+        console.log("final result");
+        console.log(autoAssertions)
+
+        assertions.push(autoAssertions);
+
+        console.log("final assertion");
+        console.log(assertions)
+    };
+
+    return assertions;
+}
+
+function addManualRules(manualRules) {
+    return addRules(manualRules, "manual");
+}
+
+function addSemiRules(semiRules) {
+    return addRules(semiRules, "semi"); 
+}
+
+function filterRulesByType(type) {
+    let filterResults = [];
+
+    origin.categories.forEach(category => {
+        const filterRule = category.rules.forEach(rule => {
+            if(rule.questions && type !== "manual") {
+                const filterQuestions = rule.questions.filter(question => {
+                    return question.type === type
+                })
+
+                if (filterQuestions.length > 0) {
+                    const length = filterResults.push(rule) -1;
+                    filterResults[length].questions = filterQuestions;
+                }
+            } else if (rule.manualTest && type === "manual") {
+                const length = filterResults.push(rule) -1;
+                filterResults[length].manualTest.type = "manual";
+            }
+        })
+    })
+
+    return filterResults;
+
+}
 // CONCATENATED MODULE: ./result.js
 
  
@@ -3654,16 +3887,16 @@ chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         //console.log("receiving message");
         if(request.message === "resultsToPopup") {
-            //console.log("request.values", request.values);
+            //console.log("request.values", request);
             resultData = generateManualTests(generateCategoriesData(request.values, request.options), request.options.manual);
             updateResults();
             const exportButton = document.querySelectorAll('.ExportButton')[0];
             const removeHighlights = document.querySelectorAll('.HighlightButton')[0];
             exportButton.onclick = async function() {
-                console.log("new object");
-                console.log(request.result);
-                console.log(await Object(dist["generateEARLAssertions"])(request.result));
+                const name = "Tânia Frazão";
+                console.log(await resultToEarl(request.result, resultData, request.website, name));
             }
+
             removeHighlights.onclick = async function() {
                 console.log(highlightedItems);
                 highlightedItems.forEach(pointer => {
