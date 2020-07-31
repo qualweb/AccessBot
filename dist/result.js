@@ -3720,7 +3720,12 @@ function addRules(rules, mode) {
         const autoAssertions = {
             "@type" : "Assertion",
             mode: earlMode,
-            result: {},
+            result: {    
+                date: new Date(),
+                description: "",       
+                source: [],
+                "@type": "TestResult",
+            },
             test: {
                 "@id": rule.url,
                 "@type": "TestCase",
@@ -3730,6 +3735,7 @@ function addRules(rules, mode) {
         }
 
         let getStatus;
+
         let questions = [];
 
         if(mode !== "manual") {
@@ -3756,27 +3762,32 @@ function addRules(rules, mode) {
                     continue;
                 }
 
-                autoAssertions.result = {
-                    date: new Date(),
-                    description: "",       
-                    source: [],
-                    "@type": "TestResult",
-                }
-
                 let pointer = "";
-
-                if (question.elements)
+                if (question.elements) {
                     question.elements.forEach(element => {
-                        autoAssertions.result.source.push({
-                            result:{
-                                outcome: getStatus === "passed" ? "earl:passed" : "earl:failed", 
-                                pointer: element.pointer || ""
-                            }
-                        })
-                    })
+                        if (element.pointer) {
+                            pointer = `${pointer}, ${element.pointer}`
+                        }
+                    });
                 }
+
+                questions.push({
+                    result:{
+                        outcome: getStatus === "passed" ? "earl:passed" : "earl:failed", 
+                        pointer: pointer,
+                        description: question[tree].current().title
+                    }
+                })
+            }
         } else {
             const status = rule[tests].test.getStatus();
+
+            autoAssertions.result = {
+                date: new Date(),
+                description: "",       
+                source: [],
+                "@type": "TestResult",
+            }
 
             if (!rule.manualTest.complete) {
                 continue;
@@ -3797,30 +3808,36 @@ function addRules(rules, mode) {
                 continue;
             }
 
-            autoAssertions.result.source.push({
+            questions.push({
                 result:{
                     outcome: getStatus === "passed" ? "earl:passed" : "earl:failed", 
-                    pointer: ""
+                    pointer: "",
+                    description: rule[tests].test.current().title
                 }
-            })
+            });
         }
 
         if(!questions.length) {
             continue;
         }
 
-        console.log("questions i got");
-        console.log(questions);
+        console.log("questions");
+        console.log(questions)
 
-        autoAssertions.result.source = questions;
+        const failedIndex = questions.findIndex(question => question.result.outcome === "earl:failed");
 
-        console.log("final result");
-        console.log(autoAssertions)
+        console.log(failedIndex);
+
+        autoAssertions.result.outcome = failedIndex === -1 ? "earl:passed" : "earl:failed";
+
+        autoAssertions.result.description = questions[failedIndex > -1 ? failedIndex : 0].result.description; 
+
+        questions.forEach(question => {
+            const {description, ...filterQuestion} = question.result;
+            autoAssertions.result.source.push({result: filterQuestion});
+        });
 
         assertions.push(autoAssertions);
-
-        console.log("final assertion");
-        console.log(assertions)
     };
 
     return assertions;
@@ -4528,8 +4545,11 @@ function generateQuestion(question, index) {
     const questionSection = document.querySelector('.ResultList');
     const decisionTree = question.decisionTree;
     let title = "";
+
     if (question.elements[0] && question.elements[0].accessibleName) {
         title = decisionTree.current().title.replace("#{a}", `"${question.elements[0].accessibleName}"`);
+    } else {
+        title = decisionTree.current().title.replace("#{a}", '');
     }
     
     const status = decisionTree.getStatus();
