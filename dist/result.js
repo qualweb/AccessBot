@@ -3643,7 +3643,7 @@ var dist = __webpack_require__(1);
 
 let origin;
 
-async function resultToEarl(earlResult, accessbotResult, website, user) {
+async function resultToEarl(earlResult, accessbotResult, website, firstname, lastname) {
     origin = Object.assign({},accessbotResult);
 
     let test = {
@@ -3667,7 +3667,9 @@ async function resultToEarl(earlResult, accessbotResult, website, user) {
 
     const assign = Object.assign({}, generatedEarl[website]["@graph"][0].assertor);
     const newAssertor = {
-        name: user
+        "@id" : firstname,
+        name: firstname + " " + lastname,
+        "@type": "Person"
     }
     
     generatedEarl[website]["@graph"][0].assertor = [assign, newAssertor]
@@ -3898,6 +3900,8 @@ let filters = {
 
 let storedQuestions = [];
 
+let jsonResult = {};
+
 chrome.runtime.sendMessage({message:"resultLoaded"});
 
 chrome.runtime.onMessage.addListener(
@@ -3907,12 +3911,44 @@ chrome.runtime.onMessage.addListener(
             //console.log("request.values", request);
             resultData = generateManualTests(generateCategoriesData(request.values, request.options), request.options.manual);
             updateResults();
-            const exportButton = document.querySelectorAll('.ExportButton')[0];
+            const exportToEarlButton = document.querySelectorAll('#downloadEARL')[0];
+            const exportToCSVButton = document.querySelectorAll('#downloadCSV')[0];
             const removeHighlights = document.querySelectorAll('.HighlightButton')[0];
-            exportButton.onclick = async function() {
-                const name = "Tânia Frazão";
-                console.log(await resultToEarl(request.result, resultData, request.website, name));
+            const popupClass = document.querySelectorAll('.popup-wrapper')[0];
+            const popupClassButton = document.querySelectorAll('#popupContentId button')[0];
+            const formAssertor = document.forms[0];
+            let clickedDownload = "";
+
+            exportToEarlButton.onclick = async function() {
+                clickedDownload = "earl";
+                popupClass.classList.toggle('show');
             }
+
+            exportToCSVButton.onclick = async function() {
+                clickedDownload = "csv";
+                popupClass.classList.toggle('show');
+            }
+
+            popupClassButton.onclick = async function() {
+                console.log("onclick");
+                const formData = new FormData(formAssertor);
+                console.log(formData);
+                const firstname = formData.get("fname");
+                const lastname = formData.get("lname");
+                console.log(firstname);
+                console.log(lastname);
+                console.log(await resultToEarl(request.result, resultData, request.website, firstname, lastname));
+                jsonResult = await resultToEarl(request.result, resultData, request.website, firstname, lastname);
+
+                if (clickedDownload === "csv") {
+                    downloadCSV();
+                } else if (clickedDownload === "earl") {
+                    downloadEARL();
+                }
+
+                popupClass.classList.toggle('show');
+            }
+
 
             removeHighlights.onclick = async function() {
                 console.log(highlightedItems);
@@ -3940,6 +3976,51 @@ chrome.runtime.onMessage.addListener(
         }
     }
 );
+
+
+function downloadEARL() {
+    var  dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(jsonResult));
+    const newLocal = 'downloadEARL';
+    const  dlAnchorElem = document.createElement("a");
+    dlAnchorElem.setAttribute("href", dataStr);
+    dlAnchorElem.setAttribute("download", "accessBot_earl.json");
+    dlAnchorElem.click();
+}
+
+function downloadCSV() {
+    const entries = Object.entries(jsonResult);
+
+    const fields = Object.keys(entries[0]);
+    const replacer = function(key, value) {
+        return value === null ? '' : value 
+    }
+    let csv = entries.map(function(row) {
+        return fields.map(function(fieldName) {
+            return JSON.stringify(row[fieldName], replacer)
+
+        }).join(',')
+    })
+
+    csv.unshift(fields.join(','));
+    csv = csv.join('\r\n');
+    //console.log("cheguei aqui");// remove 0,1 do result
+    //console.log(csv);
+
+    var  dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(csv);
+    const newLocal = 'downloadCSV';
+    var  dlAnchorElem = document.createElement("a");
+    dlAnchorElem.setAttribute("href", dataStr);
+    dlAnchorElem.setAttribute("download", "accessBot_csv.csv");
+    dlAnchorElem.click();
+
+
+
+}
+
+
+
+
+
 /*
 //for tests. remove this
 

@@ -16,12 +16,24 @@
             <div class="result"></div>
             <div class="actionButtons">
               <button class="HighlightButton">Remove highlights</button>
-              <button class="ExportButton">Export</button>
+              <a id ="downloadEARL">
+                <button class="ExportButton">Export EARL</button>
+              </a>
+              <a id ="downloadCSV">
+                <button class="ExportButton">Export CSV</button>
+              </a>
             </div>
         </div>
         <div class="ResultSection result">
         </div>
       </div>        
+    </div>
+    <div class="popup-wrapper">
+        <form class="popup-content" id="popupContentId">
+          <label for="username_firstName">Assertor First name:</label><input id="username_firstName" type="text" name="fname"></input>
+          <label for="username_lastName">Assertor Last name:</label><input id="username_lastName" type="text" name="lname"></input>
+          <button type="button">Submit</button>
+        </form>
     </div>
   </body>
 </html>

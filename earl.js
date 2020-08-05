@@ -3,7 +3,7 @@ import {generateEARLReport} from "@qualweb/earl-reporter";
 
 let origin;
 
-export default async function resultToEarl(earlResult, accessbotResult, website, user) {
+export default async function resultToEarl(earlResult, accessbotResult, website, firstname, lastname) {
     origin = Object.assign({},accessbotResult);
 
     let test = {
@@ -27,7 +27,9 @@ export default async function resultToEarl(earlResult, accessbotResult, website,
 
     const assign = Object.assign({}, generatedEarl[website]["@graph"][0].assertor);
     const newAssertor = {
-        name: user
+        "@id" : firstname,
+        name: firstname + " " + lastname,
+        "@type": "Person"
     }
     
     generatedEarl[website]["@graph"][0].assertor = [assign, newAssertor]
