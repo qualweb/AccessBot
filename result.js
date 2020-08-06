@@ -478,11 +478,21 @@ function showQuestion(question) {
 function showFilters() {
     const resultSection = document.querySelector('.ResultList');
     resultSection.insertAdjacentHTML('beforeBegin', `<div class="resultFilters">
-    Pass<input type="checkbox" id="passFilter" name="passFilter">
-    Fail<input type="checkbox" id="failFilter" name="failFilter">
-    Cannot tell<input type="checkbox" id="cannotTellFilter" name="cannotTellFilter">
-    Inapplicable<input type="checkbox" id="inapplicableFilter" name="inapplicableFilter">
-    Uncompleted tests <input type="checkbox" id="uncompletedTestsFilter" name="uncompletedTestsFilter">
+    <div>
+        <input type="checkbox" id="passFilter" name="passFilter">Pass
+        </div>
+        <div>
+        <input type="checkbox" id="failFilter" name="failFilter">Fail
+        </div>
+        <div>
+        <input type="checkbox" id="cannotTellFilter" name="cannotTellFilter">Cannot tell
+        </div>
+        <div>
+        <input type="checkbox" id="inapplicableFilter" name="inapplicableFilter">Inapplicable
+        </div>
+        <div>
+        <input type="checkbox" id="uncompletedTestsFilter" name="uncompletedTestsFilter">Uncompleted tests 
+        </div>
     </div>`);
 
     const passFilter = document.querySelector('#passFilter');

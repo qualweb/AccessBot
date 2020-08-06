@@ -192,6 +192,20 @@
             top: -10px;
             left: -10px;
         }
+
+        .resultFilters {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .resultFilters > .div {
+            margin-left: 0 5px;
+            margin-right: 0 5px;
+
+
+        }
+
         #resultcount {
             padding-bottom: 1rem;
         }
