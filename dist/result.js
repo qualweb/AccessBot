@@ -4834,11 +4834,28 @@ function updateTotal() {
 
 function generateResultCount() {
     const text = document.querySelector("#resultcount");
-    text.innerHTML = `Pass: <span id="passCount">${resultData.pass}</span>  
+    text.innerHTML = 
+    `<div>
+    <input type="checkbox" id="passLeftFilter" name="passLeftFilter">
+    Pass: <span id="passCount">${resultData.pass}</span>
+    </div>
+    <div>
+    <input type="checkbox" id="failLeftFilter" name="failLeftFilter">
     Fail: <span id="failCount">${resultData.fail}</span> 
-    Cannot tell: <span id="warningCount">${resultData.warning}</span> 
+    </div>
+    <div>
+    <input type="checkbox" id="failLeftFilter" name="failLeftFilter">
+    Cannot tell: <span id="warningCount">${resultData.warning}</span>
+    </div>
+    <div>
+    <input type="checkbox" id="inapplicableLeftFilter" name="inapplicableLeftFilter">
     Inapplicable: <span id="inappliacbleCount">${resultData.inapplicable}</span> 
-    Uncompleted tests: <span id="missingCount">${resultData.missing}</span>`;
+    </div>
+    <div>
+    <input type="checkbox" id="uncompletedLeftFilter" name="uncompletedLeftFilter">
+    Uncompleted tests: <span id="missingCount">${resultData.missing}</span>
+    </div>`;
+    
 }
 
 function generateAccordions(category) {

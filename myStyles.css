@@ -206,8 +206,10 @@
 
         }
 
-        #resultcount {
+        #resultcount > div {
             padding-bottom: 1rem;
+            display: flex;
+            align-items: center;
         }
         .CommunicateResult > div {
             padding: 1rem 0 0 0;
