@@ -207,10 +207,23 @@
         }
 
         #resultcount > div {
+            column-count: 2;
+            margin-bottom: 10px;
+        }
+        #resultcount > div > div {
             padding-bottom: 1rem;
             display: flex;
             align-items: center;
+            
         }
+        
+        #resultcount >  h2 {
+            font-size: medium;
+            margin-bottom: 10px;
+            display: flex;
+            
+        }
+
         .CommunicateResult > div {
             padding: 1rem 0 0 0;
             font-size: 14px;

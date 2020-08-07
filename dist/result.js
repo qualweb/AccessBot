@@ -4091,7 +4091,7 @@ chrome.runtime.onMessage.addListener(
 
 
 function downloadEARL() {
-    var  dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(jsonResult));
+    var  dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(jsonResult, null, 2));
     const newLocal = 'downloadEARL';
     const  dlAnchorElem = document.createElement("a");
     dlAnchorElem.setAttribute("href", dataStr);
@@ -4512,6 +4512,7 @@ function showFilters() {
     const resultSection = document.querySelector('.ResultList');
     resultSection.insertAdjacentHTML('beforeBegin', `<div class="resultFilters">
     <div>
+        <div>
         <input type="checkbox" id="passFilter" name="passFilter">Pass
         </div>
         <div>
@@ -4980,26 +4981,32 @@ function updateTotal() {
 function generateResultCount() {
     const text = document.querySelector("#resultcount");
     text.innerHTML = 
-    `<div>
-    <input type="checkbox" id="passLeftFilter" name="passLeftFilter">
-    Pass: <span id="passCount">${resultData.pass}</span>
-    </div>
+    `
+    <h2> Filter tests by result: </h2>
     <div>
-    <input type="checkbox" id="failLeftFilter" name="failLeftFilter">
-    Fail: <span id="failCount">${resultData.fail}</span> 
+        <div>
+        <input type="checkbox" id="passLeftFilter" name="passLeftFilter">
+        Pass:  <span id="passCount">${resultData.pass}</span>
+        </div>
+        <div>
+        <input type="checkbox" id="failLeftFilter" name="failLeftFilter">
+        Fail:  <span id="failCount">${resultData.fail}</span> 
+        </div>
+        <div>
+        <input type="checkbox" id="cannotTellFilter" name="cannotTellFilter">
+        Cannot tell:  <span id="warningCount">${resultData.warning}</span>
+        </div>
+        <div>
+        <input type="checkbox" id="inapplicableLeftFilter" name="inapplicableLeftFilter">
+        Inapplicable:  <span id="inappliacbleCount">${resultData.inapplicable}</span> 
+        </div>
+        <div>
+        <input type="checkbox" id="uncompletedLeftFilter" name="uncompletedLeftFilter">
+        Uncompleted tests:  <span id="missingCount">${resultData.missing}</span>
+         </div>
     </div>
-    <div>
-    <input type="checkbox" id="cannotTellFilter" name="cannotTellFilter">
-    Cannot tell: <span id="warningCount">${resultData.warning}</span>
-    </div>
-    <div>
-    <input type="checkbox" id="inapplicableLeftFilter" name="inapplicableLeftFilter">
-    Inapplicable: <span id="inappliacbleCount">${resultData.inapplicable}</span> 
-    </div>
-    <div>
-    <input type="checkbox" id="uncompletedLeftFilter" name="uncompletedLeftFilter">
-    Uncompleted tests: <span id="missingCount">${resultData.missing}</span>
-    </div>`;
+    <br>
+    <h2>List of tests:</h2>`;
   
     const uncompletedTestsFilter = document.querySelector('#uncompletedLeftFilter');
     const inapplicableFilter = document.querySelector('#inapplicableLeftFilter');
