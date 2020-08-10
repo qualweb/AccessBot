@@ -3,10 +3,9 @@ import rulesCategories from "./rules/categories.js";
 import assessments from "./rules/assessments/index.js";
 import DecisionTree from "./DecisionTree.js";
 import ManualSteps from "./ManualSteps.js";
-//const generateEARLAssertions = require('./node_modules/@qualweb/earl-reporter/dist/index.js').generateEARLAssertions;
 import resultToEarl from "./earl.js";
+import clone from "lodash.clonedeep";
 
-//import result from "./testData.js";
 let resultData = {};
 let highlightedItems = [];
 
@@ -18,26 +17,62 @@ let filters = {
     uncompletedTests : true
 }
 
+let filtersLeft = {
+    pass : true,
+    fail : true,
+    cannotTell : true,
+    inapplicable : true,
+    uncompletedTests : true
+}
+
 let storedQuestions = [];
+
+let jsonResult = {};
 
 chrome.runtime.sendMessage({message:"resultLoaded"});
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
-        //console.log("receiving message");
         if(request.message === "resultsToPopup") {
-            //console.log("request.values", request);
             resultData = generateManualTests(generateCategoriesData(request.values, request.options), request.options.manual);
             updateResults();
-            const exportButton = document.querySelectorAll('.ExportButton')[0];
+            const exportToEarlButton = document.querySelectorAll('#downloadEARL')[0];
+            const exportToCSVButton = document.querySelectorAll('#downloadCSV')[0];
             const removeHighlights = document.querySelectorAll('.HighlightButton')[0];
-            exportButton.onclick = async function() {
-                const name = "Tânia Frazão";
-                console.log(await resultToEarl(request.result, resultData, request.website, name));
+            const popupClass = document.querySelectorAll('.popup-wrapper')[0];
+            const popupClassButton = document.querySelectorAll('#popupContentId button')[0];
+            const formAssertor = document.forms[0];
+            let clickedDownload = "";
+
+            const cloneresultData = clone(resultData);
+
+            exportToEarlButton.onclick = async function() {
+                clickedDownload = "earl";
+                popupClass.classList.toggle('show');
             }
 
+            exportToCSVButton.onclick = async function() {
+                clickedDownload = "csv";
+                popupClass.classList.toggle('show');
+            }
+
+            popupClassButton.onclick = async function() {
+                const formData = new FormData(formAssertor);
+                const firstname = formData.get("fname");
+                const lastname = formData.get("lname");
+                jsonResult = await resultToEarl(request.result, resultData, request.website, firstname, lastname);
+
+                if (clickedDownload === "csv") {
+                    downloadCSV();
+                } else if (clickedDownload === "earl") {
+                    downloadEARL();
+                }
+
+                popupClass.classList.toggle('show');
+            }
+
+
             removeHighlights.onclick = async function() {
-                console.log(highlightedItems);
                 highlightedItems.forEach(pointer => {
                     chrome.runtime.sendMessage({message:"outResultElement", element: pointer});
                 });
@@ -62,33 +97,45 @@ chrome.runtime.onMessage.addListener(
         }
     }
 );
-/*
-//for tests. remove this
 
-const options = {
-    manual: true,
-    semimanual: true,
-    automatic: true,
+
+function downloadEARL() {
+    var  dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(jsonResult, null, 2));
+    const newLocal = 'downloadEARL';
+    const  dlAnchorElem = document.createElement("a");
+    dlAnchorElem.setAttribute("href", dataStr);
+    dlAnchorElem.setAttribute("download", "accessBot_earl.json");
+    dlAnchorElem.click();
 }
 
-const rulesToArray = Object.values(result.rules);
-const onlyValidResults = rulesToArray.map(rule => {
-    const results = rule.results.filter(item => {
-        return item.verdict !== "inapplicable" && item.verdict !== "";
-    });
+function downloadCSV() {
+    const entries = Object.entries(jsonResult);
 
-    return {
-        code: rule.code,
-        description: rule.description,
-        results: results,
-        name: rule.name
+    const fields = Object.keys(entries[0]);
+    const replacer = function(key, value) {
+        return value === null ? '' : value 
     }
-});
+    let csv = entries.map(function(row) {
+        return fields.map(function(fieldName) {
+            return JSON.stringify(row[fieldName], replacer)
 
-resultData = generateManualTests(generateCategoriesData(result, options), options.manual);
-updateResults();
-//
-*/
+        }).join(',')
+    })
+
+    csv.unshift(fields.join(','));
+    csv = csv.join('\r\n');
+
+    var  dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(csv);
+    const newLocal = 'downloadCSV';
+    var  dlAnchorElem = document.createElement("a");
+    dlAnchorElem.setAttribute("href", dataStr);
+    dlAnchorElem.setAttribute("download", "accessBot_csv.csv");
+    dlAnchorElem.click();
+
+
+
+}
+
 function isRuleValid(ruleToCheck, result) {
     return ruleToCheck.tree.some(function(step) {
         const prerequesiteArray = step.prerequisite.replace(/\s/g, '').split(',');
@@ -118,42 +165,19 @@ function generateCategoriesData(result, options) {
         const url = ruleValue.url;
         const id = ruleValue.id;
 
-        //console.log(ruleValue);
-/*
-        const indexValue = rules.findIndex(rule => {
-            if(Array.isArray(rule)) {
-                return rule[0].code === ruleCode;
-            }
-            return rule.code === ruleCode;
-        });
-*/
-
         const rulesArray = Object.entries(rulesCategories);
 
         const indexValue = rulesArray.findIndex(rule => {
             return rule[1].some(ruleCategoryValue => ruleCategoryValue === ruleCode.split("-")[2]); 
         });
 
-        //console.log("values", result);
-        //console.log("ruleCode", ruleCode);
-        //console.log("results", ruleValue.results);
-        
         if(indexValue > -1) {
-            /*
-            const manualRule = rules[indexValue];
-
-            //console.log("manualRule", manualRule);
-
-            const currentCategory = manualRule.category;
-            const getCategoryIndex = semiManualTests.categories.findIndex(function(category) {
-                return category.name === currentCategory;
-            });
-            */
-
             const currentCategory = rulesArray[indexValue][0];
             const getCategoryIndex = semiManualTests.categories.findIndex(function(category) {
                 return category.name === currentCategory;
             });
+
+            const categoryNextIndex = semiManualTests.categories.length;
 
             const manualRuleIndex = rules.findIndex(manualRule => {
                 return manualRule.code === ruleCode;
@@ -172,8 +196,6 @@ function generateCategoriesData(result, options) {
                 if (manualRule && isRuleValid(manualRule, result) && options.semimanual) {
                     let ruleToDecisionTree;
                     manualRule.tree.forEach(function(manual) {
-                        //console.log(manual.prerequisite);
-                        //console.log(result.resultCode);
                         manual.prerequisite.split(',').forEach(function(prerequisite) {
                             const prerequisiteNoSpace = prerequisite.replace(/\s/g, '');
                             if (prerequisiteNoSpace === result.resultCode) {
@@ -182,9 +204,6 @@ function generateCategoriesData(result, options) {
                         })
                     });
 
-                    //console.log(ruleToDecisionTree)
-
-                    total++;
                     questions.push({
                         ...result,
                         decisionTree: new DecisionTree(ruleToDecisionTree),
@@ -193,17 +212,20 @@ function generateCategoriesData(result, options) {
                         manualAnswer: "",
                         note: '',
                         type: 'semi',
+                        index: total
                     });
-                } else if(options.automatic) {
                     total++;
+                } else if(options.automatic) {
                     questions.push({
                         ...result,
                         selected: false,
                         complete: true,
                         manualAnswer: "",
                         note: '',
-                        type: 'auto'
+                        type: 'auto',
+                        index: total
                     });
+                    total++;
                 }
             });
 
@@ -216,6 +238,7 @@ function generateCategoriesData(result, options) {
                     total: total,
                     count: 0,
                     selected: false,
+                    index: categoryNextIndex,
                     rules: [
                         {
                             rule: ruleCode,
@@ -227,11 +250,13 @@ function generateCategoriesData(result, options) {
                             count: 0,
                             questions: questions,
                             selected: false,
-                            plusRule: manualRule && manualRule.plusRule ? manualRule.plusRule : []
+                            plusRule: manualRule && manualRule.plusRule ? manualRule.plusRule : [],
+                            index: 0
                         }
                     ],
                 });
             } else {
+                const ruleNextIndex = semiManualTests.categories[getCategoryIndex].rules.length;
                 semiManualTests.categories[getCategoryIndex].rules.push(
                     {
                         rule: ruleCode,
@@ -243,7 +268,8 @@ function generateCategoriesData(result, options) {
                         count: 0,
                         questions: questions,
                         selected: false,
-                        plusRule: manualRule && manualRule.plusRule ? manualRule.plusRule : []
+                        plusRule: manualRule && manualRule.plusRule ? manualRule.plusRule : [],
+                        index: ruleNextIndex
                     }
                 );
                 semiManualTests.categories[getCategoryIndex].total += total;
@@ -265,7 +291,7 @@ function generateManualTests(manualTests, optionManual) {
             return category.name === assessment.category;
         });
 
-        //console.log("assessment", assessment);
+        const categoryNextIndex = manualTests.categories.length;
 
         if (getCategoryIndex === -1) {
             manualTests.categories.push({
@@ -274,6 +300,7 @@ function generateManualTests(manualTests, optionManual) {
                 total: 1,
                 count: 0,
                 selected: false,
+                index: categoryNextIndex,
                 rules: [
                     {
                         rule: assessment.code,
@@ -285,6 +312,7 @@ function generateManualTests(manualTests, optionManual) {
                         total: 1,
                         count: 0,
                         selected: false,
+                        index: 0,
                         manualTest: {
                             test: new ManualSteps(assessment.tree),
                             description: assessment.descriptionTest,
@@ -298,6 +326,7 @@ function generateManualTests(manualTests, optionManual) {
             });
             total++;
         } else {
+            const rulesNextIndex = manualTests.categories[getCategoryIndex].rules.length;
             manualTests.categories[getCategoryIndex].rules.push(
                 {
                     rule: assessment.code,
@@ -309,6 +338,7 @@ function generateManualTests(manualTests, optionManual) {
                     count: 0,
                     total: 1,
                     selected: false,
+                    index: rulesNextIndex,
                     manualTest: {
                         test: new ManualSteps(assessment.tree),
                         description: assessment.descriptionTest,
@@ -332,7 +362,98 @@ function generateManualTests(manualTests, optionManual) {
 
     manualTests.total += total;
 
+    manualTests.categories.forEach((category, index) => {
+        category.index = index;
+    });
+
     return manualTests;
+}
+
+function filterResultDataLeft() {
+    let filterCategories = [];
+    resultData.categories.forEach(function(category) {
+        let filterRules = [];
+        let totalCategory = 0;
+        let countCategory = 0;
+        category.rules.forEach(function(rule) {
+            let filterQuestions = [];
+            let filterManual = undefined;
+            if(rule.questions) {
+                filterQuestions = rule.questions.filter(question => {
+                    if(question.complete === false) {
+                        return filtersLeft.uncompletedTests === true
+                    } else if (question.manualAnswer) {
+                        return  question.manualAnswer === "passed" && filtersLeft.pass === true ||
+                        question.manualAnswer === "failed" && filtersLeft.fail === true ||
+                        question.manualAnswer === "inapplicable" && filtersLeft.inapplicable === true
+                    } else if (question.decisionTree) {
+                        return question.decisionTree.getStatus() === "Pass" && filtersLeft.pass === true ||
+                        question.decisionTree.getStatus() === "Fail" && filtersLeft.fail === true
+                    } else {
+                        return question.verdict === "passed" && filtersLeft.pass === true ||
+                        question.verdict === "failed" && filtersLeft.fail === true ||
+                        question.verdict === "inapplicable" && filtersLeft.inapplicable === true ||
+                        question.verdict === "warning" && filtersLeft.cannotTell === true ||
+                        question.verdict === "" && filtersLeft.cannotTell === true
+                    }
+                })
+            } else if(rule.manualTest) {
+                if(rule.manualTest.complete === false && filtersLeft.uncompletedTests === true) {
+                    filterManual = rule.manualTest;
+                } else if (rule.manualTest.test.getStatus() === "Pass" && filtersLeft.pass === true ||
+                rule.manualTest.test.getStatus() === "Fail" && filtersLeft.fail === true) {
+                    filterManual = rule.manualTest;
+                }
+            }
+
+            if (filterQuestions.length > 0) {
+                let count = 0;
+
+                filterQuestions.forEach(question => {
+                    if(question.complete)
+                        count++
+                });
+
+                totalCategory += filterQuestions.length;
+                countCategory += count;
+
+                filterRules.push({
+                    ...rule,
+                    total: filterQuestions.length,
+                    count,
+                    questions: filterQuestions,
+                })
+            }else if (rule.questions && rule.questions.length === 0) {
+                filterRules.push({
+                    ...rule
+                })
+            } else if(filterManual) {
+                const count = filterManual.complete ? 1 : 0;
+                totalCategory += 1;
+                countCategory += count;
+
+                filterRules.push({
+                    ...rule,
+                    count,
+                    manualTest: filterManual,
+                })
+            }
+        });
+
+        if (filterRules.length > 0) {
+            filterCategories.push({
+                ...category,
+                rules: filterRules,
+                total: totalCategory,
+                count: countCategory
+            });
+        }
+    });
+
+    return {
+        ...resultData,
+        categories: filterCategories,
+    }
 }
 
 function updateResults() {
@@ -340,16 +461,18 @@ function updateResults() {
     updateTotal();
     removeHTML();
     generateResultCount();
-    resultData.categories.forEach(function (category){
-        generateAccordions(category);
+    filterResultDataLeft().categories.forEach(function (category){
+        const originalCategory = resultData.categories[category.index];
+        generateAccordions(originalCategory, category);
         category.rules.forEach(function(rule) {
-            generatePanelRule(category, rule);
+            const originalRule = originalCategory.rules[rule.index];
+            generatePanelRule(originalCategory, originalRule, rule);
             if (rule.selected) {
                 if(rule.questions) {
-                    generateQuestionSection(rule);
+                    generateQuestionSection(originalRule, rule);
                     showFilters()
                 } else if(rule.manualTest) {
-                    generateManualTestSection(rule);
+                    generateManualTestSection(originalRule, rule);
                 }
             }
         })
@@ -363,8 +486,6 @@ function showQuestion(question) {
     } else if (question.decisionTree && question.decisionTree.status === "") {
         return filters.uncompletedTests;
     } else if (question.decisionTree && question.decisionTree.status !== "") {
-        console.log(storedQuestions);
-        console.log(question);
         const findIndex = storedQuestions.findIndex(storedQuestion => {
             if(!storedQuestion.elements[0] || !question.elements[0]) {
                 return false;
@@ -399,11 +520,21 @@ function showQuestion(question) {
 function showFilters() {
     const resultSection = document.querySelector('.ResultList');
     resultSection.insertAdjacentHTML('beforeBegin', `<div class="resultFilters">
-    Pass<input type="checkbox" id="passFilter" name="passFilter">
-    Fail<input type="checkbox" id="failFilter" name="failFilter">
-    Cannot tell<input type="checkbox" id="cannotTellFilter" name="cannotTellFilter">
-    Inapplicable<input type="checkbox" id="inapplicableFilter" name="inapplicableFilter">
-    Uncompleted tests <input type="checkbox" id="uncompletedTestsFilter" name="uncompletedTestsFilter">
+        <div>
+        <input type="checkbox" id="passFilter" name="passFilter">Pass
+        </div>
+        <div>
+        <input type="checkbox" id="failFilter" name="failFilter">Fail
+        </div>
+        <div>
+        <input type="checkbox" id="cannotTellFilter" name="cannotTellFilter">Cannot tell
+        </div>
+        <div>
+        <input type="checkbox" id="inapplicableFilter" name="inapplicableFilter">Inapplicable
+        </div>
+        <div>
+        <input type="checkbox" id="uncompletedTestsFilter" name="uncompletedTestsFilter">Uncompleted tests 
+        </div>
     </div>`);
 
     const passFilter = document.querySelector('#passFilter');
@@ -456,23 +587,26 @@ function removeHTML() {
      });
 }
 
-function generateQuestionSection(rule) {
+function generateQuestionSection(rule, filteredRule) {
     const questionSection = document.querySelector('.ResultPage .result:last-child');
-    questionSection.innerHTML = `<h2 class="RuleTitle">${rule.name}</h2>
+    questionSection.innerHTML = `
+    <h2 class="RuleTitle">${rule.name}</h2>
     <div class="plusRule">
         <span class="RuleLink">
             ${rule.rule} ACT <a href="${rule.url}" target="_blank">${rule.id}</a>
         </span>
     </div>
     <p class="RuleDescription">${rule.description}</p>
+    <h2>Filter evaluations by result:</h2>
     <ol class="ResultList"></ol>`
-    rule.questions.forEach(function(question, index) {
-        const isVisible = showQuestion(question);
+    filteredRule.questions.forEach(function(question) {
+        const originalQuestion = rule.questions[question.index]
+        const isVisible = showQuestion(originalQuestion);
         if (isVisible) {
             if(!question.decisionTree) {
-                generateResult(question, index);
+                generateResult(originalQuestion, question.index);
             } else {
-                generateQuestion(question, index);
+                generateQuestion(originalQuestion, question.index);
             }
         }
     });
@@ -489,7 +623,6 @@ function generateQuestionSection(rule) {
 
 function generateManualTestSection(rule) {
     const questionSection = document.querySelector('.ResultPage .result:last-child');
-    console.log(rule);
     questionSection.innerHTML = `
     <h2 class="RuleTitle">${rule.name}</h2>
     <p class ="RuleLink">ACT <a href="${rule.url}">${rule.code}</a></p>
@@ -576,7 +709,6 @@ function generateManualTest(manualTest, index) {
 }
 
 function generateResult(result, index) {
-    //console.log(result);
     let visible = '';
 
     if(result.manualAnswer !== "" && result.manualAnswer !== result.verdict) {
@@ -619,7 +751,6 @@ function generateResult(result, index) {
     }
 
     function checkPageHighlight(checkmark) {
-        //console.log(question.selected);
         checkmark.checked = result.selected;
         if (checkmark.checked) {
             result.elements.forEach(function(htmlElement) {
@@ -640,8 +771,6 @@ function generateResult(result, index) {
     const checkmark = document.querySelector(`#checkmark-question-${index}`);
     const select = document.querySelector(`#select-${index}`);
 
-    //var selectOptions = Array.apply(null, select.options).map(option => option.value);
-    console.log(result.manualAnswer)
     if (result.manualAnswer !== "warning" && result.manualAnswer !== "") {
         document.querySelector(`#select-${index} [value=${result.manualAnswer}]`).selected = true;
     }
@@ -649,14 +778,12 @@ function generateResult(result, index) {
     if (checkmark) {
         checkPageHighlight(checkmark);
         checkmark.onchange = function(e) {
-            console.log("changed highlight state");
             result.selected = e.target.checked;
             checkPageHighlight(checkmark);
         }
     }
 
     select.onchange = function(e) {
-        //console.log(e.target.value)
         result.manualAnswer = e.target.value;
         updateResults();
     }
@@ -737,7 +864,6 @@ function generateQuestion(question, index) {
     }
 
     function checkPageHighlight(checkmark) {
-        //console.log(question.selected);
         checkmark.checked = question.selected;
         if (checkmark.checked) {
             question.elements.forEach(function(htmlElement) {
@@ -803,7 +929,6 @@ function updateTotal() {
         category.rules.forEach(function(rule) {
             rule.count = 0;
             if (rule.manualTest) {
-                //console.log(rule.manualTest)
                 if(rule.manualTest.complete) {
                     resultData.count++;
                     category.count++;
@@ -865,23 +990,78 @@ function updateTotal() {
 
 function generateResultCount() {
     const text = document.querySelector("#resultcount");
-    text.innerHTML = `Pass: <span id="passCount">${resultData.pass}</span>  
-    Fail: <span id="failCount">${resultData.fail}</span> 
-    Cannot tell: <span id="warningCount">${resultData.warning}</span> 
-    Inapplicable: <span id="inappliacbleCount">${resultData.inapplicable}</span> 
-    Uncompleted tests: <span id="missingCount">${resultData.missing}</span>`;
+    text.innerHTML = 
+    `
+    <h2> Filter tests by result: </h2>
+    <div>
+        <div>
+        <input type="checkbox" id="passLeftFilter" name="passLeftFilter">
+        Pass:  <span id="passCount">${resultData.pass}</span>
+        </div>
+        <div>
+        <input type="checkbox" id="failLeftFilter" name="failLeftFilter">
+        Fail:  <span id="failCount">${resultData.fail}</span> 
+        </div>
+        <div>
+        <input type="checkbox" id="cannotTellFilter" name="cannotTellFilter">
+        Cannot tell:  <span id="warningCount">${resultData.warning}</span>
+        </div>
+        <div>
+        <input type="checkbox" id="inapplicableLeftFilter" name="inapplicableLeftFilter">
+        Inapplicable:  <span id="inappliacbleCount">${resultData.inapplicable}</span> 
+        </div>
+        <div>
+        <input type="checkbox" id="uncompletedLeftFilter" name="uncompletedLeftFilter">
+        Uncompleted evaluations:  <span id="missingCount">${resultData.missing}</span>
+         </div>
+    </div>
+    <br>
+    <h2>List of tests:</h2>`;
+  
+    const uncompletedTestsFilter = document.querySelector('#uncompletedLeftFilter');
+    const inapplicableFilter = document.querySelector('#inapplicableLeftFilter');
+    const failFilter = document.querySelector('#failLeftFilter');
+    const passFilter = document.querySelector('#passLeftFilter');
+    const cannotTellFilter = document.querySelector('#cannotTellFilter');
+
+    passFilter.checked = filtersLeft.pass;
+    failFilter.checked = filtersLeft.fail;
+    cannotTellFilter.checked = filtersLeft.cannotTell;
+    inapplicableFilter.checked = filtersLeft.inapplicable;
+    uncompletedTestsFilter.checked = filtersLeft.uncompletedTests;
+
+    uncompletedTestsFilter.onchange = function(e) {
+        filtersLeft.uncompletedTests = e.target.checked;
+        updateResults();
+    }
+    inapplicableFilter.onchange = function(e) {
+        filtersLeft.inapplicable = e.target.checked;
+        updateResults();        
+    }
+    failFilter.onchange = function(e) {
+        filtersLeft.fail = e.target.checked;
+        updateResults();        
+    }
+    cannotTellFilter.onchange = function(e) {
+        filtersLeft.cannotTell = e.target.checked;
+        updateResults();        
+    }
+    passFilter.onchange = function(e) {
+        filtersLeft.pass = e.target.checked;
+        updateResults();        
+    }
 }
 
-function generateAccordions(category) {
+function generateAccordions(originalCategory, category) {
     const accordionSection = document.querySelector('.ResultPage .result:first-child');
 
     let text = "";
     if (category.total === 0) {
-        text = `No tests available.`;
+        text = `No evaluations available.`;
     } else if (category.total === category.count) {
-            text = `All tests completed.`;
+            text = `All evaluations completed.`;
     } else {
-        text = `Completed ${category.count} out of ${category.total} tests.`;
+        text = `Completed ${category.count} out of ${category.total} evaluations.`;
     }
 
     accordionSection.insertAdjacentHTML('beforeend', `<div class="accordion-group">
@@ -895,14 +1075,14 @@ function generateAccordions(category) {
     </div>`);
 
     const button = document.querySelector(`#category-button-${category.fixedName}`);
-    //console.log(button);
+
     button.onclick = function() {
-        category.selected = !category.selected;
+        originalCategory.selected = !originalCategory.selected;
         updateResults();
     }
 }
 
-function generatePanelRule(category, rule) {
+function generatePanelRule(category, originalRule, rule) {
     const accordion = document.querySelector(`#panel-category-${category.fixedName}`);
 
     let hasAuto = false;
@@ -918,11 +1098,11 @@ function generatePanelRule(category, rule) {
 
     let text = "";
     if (rule.total === 0) {
-        text = `No tests available.`;
+        text = `No evaluations available.`;
     } else if (rule.total === rule.count) {
-            text = `All ${rule.total} tests completed.`;
+            text = `All ${rule.total} evaluations completed.`;
     } else {
-        text = `Completed ${rule.count} out of ${rule.total} tests.`;
+        text = `Completed ${rule.count} out of ${rule.total} evaluations.`;
     }
 
 
@@ -961,7 +1141,7 @@ function generatePanelRule(category, rule) {
                 changeRule.selected = false;
             });
         });
-        rule.selected = true;
+        originalRule.selected = true;
         document.querySelector(`.ResultSection.result`).scrollTop = 0;
         storedQuestions = [];
         updateResults();

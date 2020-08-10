@@ -95,134 +95,6 @@ module.exports = JSON.parse("{\"b\":\"AccessBot\",\"c\":\"1.1.1\",\"a\":\"Assist
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.generateEARLReport = exports.generateEARLAssertions = void 0;
-const lodash_clonedeep_1 = __importDefault(__webpack_require__(2));
-const act_rules_reporter_1 = __importDefault(__webpack_require__(5));
-const html_techniques_reporter_1 = __importDefault(__webpack_require__(6));
-const css_techniques_reporter_1 = __importDefault(__webpack_require__(7));
-const best_practices_reporter_1 = __importDefault(__webpack_require__(8));
-async function generateEARLAssertions(report, date) {
-    switch (report.type) {
-        case 'act-rules':
-            return await act_rules_reporter_1.default(report, date);
-        case 'html-techniques':
-            return await html_techniques_reporter_1.default(report, date);
-        case 'css-techniques':
-            return await css_techniques_reporter_1.default(report, date);
-        case 'best-practices':
-            return await best_practices_reporter_1.default(report, date);
-        default:
-            throw new Error('Invalid report type');
-    }
-}
-exports.generateEARLAssertions = generateEARLAssertions;
-function reportModule(module, options) {
-    if (!options || !options.modules) {
-        return true;
-    }
-    else {
-        switch (module) {
-            case 'act':
-                return !!options.modules.act;
-            case 'html':
-                return !!options.modules.html;
-            case 'css':
-                return !!options.modules.css;
-            case 'best-practices':
-                return !!options.modules['best-practices'];
-            default:
-                return false;
-        }
-    }
-}
-async function generateSingleEarlReport(report, options) {
-    var _a;
-    const earlReport = {
-        '@context': 'https://act-rules.github.io/earl-context.json',
-        '@graph': new Array()
-    };
-    const assertor = {
-        '@id': report.system.name,
-        '@type': 'Software',
-        title: report.system.name,
-        description: report.system.description,
-        hasVersion: report.system.version,
-        homepage: report.system.homepage
-    };
-    const testSubject = {
-        '@type': 'TestSubject',
-        source: ((_a = report.system.url) === null || _a === void 0 ? void 0 : _a.inputUrl) || '',
-        assertor,
-        assertions: new Array()
-    };
-    if (report.system.url && report.system.url.inputUrl !== report.system.url.completeUrl) {
-        testSubject.redirectedTo = report.system.url.completeUrl;
-    }
-    if (report.modules['act-rules'] && reportModule('act', options)) {
-        testSubject.assertions = [
-            ...testSubject.assertions,
-            ...(await generateEARLAssertions(report.modules['act-rules'], report.system.date))
-        ];
-    }
-    if (report.modules['html-techniques'] && reportModule('html', options)) {
-        testSubject.assertions = [
-            ...testSubject.assertions,
-            ...(await generateEARLAssertions(report.modules['html-techniques'], report.system.date))
-        ];
-    }
-    if (report.modules['css-techniques'] && reportModule('css', options)) {
-        testSubject.assertions = [
-            ...testSubject.assertions,
-            ...(await generateEARLAssertions(report.modules['css-techniques'], report.system.date))
-        ];
-    }
-    if (report.modules['best-practices'] && reportModule('best-practices', options)) {
-        testSubject.assertions = [
-            ...testSubject.assertions,
-            ...(await generateEARLAssertions(report.modules['best-practices'], report.system.date))
-        ];
-    }
-    earlReport['@graph'].push(lodash_clonedeep_1.default(testSubject));
-    return earlReport;
-}
-async function generateAggregatedEarlReport(reports, options) {
-    const aggregatedReport = {
-        '@context': 'https://act-rules.github.io/earl-context.json',
-        '@graph': new Array()
-    };
-    for (const report of reports || []) {
-        const earlReport = await generateSingleEarlReport(report, options);
-        aggregatedReport['@graph'].push(lodash_clonedeep_1.default(earlReport['@graph'][0]));
-    }
-    return aggregatedReport;
-}
-async function generateEARLReport(reports, options) {
-    const earlReports = {};
-    if (options && options.aggregated) {
-        const firstUrl = Object.keys(reports)[0];
-        earlReports[options.aggregatedName || firstUrl] = await generateAggregatedEarlReport(Object.values(reports), options);
-    }
-    else {
-        for (const url in reports || {}) {
-            const earlReport = await generateSingleEarlReport(reports[url], options);
-            earlReports[url] = lodash_clonedeep_1.default(earlReport);
-        }
-    }
-    return lodash_clonedeep_1.default(earlReports);
-}
-exports.generateEARLReport = generateEARLReport;
-
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
 /* WEBPACK VAR INJECTION */(function(global, module) {/**
  * lodash (Custom Build) <https://lodash.com/>
  * Build: `lodash modularize exports="npm" -o ./`
@@ -1975,6 +1847,134 @@ module.exports = cloneDeep;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3), __webpack_require__(4)(module)))
 
 /***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.generateEARLReport = exports.generateEARLAssertions = void 0;
+const lodash_clonedeep_1 = __importDefault(__webpack_require__(1));
+const act_rules_reporter_1 = __importDefault(__webpack_require__(5));
+const html_techniques_reporter_1 = __importDefault(__webpack_require__(6));
+const css_techniques_reporter_1 = __importDefault(__webpack_require__(7));
+const best_practices_reporter_1 = __importDefault(__webpack_require__(8));
+async function generateEARLAssertions(report, date) {
+    switch (report.type) {
+        case 'act-rules':
+            return await act_rules_reporter_1.default(report, date);
+        case 'html-techniques':
+            return await html_techniques_reporter_1.default(report, date);
+        case 'css-techniques':
+            return await css_techniques_reporter_1.default(report, date);
+        case 'best-practices':
+            return await best_practices_reporter_1.default(report, date);
+        default:
+            throw new Error('Invalid report type');
+    }
+}
+exports.generateEARLAssertions = generateEARLAssertions;
+function reportModule(module, options) {
+    if (!options || !options.modules) {
+        return true;
+    }
+    else {
+        switch (module) {
+            case 'act':
+                return !!options.modules.act;
+            case 'html':
+                return !!options.modules.html;
+            case 'css':
+                return !!options.modules.css;
+            case 'best-practices':
+                return !!options.modules['best-practices'];
+            default:
+                return false;
+        }
+    }
+}
+async function generateSingleEarlReport(report, options) {
+    var _a;
+    const earlReport = {
+        '@context': 'https://act-rules.github.io/earl-context.json',
+        '@graph': new Array()
+    };
+    const assertor = {
+        '@id': report.system.name,
+        '@type': 'Software',
+        title: report.system.name,
+        description: report.system.description,
+        hasVersion: report.system.version,
+        homepage: report.system.homepage
+    };
+    const testSubject = {
+        '@type': 'TestSubject',
+        source: ((_a = report.system.url) === null || _a === void 0 ? void 0 : _a.inputUrl) || '',
+        assertor,
+        assertions: new Array()
+    };
+    if (report.system.url && report.system.url.inputUrl !== report.system.url.completeUrl) {
+        testSubject.redirectedTo = report.system.url.completeUrl;
+    }
+    if (report.modules['act-rules'] && reportModule('act', options)) {
+        testSubject.assertions = [
+            ...testSubject.assertions,
+            ...(await generateEARLAssertions(report.modules['act-rules'], report.system.date))
+        ];
+    }
+    if (report.modules['html-techniques'] && reportModule('html', options)) {
+        testSubject.assertions = [
+            ...testSubject.assertions,
+            ...(await generateEARLAssertions(report.modules['html-techniques'], report.system.date))
+        ];
+    }
+    if (report.modules['css-techniques'] && reportModule('css', options)) {
+        testSubject.assertions = [
+            ...testSubject.assertions,
+            ...(await generateEARLAssertions(report.modules['css-techniques'], report.system.date))
+        ];
+    }
+    if (report.modules['best-practices'] && reportModule('best-practices', options)) {
+        testSubject.assertions = [
+            ...testSubject.assertions,
+            ...(await generateEARLAssertions(report.modules['best-practices'], report.system.date))
+        ];
+    }
+    earlReport['@graph'].push(lodash_clonedeep_1.default(testSubject));
+    return earlReport;
+}
+async function generateAggregatedEarlReport(reports, options) {
+    const aggregatedReport = {
+        '@context': 'https://act-rules.github.io/earl-context.json',
+        '@graph': new Array()
+    };
+    for (const report of reports || []) {
+        const earlReport = await generateSingleEarlReport(report, options);
+        aggregatedReport['@graph'].push(lodash_clonedeep_1.default(earlReport['@graph'][0]));
+    }
+    return aggregatedReport;
+}
+async function generateEARLReport(reports, options) {
+    const earlReports = {};
+    if (options && options.aggregated) {
+        const firstUrl = Object.keys(reports)[0];
+        earlReports[options.aggregatedName || firstUrl] = await generateAggregatedEarlReport(Object.values(reports), options);
+    }
+    else {
+        for (const url in reports || {}) {
+            const earlReport = await generateSingleEarlReport(reports[url], options);
+            earlReports[url] = lodash_clonedeep_1.default(earlReport);
+        }
+    }
+    return lodash_clonedeep_1.default(earlReports);
+}
+exports.generateEARLReport = generateEARLReport;
+
+
+/***/ }),
 /* 3 */
 /***/ (function(module, exports) {
 
@@ -3635,16 +3635,20 @@ class ManualSteps {
 var manifest = __webpack_require__(0);
 
 // EXTERNAL MODULE: ./node_modules/@qualweb/earl-reporter/dist/index.js
-var dist = __webpack_require__(1);
+var dist = __webpack_require__(2);
 
 // CONCATENATED MODULE: ./earl.js
 
 
 
 let origin;
+let website;
+let manualAssertedBy;
 
-async function resultToEarl(earlResult, accessbotResult, website, user) {
-    origin = Object.assign({},accessbotResult);
+async function resultToEarl(earlResult, accessbotResult, web, firstname, lastname) {
+
+    origin = accessbotResult;
+    website = web;
 
     let test = {
         system: {
@@ -3665,20 +3669,65 @@ async function resultToEarl(earlResult, accessbotResult, website, user) {
 
     const generatedEarl = await Object(dist["generateEARLReport"])({[test.system.url.completeUrl]: test});
 
+    manualAssertedBy = firstname;
+
     const assign = Object.assign({}, generatedEarl[website]["@graph"][0].assertor);
     const newAssertor = {
-        name: user
+        "@id" : firstname,
+        name: firstname + " " + lastname,
+        "@type": "Person"
     }
     
     generatedEarl[website]["@graph"][0].assertor = [assign, newAssertor]
 
     const newAssertions = generateAssertions();
+    const filteredAutomaticAsertions = adjustAutotoManual(generatedEarl, assign["@id"]);
 
-    newAssertions.forEach(assert => {
-        generatedEarl[website]["@graph"][0].assertions.push(assert)
-    })
+    generatedEarl[website]["@graph"][0].assertions = [...filteredAutomaticAsertions, ...newAssertions];
 
     return generatedEarl;
+}
+
+function adjustAutotoManual(generatedEarl, assertor) {
+    const onlyAutomatic = generatedEarl[website]["@graph"][0].assertions.filter(assertion => assertion.mode === "earl:automatic");
+    
+    const filteredAssertions = []
+
+    for (const assertion of onlyAutomatic) {
+        let categoryIndex = -1;
+        let ruleIndex = -1;
+        origin.categories.some((category, index) => {
+            return category.rules.some((rule, rIndex) => {
+                if (rule.url === assertion.test["@id"]) {
+                    categoryIndex = index;
+                    ruleIndex = rIndex;
+                    return true;
+                }
+              
+                return false;
+            })
+        });
+
+        if(ruleIndex === -1) {
+            continue;
+        }
+
+        const assertionsToKeep = assertion.result.source.filter(question => {
+            return !origin.categories[categoryIndex].rules[ruleIndex].questions.some(originQuestion => {
+                return originQuestion.elements[0] && originQuestion.elements[0].pointer === question.result.pointer && originQuestion.type === "semi" ||
+                originQuestion.manualAnswer && originQuestion.manualAnswer !== originQuestion.verdict
+            });
+        });
+
+        if (assertionsToKeep.length > 0) {
+            const duplicateAssertion = {...assertion};
+            duplicateAssertion.result.source = assertionsToKeep;
+            duplicateAssertion["@assertedBy"] = assertor;
+            filteredAssertions.push(duplicateAssertion);
+        }
+    };
+
+    return filteredAssertions;
 }
 
 function generateAssertions() {
@@ -3719,6 +3768,7 @@ function addRules(rules, mode) {
     for (const rule of rules) {
         const autoAssertions = {
             "@type" : "Assertion",
+            "@assertedBy": manualAssertedBy,
             mode: earlMode,
             result: {    
                 date: new Date(),
@@ -3729,7 +3779,7 @@ function addRules(rules, mode) {
             test: {
                 "@id": rule.url,
                 "@type": "TestCase",
-                description: mode === "manual" ? rule[tests].description : rule.description,
+                description: mode === rule[tests] && rule[tests].test ? rule[tests].description : rule.description,
                 title: rule.name
             }
         }
@@ -3780,53 +3830,94 @@ function addRules(rules, mode) {
                 })
             }
         } else {
-            const status = rule[tests].test.getStatus();
+            if(rule[tests] && rule[tests].test) {
+                const status = rule[tests].test.getStatus();
 
-            autoAssertions.result = {
-                date: new Date(),
-                description: "",       
-                source: [],
-                "@type": "TestResult",
-            }
-
-            if (!rule.manualTest.complete) {
-                continue;
-            }
-
-            switch (status) {
-                case "Pass":
-                    getStatus = "passed"
-                    break;
-                case "Fail":
-                    getStatus = "failed"
-                    break;
-                default:
-                    getStatus = ""
-            }
-
-            if (!getStatus) {
-                continue;
-            }
-
-            questions.push({
-                result:{
-                    outcome: getStatus === "passed" ? "earl:passed" : "earl:failed", 
-                    pointer: "",
-                    description: rule[tests].test.current().title
+                autoAssertions.result = {
+                    date: new Date(),
+                    description: "",       
+                    source: [],
+                    "@type": "TestResult",
                 }
-            });
+
+                if (!rule.manualTest.complete) {
+                    continue;
+                }
+
+                switch (status) {
+                    case "Pass":
+                        getStatus = "passed"
+                        break;
+                    case "Fail":
+                        getStatus = "failed"
+                        break;
+                    default:
+                        getStatus = ""
+                }
+
+                if (!getStatus) {
+                    continue;
+                }
+
+                questions.push({
+                    result:{
+                        outcome: getStatus === "passed" ? "earl:passed" : "earl:failed", 
+                        pointer: "",
+                        description: rule[tests].test.current().title
+                    }
+                });
+            } else {
+                for (const question of rule.questions) {
+    
+                    if (!question.complete || 
+                        question.type !== "auto" ||
+                        question.manualAnswer === "" ||
+                        question.manualAnswer !== "" && question.manualAnswer === question.verdict) {
+                        continue;
+                    }
+
+                    let pointer = "";
+                    if (question.elements) {
+                        question.elements.forEach(element => {
+                            if (element.pointer) {
+                                pointer = `${pointer}, ${element.pointer}`
+                            }
+                        });
+                    }
+
+                    let getStatus; 
+
+                    switch(question.manualAnswer) {
+                        case "passed": 
+                            getStatus = "earl:passed";
+                            break;
+                        case "failed": 
+                            getStatus = "earl:failed";
+                            break;
+                        case "innaplicable": 
+                            getStatus = "earl:inapplicable";
+                            break;
+                        default:
+                            getStatus = "earl:inapplicable";
+                            break;
+                    }
+    
+                    questions.push({
+                        result:{
+                            outcome: getStatus,
+                            pointer: pointer,
+                            description: question.description
+                        }
+                    })
+                }
+            } 
         }
 
         if(!questions.length) {
             continue;
         }
 
-        console.log("questions");
-        console.log(questions)
-
         const failedIndex = questions.findIndex(question => question.result.outcome === "earl:failed");
-
-        console.log(failedIndex);
 
         autoAssertions.result.outcome = failedIndex === -1 ? "earl:passed" : "earl:failed";
 
@@ -3858,33 +3949,54 @@ function filterRulesByType(type) {
         const filterRule = category.rules.forEach(rule => {
             if(rule.questions && type !== "manual") {
                 const filterQuestions = rule.questions.filter(question => {
-                    return question.type === type
+                    return question.type === "semi"
                 })
 
                 if (filterQuestions.length > 0) {
-                    const length = filterResults.push(rule) -1;
-                    filterResults[length].questions = filterQuestions;
+                    filterResults.push({
+                        ...rule,
+                        questions: filterQuestions
+                    });
                 }
+
             } else if (rule.manualTest && type === "manual") {
-                const length = filterResults.push(rule) -1;
-                filterResults[length].manualTest.type = "manual";
+                filterResults.push({
+                    ...rule,
+                    manualTest: {
+                        ...rule.manualTest,
+                        type: "manual"
+                    }
+                });
+            } else if (rule.questions && type === "manual") {
+                const filterQuestions = rule.questions.filter(question => {
+                    return question.type === "auto" && question.manualAnswer && question.manualAnswer !== question.verdict
+                })
+
+                if (filterQuestions.length > 0) {
+                    filterResults.push({
+                        ...rule,
+                        questions: filterQuestions
+                    });
+                }   
             }
         })
     })
 
     return filterResults;
-
 }
+// EXTERNAL MODULE: ./node_modules/lodash.clonedeep/index.js
+var lodash_clonedeep = __webpack_require__(1);
+var lodash_clonedeep_default = /*#__PURE__*/__webpack_require__.n(lodash_clonedeep);
+
 // CONCATENATED MODULE: ./result.js
 
  
 
 
 
-//const generateEARLAssertions = require('./node_modules/@qualweb/earl-reporter/dist/index.js').generateEARLAssertions;
 
 
-//import result from "./testData.js";
+
 let resultData = {};
 let highlightedItems = [];
 
@@ -3896,26 +4008,62 @@ let filters = {
     uncompletedTests : true
 }
 
+let filtersLeft = {
+    pass : true,
+    fail : true,
+    cannotTell : true,
+    inapplicable : true,
+    uncompletedTests : true
+}
+
 let storedQuestions = [];
+
+let jsonResult = {};
 
 chrome.runtime.sendMessage({message:"resultLoaded"});
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
-        //console.log("receiving message");
         if(request.message === "resultsToPopup") {
-            //console.log("request.values", request);
             resultData = generateManualTests(generateCategoriesData(request.values, request.options), request.options.manual);
             updateResults();
-            const exportButton = document.querySelectorAll('.ExportButton')[0];
+            const exportToEarlButton = document.querySelectorAll('#downloadEARL')[0];
+            const exportToCSVButton = document.querySelectorAll('#downloadCSV')[0];
             const removeHighlights = document.querySelectorAll('.HighlightButton')[0];
-            exportButton.onclick = async function() {
-                const name = "Tânia Frazão";
-                console.log(await resultToEarl(request.result, resultData, request.website, name));
+            const popupClass = document.querySelectorAll('.popup-wrapper')[0];
+            const popupClassButton = document.querySelectorAll('#popupContentId button')[0];
+            const formAssertor = document.forms[0];
+            let clickedDownload = "";
+
+            const cloneresultData = lodash_clonedeep_default()(resultData);
+
+            exportToEarlButton.onclick = async function() {
+                clickedDownload = "earl";
+                popupClass.classList.toggle('show');
             }
 
+            exportToCSVButton.onclick = async function() {
+                clickedDownload = "csv";
+                popupClass.classList.toggle('show');
+            }
+
+            popupClassButton.onclick = async function() {
+                const formData = new FormData(formAssertor);
+                const firstname = formData.get("fname");
+                const lastname = formData.get("lname");
+                jsonResult = await resultToEarl(request.result, resultData, request.website, firstname, lastname);
+
+                if (clickedDownload === "csv") {
+                    downloadCSV();
+                } else if (clickedDownload === "earl") {
+                    downloadEARL();
+                }
+
+                popupClass.classList.toggle('show');
+            }
+
+
             removeHighlights.onclick = async function() {
-                console.log(highlightedItems);
                 highlightedItems.forEach(pointer => {
                     chrome.runtime.sendMessage({message:"outResultElement", element: pointer});
                 });
@@ -3940,33 +4088,45 @@ chrome.runtime.onMessage.addListener(
         }
     }
 );
-/*
-//for tests. remove this
 
-const options = {
-    manual: true,
-    semimanual: true,
-    automatic: true,
+
+function downloadEARL() {
+    var  dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(jsonResult, null, 2));
+    const newLocal = 'downloadEARL';
+    const  dlAnchorElem = document.createElement("a");
+    dlAnchorElem.setAttribute("href", dataStr);
+    dlAnchorElem.setAttribute("download", "accessBot_earl.json");
+    dlAnchorElem.click();
 }
 
-const rulesToArray = Object.values(result.rules);
-const onlyValidResults = rulesToArray.map(rule => {
-    const results = rule.results.filter(item => {
-        return item.verdict !== "inapplicable" && item.verdict !== "";
-    });
+function downloadCSV() {
+    const entries = Object.entries(jsonResult);
 
-    return {
-        code: rule.code,
-        description: rule.description,
-        results: results,
-        name: rule.name
+    const fields = Object.keys(entries[0]);
+    const replacer = function(key, value) {
+        return value === null ? '' : value 
     }
-});
+    let csv = entries.map(function(row) {
+        return fields.map(function(fieldName) {
+            return JSON.stringify(row[fieldName], replacer)
 
-resultData = generateManualTests(generateCategoriesData(result, options), options.manual);
-updateResults();
-//
-*/
+        }).join(',')
+    })
+
+    csv.unshift(fields.join(','));
+    csv = csv.join('\r\n');
+
+    var  dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(csv);
+    const newLocal = 'downloadCSV';
+    var  dlAnchorElem = document.createElement("a");
+    dlAnchorElem.setAttribute("href", dataStr);
+    dlAnchorElem.setAttribute("download", "accessBot_csv.csv");
+    dlAnchorElem.click();
+
+
+
+}
+
 function isRuleValid(ruleToCheck, result) {
     return ruleToCheck.tree.some(function(step) {
         const prerequesiteArray = step.prerequisite.replace(/\s/g, '').split(',');
@@ -3996,42 +4156,19 @@ function generateCategoriesData(result, options) {
         const url = ruleValue.url;
         const id = ruleValue.id;
 
-        //console.log(ruleValue);
-/*
-        const indexValue = rules.findIndex(rule => {
-            if(Array.isArray(rule)) {
-                return rule[0].code === ruleCode;
-            }
-            return rule.code === ruleCode;
-        });
-*/
-
         const rulesArray = Object.entries(categories);
 
         const indexValue = rulesArray.findIndex(rule => {
             return rule[1].some(ruleCategoryValue => ruleCategoryValue === ruleCode.split("-")[2]); 
         });
 
-        //console.log("values", result);
-        //console.log("ruleCode", ruleCode);
-        //console.log("results", ruleValue.results);
-        
         if(indexValue > -1) {
-            /*
-            const manualRule = rules[indexValue];
-
-            //console.log("manualRule", manualRule);
-
-            const currentCategory = manualRule.category;
-            const getCategoryIndex = semiManualTests.categories.findIndex(function(category) {
-                return category.name === currentCategory;
-            });
-            */
-
             const currentCategory = rulesArray[indexValue][0];
             const getCategoryIndex = semiManualTests.categories.findIndex(function(category) {
                 return category.name === currentCategory;
             });
+
+            const categoryNextIndex = semiManualTests.categories.length;
 
             const manualRuleIndex = rules.findIndex(manualRule => {
                 return manualRule.code === ruleCode;
@@ -4050,8 +4187,6 @@ function generateCategoriesData(result, options) {
                 if (manualRule && isRuleValid(manualRule, result) && options.semimanual) {
                     let ruleToDecisionTree;
                     manualRule.tree.forEach(function(manual) {
-                        //console.log(manual.prerequisite);
-                        //console.log(result.resultCode);
                         manual.prerequisite.split(',').forEach(function(prerequisite) {
                             const prerequisiteNoSpace = prerequisite.replace(/\s/g, '');
                             if (prerequisiteNoSpace === result.resultCode) {
@@ -4060,9 +4195,6 @@ function generateCategoriesData(result, options) {
                         })
                     });
 
-                    //console.log(ruleToDecisionTree)
-
-                    total++;
                     questions.push({
                         ...result,
                         decisionTree: new DecisionTree(ruleToDecisionTree),
@@ -4071,17 +4203,20 @@ function generateCategoriesData(result, options) {
                         manualAnswer: "",
                         note: '',
                         type: 'semi',
+                        index: total
                     });
-                } else if(options.automatic) {
                     total++;
+                } else if(options.automatic) {
                     questions.push({
                         ...result,
                         selected: false,
                         complete: true,
                         manualAnswer: "",
                         note: '',
-                        type: 'auto'
+                        type: 'auto',
+                        index: total
                     });
+                    total++;
                 }
             });
 
@@ -4094,6 +4229,7 @@ function generateCategoriesData(result, options) {
                     total: total,
                     count: 0,
                     selected: false,
+                    index: categoryNextIndex,
                     rules: [
                         {
                             rule: ruleCode,
@@ -4105,11 +4241,13 @@ function generateCategoriesData(result, options) {
                             count: 0,
                             questions: questions,
                             selected: false,
-                            plusRule: manualRule && manualRule.plusRule ? manualRule.plusRule : []
+                            plusRule: manualRule && manualRule.plusRule ? manualRule.plusRule : [],
+                            index: 0
                         }
                     ],
                 });
             } else {
+                const ruleNextIndex = semiManualTests.categories[getCategoryIndex].rules.length;
                 semiManualTests.categories[getCategoryIndex].rules.push(
                     {
                         rule: ruleCode,
@@ -4121,7 +4259,8 @@ function generateCategoriesData(result, options) {
                         count: 0,
                         questions: questions,
                         selected: false,
-                        plusRule: manualRule && manualRule.plusRule ? manualRule.plusRule : []
+                        plusRule: manualRule && manualRule.plusRule ? manualRule.plusRule : [],
+                        index: ruleNextIndex
                     }
                 );
                 semiManualTests.categories[getCategoryIndex].total += total;
@@ -4143,7 +4282,7 @@ function generateManualTests(manualTests, optionManual) {
             return category.name === assessment.category;
         });
 
-        //console.log("assessment", assessment);
+        const categoryNextIndex = manualTests.categories.length;
 
         if (getCategoryIndex === -1) {
             manualTests.categories.push({
@@ -4152,6 +4291,7 @@ function generateManualTests(manualTests, optionManual) {
                 total: 1,
                 count: 0,
                 selected: false,
+                index: categoryNextIndex,
                 rules: [
                     {
                         rule: assessment.code,
@@ -4163,6 +4303,7 @@ function generateManualTests(manualTests, optionManual) {
                         total: 1,
                         count: 0,
                         selected: false,
+                        index: 0,
                         manualTest: {
                             test: new ManualSteps(assessment.tree),
                             description: assessment.descriptionTest,
@@ -4176,6 +4317,7 @@ function generateManualTests(manualTests, optionManual) {
             });
             total++;
         } else {
+            const rulesNextIndex = manualTests.categories[getCategoryIndex].rules.length;
             manualTests.categories[getCategoryIndex].rules.push(
                 {
                     rule: assessment.code,
@@ -4187,6 +4329,7 @@ function generateManualTests(manualTests, optionManual) {
                     count: 0,
                     total: 1,
                     selected: false,
+                    index: rulesNextIndex,
                     manualTest: {
                         test: new ManualSteps(assessment.tree),
                         description: assessment.descriptionTest,
@@ -4210,7 +4353,98 @@ function generateManualTests(manualTests, optionManual) {
 
     manualTests.total += total;
 
+    manualTests.categories.forEach((category, index) => {
+        category.index = index;
+    });
+
     return manualTests;
+}
+
+function filterResultDataLeft() {
+    let filterCategories = [];
+    resultData.categories.forEach(function(category) {
+        let filterRules = [];
+        let totalCategory = 0;
+        let countCategory = 0;
+        category.rules.forEach(function(rule) {
+            let filterQuestions = [];
+            let filterManual = undefined;
+            if(rule.questions) {
+                filterQuestions = rule.questions.filter(question => {
+                    if(question.complete === false) {
+                        return filtersLeft.uncompletedTests === true
+                    } else if (question.manualAnswer) {
+                        return  question.manualAnswer === "passed" && filtersLeft.pass === true ||
+                        question.manualAnswer === "failed" && filtersLeft.fail === true ||
+                        question.manualAnswer === "inapplicable" && filtersLeft.inapplicable === true
+                    } else if (question.decisionTree) {
+                        return question.decisionTree.getStatus() === "Pass" && filtersLeft.pass === true ||
+                        question.decisionTree.getStatus() === "Fail" && filtersLeft.fail === true
+                    } else {
+                        return question.verdict === "passed" && filtersLeft.pass === true ||
+                        question.verdict === "failed" && filtersLeft.fail === true ||
+                        question.verdict === "inapplicable" && filtersLeft.inapplicable === true ||
+                        question.verdict === "warning" && filtersLeft.cannotTell === true ||
+                        question.verdict === "" && filtersLeft.cannotTell === true
+                    }
+                })
+            } else if(rule.manualTest) {
+                if(rule.manualTest.complete === false && filtersLeft.uncompletedTests === true) {
+                    filterManual = rule.manualTest;
+                } else if (rule.manualTest.test.getStatus() === "Pass" && filtersLeft.pass === true ||
+                rule.manualTest.test.getStatus() === "Fail" && filtersLeft.fail === true) {
+                    filterManual = rule.manualTest;
+                }
+            }
+
+            if (filterQuestions.length > 0) {
+                let count = 0;
+
+                filterQuestions.forEach(question => {
+                    if(question.complete)
+                        count++
+                });
+
+                totalCategory += filterQuestions.length;
+                countCategory += count;
+
+                filterRules.push({
+                    ...rule,
+                    total: filterQuestions.length,
+                    count,
+                    questions: filterQuestions,
+                })
+            }else if (rule.questions && rule.questions.length === 0) {
+                filterRules.push({
+                    ...rule
+                })
+            } else if(filterManual) {
+                const count = filterManual.complete ? 1 : 0;
+                totalCategory += 1;
+                countCategory += count;
+
+                filterRules.push({
+                    ...rule,
+                    count,
+                    manualTest: filterManual,
+                })
+            }
+        });
+
+        if (filterRules.length > 0) {
+            filterCategories.push({
+                ...category,
+                rules: filterRules,
+                total: totalCategory,
+                count: countCategory
+            });
+        }
+    });
+
+    return {
+        ...resultData,
+        categories: filterCategories,
+    }
 }
 
 function updateResults() {
@@ -4218,16 +4452,18 @@ function updateResults() {
     updateTotal();
     removeHTML();
     generateResultCount();
-    resultData.categories.forEach(function (category){
-        generateAccordions(category);
+    filterResultDataLeft().categories.forEach(function (category){
+        const originalCategory = resultData.categories[category.index];
+        generateAccordions(originalCategory, category);
         category.rules.forEach(function(rule) {
-            generatePanelRule(category, rule);
+            const originalRule = originalCategory.rules[rule.index];
+            generatePanelRule(originalCategory, originalRule, rule);
             if (rule.selected) {
                 if(rule.questions) {
-                    generateQuestionSection(rule);
+                    generateQuestionSection(originalRule, rule);
                     showFilters()
                 } else if(rule.manualTest) {
-                    generateManualTestSection(rule);
+                    generateManualTestSection(originalRule, rule);
                 }
             }
         })
@@ -4241,8 +4477,6 @@ function showQuestion(question) {
     } else if (question.decisionTree && question.decisionTree.status === "") {
         return filters.uncompletedTests;
     } else if (question.decisionTree && question.decisionTree.status !== "") {
-        console.log(storedQuestions);
-        console.log(question);
         const findIndex = storedQuestions.findIndex(storedQuestion => {
             if(!storedQuestion.elements[0] || !question.elements[0]) {
                 return false;
@@ -4277,11 +4511,21 @@ function showQuestion(question) {
 function showFilters() {
     const resultSection = document.querySelector('.ResultList');
     resultSection.insertAdjacentHTML('beforeBegin', `<div class="resultFilters">
-    Pass<input type="checkbox" id="passFilter" name="passFilter">
-    Fail<input type="checkbox" id="failFilter" name="failFilter">
-    Cannot tell<input type="checkbox" id="cannotTellFilter" name="cannotTellFilter">
-    Inapplicable<input type="checkbox" id="inapplicableFilter" name="inapplicableFilter">
-    Uncompleted tests <input type="checkbox" id="uncompletedTestsFilter" name="uncompletedTestsFilter">
+        <div>
+        <input type="checkbox" id="passFilter" name="passFilter">Pass
+        </div>
+        <div>
+        <input type="checkbox" id="failFilter" name="failFilter">Fail
+        </div>
+        <div>
+        <input type="checkbox" id="cannotTellFilter" name="cannotTellFilter">Cannot tell
+        </div>
+        <div>
+        <input type="checkbox" id="inapplicableFilter" name="inapplicableFilter">Inapplicable
+        </div>
+        <div>
+        <input type="checkbox" id="uncompletedTestsFilter" name="uncompletedTestsFilter">Uncompleted tests 
+        </div>
     </div>`);
 
     const passFilter = document.querySelector('#passFilter');
@@ -4334,23 +4578,26 @@ function removeHTML() {
      });
 }
 
-function generateQuestionSection(rule) {
+function generateQuestionSection(rule, filteredRule) {
     const questionSection = document.querySelector('.ResultPage .result:last-child');
-    questionSection.innerHTML = `<h2 class="RuleTitle">${rule.name}</h2>
+    questionSection.innerHTML = `
+    <h2 class="RuleTitle">${rule.name}</h2>
     <div class="plusRule">
         <span class="RuleLink">
             ${rule.rule} ACT <a href="${rule.url}" target="_blank">${rule.id}</a>
         </span>
     </div>
     <p class="RuleDescription">${rule.description}</p>
+    <h2>Filter evaluations by result:</h2>
     <ol class="ResultList"></ol>`
-    rule.questions.forEach(function(question, index) {
-        const isVisible = showQuestion(question);
+    filteredRule.questions.forEach(function(question) {
+        const originalQuestion = rule.questions[question.index]
+        const isVisible = showQuestion(originalQuestion);
         if (isVisible) {
             if(!question.decisionTree) {
-                generateResult(question, index);
+                generateResult(originalQuestion, question.index);
             } else {
-                generateQuestion(question, index);
+                generateQuestion(originalQuestion, question.index);
             }
         }
     });
@@ -4367,7 +4614,6 @@ function generateQuestionSection(rule) {
 
 function generateManualTestSection(rule) {
     const questionSection = document.querySelector('.ResultPage .result:last-child');
-    console.log(rule);
     questionSection.innerHTML = `
     <h2 class="RuleTitle">${rule.name}</h2>
     <p class ="RuleLink">ACT <a href="${rule.url}">${rule.code}</a></p>
@@ -4454,7 +4700,6 @@ function generateManualTest(manualTest, index) {
 }
 
 function generateResult(result, index) {
-    //console.log(result);
     let visible = '';
 
     if(result.manualAnswer !== "" && result.manualAnswer !== result.verdict) {
@@ -4497,7 +4742,6 @@ function generateResult(result, index) {
     }
 
     function checkPageHighlight(checkmark) {
-        //console.log(question.selected);
         checkmark.checked = result.selected;
         if (checkmark.checked) {
             result.elements.forEach(function(htmlElement) {
@@ -4518,8 +4762,6 @@ function generateResult(result, index) {
     const checkmark = document.querySelector(`#checkmark-question-${index}`);
     const select = document.querySelector(`#select-${index}`);
 
-    //var selectOptions = Array.apply(null, select.options).map(option => option.value);
-    console.log(result.manualAnswer)
     if (result.manualAnswer !== "warning" && result.manualAnswer !== "") {
         document.querySelector(`#select-${index} [value=${result.manualAnswer}]`).selected = true;
     }
@@ -4527,14 +4769,12 @@ function generateResult(result, index) {
     if (checkmark) {
         checkPageHighlight(checkmark);
         checkmark.onchange = function(e) {
-            console.log("changed highlight state");
             result.selected = e.target.checked;
             checkPageHighlight(checkmark);
         }
     }
 
     select.onchange = function(e) {
-        //console.log(e.target.value)
         result.manualAnswer = e.target.value;
         updateResults();
     }
@@ -4615,7 +4855,6 @@ function generateQuestion(question, index) {
     }
 
     function checkPageHighlight(checkmark) {
-        //console.log(question.selected);
         checkmark.checked = question.selected;
         if (checkmark.checked) {
             question.elements.forEach(function(htmlElement) {
@@ -4681,7 +4920,6 @@ function updateTotal() {
         category.rules.forEach(function(rule) {
             rule.count = 0;
             if (rule.manualTest) {
-                //console.log(rule.manualTest)
                 if(rule.manualTest.complete) {
                     resultData.count++;
                     category.count++;
@@ -4743,23 +4981,78 @@ function updateTotal() {
 
 function generateResultCount() {
     const text = document.querySelector("#resultcount");
-    text.innerHTML = `Pass: <span id="passCount">${resultData.pass}</span>  
-    Fail: <span id="failCount">${resultData.fail}</span> 
-    Cannot tell: <span id="warningCount">${resultData.warning}</span> 
-    Inapplicable: <span id="inappliacbleCount">${resultData.inapplicable}</span> 
-    Uncompleted tests: <span id="missingCount">${resultData.missing}</span>`;
+    text.innerHTML = 
+    `
+    <h2> Filter tests by result: </h2>
+    <div>
+        <div>
+        <input type="checkbox" id="passLeftFilter" name="passLeftFilter">
+        Pass:  <span id="passCount">${resultData.pass}</span>
+        </div>
+        <div>
+        <input type="checkbox" id="failLeftFilter" name="failLeftFilter">
+        Fail:  <span id="failCount">${resultData.fail}</span> 
+        </div>
+        <div>
+        <input type="checkbox" id="cannotTellFilter" name="cannotTellFilter">
+        Cannot tell:  <span id="warningCount">${resultData.warning}</span>
+        </div>
+        <div>
+        <input type="checkbox" id="inapplicableLeftFilter" name="inapplicableLeftFilter">
+        Inapplicable:  <span id="inappliacbleCount">${resultData.inapplicable}</span> 
+        </div>
+        <div>
+        <input type="checkbox" id="uncompletedLeftFilter" name="uncompletedLeftFilter">
+        Uncompleted evaluations:  <span id="missingCount">${resultData.missing}</span>
+         </div>
+    </div>
+    <br>
+    <h2>List of tests:</h2>`;
+  
+    const uncompletedTestsFilter = document.querySelector('#uncompletedLeftFilter');
+    const inapplicableFilter = document.querySelector('#inapplicableLeftFilter');
+    const failFilter = document.querySelector('#failLeftFilter');
+    const passFilter = document.querySelector('#passLeftFilter');
+    const cannotTellFilter = document.querySelector('#cannotTellFilter');
+
+    passFilter.checked = filtersLeft.pass;
+    failFilter.checked = filtersLeft.fail;
+    cannotTellFilter.checked = filtersLeft.cannotTell;
+    inapplicableFilter.checked = filtersLeft.inapplicable;
+    uncompletedTestsFilter.checked = filtersLeft.uncompletedTests;
+
+    uncompletedTestsFilter.onchange = function(e) {
+        filtersLeft.uncompletedTests = e.target.checked;
+        updateResults();
+    }
+    inapplicableFilter.onchange = function(e) {
+        filtersLeft.inapplicable = e.target.checked;
+        updateResults();        
+    }
+    failFilter.onchange = function(e) {
+        filtersLeft.fail = e.target.checked;
+        updateResults();        
+    }
+    cannotTellFilter.onchange = function(e) {
+        filtersLeft.cannotTell = e.target.checked;
+        updateResults();        
+    }
+    passFilter.onchange = function(e) {
+        filtersLeft.pass = e.target.checked;
+        updateResults();        
+    }
 }
 
-function generateAccordions(category) {
+function generateAccordions(originalCategory, category) {
     const accordionSection = document.querySelector('.ResultPage .result:first-child');
 
     let text = "";
     if (category.total === 0) {
-        text = `No tests available.`;
+        text = `No evaluations available.`;
     } else if (category.total === category.count) {
-            text = `All tests completed.`;
+            text = `All evaluations completed.`;
     } else {
-        text = `Completed ${category.count} out of ${category.total} tests.`;
+        text = `Completed ${category.count} out of ${category.total} evaluations.`;
     }
 
     accordionSection.insertAdjacentHTML('beforeend', `<div class="accordion-group">
@@ -4773,14 +5066,14 @@ function generateAccordions(category) {
     </div>`);
 
     const button = document.querySelector(`#category-button-${category.fixedName}`);
-    //console.log(button);
+
     button.onclick = function() {
-        category.selected = !category.selected;
+        originalCategory.selected = !originalCategory.selected;
         updateResults();
     }
 }
 
-function generatePanelRule(category, rule) {
+function generatePanelRule(category, originalRule, rule) {
     const accordion = document.querySelector(`#panel-category-${category.fixedName}`);
 
     let hasAuto = false;
@@ -4796,11 +5089,11 @@ function generatePanelRule(category, rule) {
 
     let text = "";
     if (rule.total === 0) {
-        text = `No tests available.`;
+        text = `No evaluations available.`;
     } else if (rule.total === rule.count) {
-            text = `All ${rule.total} tests completed.`;
+            text = `All ${rule.total} evaluations completed.`;
     } else {
-        text = `Completed ${rule.count} out of ${rule.total} tests.`;
+        text = `Completed ${rule.count} out of ${rule.total} evaluations.`;
     }
 
 
@@ -4839,7 +5132,7 @@ function generatePanelRule(category, rule) {
                 changeRule.selected = false;
             });
         });
-        rule.selected = true;
+        originalRule.selected = true;
         document.querySelector(`.ResultSection.result`).scrollTop = 0;
         storedQuestions = [];
         updateResults();

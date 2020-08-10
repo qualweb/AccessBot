@@ -2,9 +2,13 @@ import * as data from './manifest.json'
 import {generateEARLReport} from "@qualweb/earl-reporter";
 
 let origin;
+let website;
+let manualAssertedBy;
 
-export default async function resultToEarl(earlResult, accessbotResult, website, user) {
-    origin = Object.assign({},accessbotResult);
+export default async function resultToEarl(earlResult, accessbotResult, web, firstname, lastname) {
+
+    origin = accessbotResult;
+    website = web;
 
     let test = {
         system: {
@@ -25,20 +29,65 @@ export default async function resultToEarl(earlResult, accessbotResult, website,
 
     const generatedEarl = await generateEARLReport({[test.system.url.completeUrl]: test});
 
+    manualAssertedBy = firstname;
+
     const assign = Object.assign({}, generatedEarl[website]["@graph"][0].assertor);
     const newAssertor = {
-        name: user
+        "@id" : firstname,
+        name: firstname + " " + lastname,
+        "@type": "Person"
     }
     
     generatedEarl[website]["@graph"][0].assertor = [assign, newAssertor]
 
     const newAssertions = generateAssertions();
+    const filteredAutomaticAsertions = adjustAutotoManual(generatedEarl, assign["@id"]);
 
-    newAssertions.forEach(assert => {
-        generatedEarl[website]["@graph"][0].assertions.push(assert)
-    })
+    generatedEarl[website]["@graph"][0].assertions = [...filteredAutomaticAsertions, ...newAssertions];
 
     return generatedEarl;
+}
+
+function adjustAutotoManual(generatedEarl, assertor) {
+    const onlyAutomatic = generatedEarl[website]["@graph"][0].assertions.filter(assertion => assertion.mode === "earl:automatic");
+    
+    const filteredAssertions = []
+
+    for (const assertion of onlyAutomatic) {
+        let categoryIndex = -1;
+        let ruleIndex = -1;
+        origin.categories.some((category, index) => {
+            return category.rules.some((rule, rIndex) => {
+                if (rule.url === assertion.test["@id"]) {
+                    categoryIndex = index;
+                    ruleIndex = rIndex;
+                    return true;
+                }
+              
+                return false;
+            })
+        });
+
+        if(ruleIndex === -1) {
+            continue;
+        }
+
+        const assertionsToKeep = assertion.result.source.filter(question => {
+            return !origin.categories[categoryIndex].rules[ruleIndex].questions.some(originQuestion => {
+                return originQuestion.elements[0] && originQuestion.elements[0].pointer === question.result.pointer && originQuestion.type === "semi" ||
+                originQuestion.manualAnswer && originQuestion.manualAnswer !== originQuestion.verdict
+            });
+        });
+
+        if (assertionsToKeep.length > 0) {
+            const duplicateAssertion = {...assertion};
+            duplicateAssertion.result.source = assertionsToKeep;
+            duplicateAssertion["@assertedBy"] = assertor;
+            filteredAssertions.push(duplicateAssertion);
+        }
+    };
+
+    return filteredAssertions;
 }
 
 function generateAssertions() {
@@ -79,6 +128,7 @@ function addRules(rules, mode) {
     for (const rule of rules) {
         const autoAssertions = {
             "@type" : "Assertion",
+            "@assertedBy": manualAssertedBy,
             mode: earlMode,
             result: {    
                 date: new Date(),
@@ -89,7 +139,7 @@ function addRules(rules, mode) {
             test: {
                 "@id": rule.url,
                 "@type": "TestCase",
-                description: mode === "manual" ? rule[tests].description : rule.description,
+                description: mode === rule[tests] && rule[tests].test ? rule[tests].description : rule.description,
                 title: rule.name
             }
         }
@@ -140,53 +190,94 @@ function addRules(rules, mode) {
                 })
             }
         } else {
-            const status = rule[tests].test.getStatus();
+            if(rule[tests] && rule[tests].test) {
+                const status = rule[tests].test.getStatus();
 
-            autoAssertions.result = {
-                date: new Date(),
-                description: "",       
-                source: [],
-                "@type": "TestResult",
-            }
-
-            if (!rule.manualTest.complete) {
-                continue;
-            }
-
-            switch (status) {
-                case "Pass":
-                    getStatus = "passed"
-                    break;
-                case "Fail":
-                    getStatus = "failed"
-                    break;
-                default:
-                    getStatus = ""
-            }
-
-            if (!getStatus) {
-                continue;
-            }
-
-            questions.push({
-                result:{
-                    outcome: getStatus === "passed" ? "earl:passed" : "earl:failed", 
-                    pointer: "",
-                    description: rule[tests].test.current().title
+                autoAssertions.result = {
+                    date: new Date(),
+                    description: "",       
+                    source: [],
+                    "@type": "TestResult",
                 }
-            });
+
+                if (!rule.manualTest.complete) {
+                    continue;
+                }
+
+                switch (status) {
+                    case "Pass":
+                        getStatus = "passed"
+                        break;
+                    case "Fail":
+                        getStatus = "failed"
+                        break;
+                    default:
+                        getStatus = ""
+                }
+
+                if (!getStatus) {
+                    continue;
+                }
+
+                questions.push({
+                    result:{
+                        outcome: getStatus === "passed" ? "earl:passed" : "earl:failed", 
+                        pointer: "",
+                        description: rule[tests].test.current().title
+                    }
+                });
+            } else {
+                for (const question of rule.questions) {
+    
+                    if (!question.complete || 
+                        question.type !== "auto" ||
+                        question.manualAnswer === "" ||
+                        question.manualAnswer !== "" && question.manualAnswer === question.verdict) {
+                        continue;
+                    }
+
+                    let pointer = "";
+                    if (question.elements) {
+                        question.elements.forEach(element => {
+                            if (element.pointer) {
+                                pointer = `${pointer}, ${element.pointer}`
+                            }
+                        });
+                    }
+
+                    let getStatus; 
+
+                    switch(question.manualAnswer) {
+                        case "passed": 
+                            getStatus = "earl:passed";
+                            break;
+                        case "failed": 
+                            getStatus = "earl:failed";
+                            break;
+                        case "innaplicable": 
+                            getStatus = "earl:inapplicable";
+                            break;
+                        default:
+                            getStatus = "earl:inapplicable";
+                            break;
+                    }
+    
+                    questions.push({
+                        result:{
+                            outcome: getStatus,
+                            pointer: pointer,
+                            description: question.description
+                        }
+                    })
+                }
+            } 
         }
 
         if(!questions.length) {
             continue;
         }
 
-        console.log("questions");
-        console.log(questions)
-
         const failedIndex = questions.findIndex(question => question.result.outcome === "earl:failed");
-
-        console.log(failedIndex);
 
         autoAssertions.result.outcome = failedIndex === -1 ? "earl:passed" : "earl:failed";
 
@@ -218,20 +309,38 @@ function filterRulesByType(type) {
         const filterRule = category.rules.forEach(rule => {
             if(rule.questions && type !== "manual") {
                 const filterQuestions = rule.questions.filter(question => {
-                    return question.type === type
+                    return question.type === "semi"
                 })
 
                 if (filterQuestions.length > 0) {
-                    const length = filterResults.push(rule) -1;
-                    filterResults[length].questions = filterQuestions;
+                    filterResults.push({
+                        ...rule,
+                        questions: filterQuestions
+                    });
                 }
+
             } else if (rule.manualTest && type === "manual") {
-                const length = filterResults.push(rule) -1;
-                filterResults[length].manualTest.type = "manual";
+                filterResults.push({
+                    ...rule,
+                    manualTest: {
+                        ...rule.manualTest,
+                        type: "manual"
+                    }
+                });
+            } else if (rule.questions && type === "manual") {
+                const filterQuestions = rule.questions.filter(question => {
+                    return question.type === "auto" && question.manualAnswer && question.manualAnswer !== question.verdict
+                })
+
+                if (filterQuestions.length > 0) {
+                    filterResults.push({
+                        ...rule,
+                        questions: filterQuestions
+                    });
+                }   
             }
         })
     })
 
     return filterResults;
-
 }
