@@ -520,7 +520,6 @@ function showQuestion(question) {
 function showFilters() {
     const resultSection = document.querySelector('.ResultList');
     resultSection.insertAdjacentHTML('beforeBegin', `<div class="resultFilters">
-    <div>
         <div>
         <input type="checkbox" id="passFilter" name="passFilter">Pass
         </div>
@@ -590,13 +589,15 @@ function removeHTML() {
 
 function generateQuestionSection(rule, filteredRule) {
     const questionSection = document.querySelector('.ResultPage .result:last-child');
-    questionSection.innerHTML = `<h2 class="RuleTitle">${rule.name}</h2>
+    questionSection.innerHTML = `
+    <h2 class="RuleTitle">${rule.name}</h2>
     <div class="plusRule">
         <span class="RuleLink">
             ${rule.rule} ACT <a href="${rule.url}" target="_blank">${rule.id}</a>
         </span>
     </div>
     <p class="RuleDescription">${rule.description}</p>
+    <h2>Filter evaluations by result:</h2>
     <ol class="ResultList"></ol>`
     filteredRule.questions.forEach(function(question) {
         const originalQuestion = rule.questions[question.index]
@@ -1011,7 +1012,7 @@ function generateResultCount() {
         </div>
         <div>
         <input type="checkbox" id="uncompletedLeftFilter" name="uncompletedLeftFilter">
-        Uncompleted tests:  <span id="missingCount">${resultData.missing}</span>
+        Uncompleted evaluations:  <span id="missingCount">${resultData.missing}</span>
          </div>
     </div>
     <br>
@@ -1056,11 +1057,11 @@ function generateAccordions(originalCategory, category) {
 
     let text = "";
     if (category.total === 0) {
-        text = `No tests available.`;
+        text = `No evaluations available.`;
     } else if (category.total === category.count) {
-            text = `All tests completed.`;
+            text = `All evaluations completed.`;
     } else {
-        text = `Completed ${category.count} out of ${category.total} tests.`;
+        text = `Completed ${category.count} out of ${category.total} evaluations.`;
     }
 
     accordionSection.insertAdjacentHTML('beforeend', `<div class="accordion-group">
@@ -1097,11 +1098,11 @@ function generatePanelRule(category, originalRule, rule) {
 
     let text = "";
     if (rule.total === 0) {
-        text = `No tests available.`;
+        text = `No evaluations available.`;
     } else if (rule.total === rule.count) {
-            text = `All ${rule.total} tests completed.`;
+            text = `All ${rule.total} evaluations completed.`;
     } else {
-        text = `Completed ${rule.count} out of ${rule.total} tests.`;
+        text = `Completed ${rule.count} out of ${rule.total} evaluations.`;
     }
 
 

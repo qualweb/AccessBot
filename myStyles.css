@@ -66,7 +66,13 @@
             font-weight: 700;
             font-size: 1.4rem;
             margin-bottom: 15px;
+            text-align: center;
         }
+        
+        .ResultSection .result  > .h2 {
+            text-align: center;
+        }
+
         .RuleLink {
             margin-bottom: 15px;
             color: #ffffff;
@@ -121,7 +127,23 @@
             text-align: center;
             max-height: 100vh;
             overflow-y: auto;
+           
         }
+
+        .RuleDescription {
+            margin-bottom:20px ;
+        }
+
+        .ResultPage .ResultSection  > h2 {
+            font-size: medium;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .ResultPage .ResultSection  > h2:nth-of-type(2) {
+            text-align: left;
+        }
+
         .ResultPage .ResultSection:last-child {
             border-right: none;
         }
@@ -195,11 +217,11 @@
 
         .resultFilters {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
+            flex-wrap: wrap;
         }
 
-        .resultFilters > .div {
+        .resultFilters > div {
             margin-left: 0 5px;
             margin-right: 0 5px;
 
@@ -209,6 +231,7 @@
         #resultcount > div {
             column-count: 2;
             margin-bottom: 10px;
+            align-items: flex-start;
         }
         #resultcount > div > div {
             padding-bottom: 1rem;
@@ -321,3 +344,5 @@
             padding: 15px;
             background: #0077C8;
         }
+
+     
