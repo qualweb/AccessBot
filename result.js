@@ -1068,7 +1068,7 @@ function generateAccordions(originalCategory, category) {
     <button id="category-button-${category.fixedName}" class="accordion">
         <div class=Flex-h>
             <span>${category.name}</span>
-            <span>${text}</span>
+            <span class="pushToRight">${text}</span>
         </div>
     </button>
     <div id="panel-category-${category.fixedName}" class="panel ${category.selected ? 'active' : ''}"></div>
