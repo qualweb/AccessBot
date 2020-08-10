@@ -228,6 +228,12 @@
 
         }
 
+        .pushToRight {
+            margin-left: 10px;
+            text-align: right;
+            
+        }
+
         #resultcount > div {
             column-count: 2;
             margin-bottom: 10px;
