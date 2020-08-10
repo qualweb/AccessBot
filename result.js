@@ -37,7 +37,7 @@ chrome.runtime.onMessage.addListener(
             resultData = generateManualTests(generateCategoriesData(request.values, request.options), request.options.manual);
             updateResults();
             const exportToEarlButton = document.querySelectorAll('#downloadEARL')[0];
-            const exportToCSVButton = document.querySelectorAll('#downloadCSV')[0];
+            //const exportToCSVButton = document.querySelectorAll('#downloadCSV')[0];
             const removeHighlights = document.querySelectorAll('.HighlightButton')[0];
             const popupClass = document.querySelectorAll('.popup-wrapper')[0];
             const popupClassButton = document.querySelectorAll('#popupContentId button')[0];
@@ -51,11 +51,11 @@ chrome.runtime.onMessage.addListener(
                 popupClass.classList.toggle('show');
             }
 
-            exportToCSVButton.onclick = async function() {
+            /* exportToCSVButton.onclick = async function() {
                 clickedDownload = "csv";
                 popupClass.classList.toggle('show');
             }
-
+            */
             popupClassButton.onclick = async function() {
                 const formData = new FormData(formAssertor);
                 const firstname = formData.get("fname");
