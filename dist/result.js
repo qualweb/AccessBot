@@ -3284,8 +3284,7 @@ __webpack_require__.r(__webpack_exports__);
     keyboard because using a mouse is not possible when the user has no vision or low vision
     or doesn't have the physical capability or dexterity to effectively control a pointing
     device.`,
-    descriptionTest:`Users must be able to navigate away from all components
-    using a keyboard.`,
+    descriptionTest:`Users must be able to navigate away from all components using a keyboard.`,
     tree: [
         {
             key: '',
@@ -3716,11 +3715,33 @@ function adjustAutotoManual(generatedEarl, assertor) {
             return !origin.categories[categoryIndex].rules[ruleIndex].questions.some(originQuestion => {
                 return originQuestion.elements[0] && originQuestion.elements[0].pointer === question.result.pointer && originQuestion.type === "semi" ||
                 originQuestion.manualAnswer && originQuestion.manualAnswer !== originQuestion.verdict
+            })
+        }).map((questionResult, index, originalArray) => {
+            const questionIndex = origin.categories[categoryIndex].rules[ruleIndex].questions.findIndex(question => {
+                return originalArray.some(earlQuestion => {
+                    return question.elements[0] && question.elements[0].pointer === earlQuestion.result.pointer;
+                })
             });
+            return {
+                ...questionResult,
+                result: {
+                    ...questionResult.result,
+                    modified: false,
+                    observations: questionIndex > -1 ? origin.categories[categoryIndex].rules[ruleIndex].questions[questionIndex].note : "",
+                    description: questionIndex > -1 ? origin.categories[categoryIndex].rules[ruleIndex].questions[questionIndex].description : "",
+                },
+            }
         });
 
         if (assertionsToKeep.length > 0) {
-            const duplicateAssertion = {...assertion};
+            const duplicateAssertion = {
+                ...assertion,
+                test: {
+                    ...assertion.test,
+                    category: origin.categories[categoryIndex].name,
+                    idRule: origin.categories[categoryIndex].rules[ruleIndex].id
+                },
+            };
             duplicateAssertion.result.source = assertionsToKeep;
             duplicateAssertion["@assertedBy"] = assertor;
             filteredAssertions.push(duplicateAssertion);
@@ -3766,6 +3787,8 @@ function addRules(rules, mode) {
     const assertions = [];
 
     for (const rule of rules) {
+        console.log("rule");
+        console.log(rule);
         const autoAssertions = {
             "@type" : "Assertion",
             "@assertedBy": manualAssertedBy,
@@ -3779,8 +3802,10 @@ function addRules(rules, mode) {
             test: {
                 "@id": rule.url,
                 "@type": "TestCase",
-                description: mode === rule[tests] && rule[tests].test ? rule[tests].description : rule.description,
-                title: rule.name
+                description: mode === "manual" && rule[tests] && rule[tests].test ? rule[tests].description : rule.description,
+                title: rule.name,
+                idRule: mode === "manual" ? rule.rule : rule.id,
+                category: rule.category
             }
         }
 
@@ -3825,7 +3850,9 @@ function addRules(rules, mode) {
                     result:{
                         outcome: getStatus === "passed" ? "earl:passed" : "earl:failed", 
                         pointer: pointer,
-                        description: question[tree].current().title
+                        description: question[tree].current().title,
+                        modified: false,
+                        observations: question.note
                     }
                 })
             }
@@ -3863,7 +3890,9 @@ function addRules(rules, mode) {
                     result:{
                         outcome: getStatus === "passed" ? "earl:passed" : "earl:failed", 
                         pointer: "",
-                        description: rule[tests].test.current().title
+                        description: rule[tests].test.current().title,
+                        modified: false,
+                        observations: rule[tests].note
                     }
                 });
             } else {
@@ -3880,7 +3909,7 @@ function addRules(rules, mode) {
                     if (question.elements) {
                         question.elements.forEach(element => {
                             if (element.pointer) {
-                                pointer = `${pointer}, ${element.pointer}`
+                                pointer = `${pointer}, ${element.pointer}`;
                             }
                         });
                     }
@@ -3906,7 +3935,9 @@ function addRules(rules, mode) {
                         result:{
                             outcome: getStatus,
                             pointer: pointer,
-                            description: question.description
+                            description: question.description,
+                            modified: true,
+                            observations: question.note
                         }
                     })
                 }
@@ -3918,14 +3949,12 @@ function addRules(rules, mode) {
         }
 
         const failedIndex = questions.findIndex(question => question.result.outcome === "earl:failed");
-
         autoAssertions.result.outcome = failedIndex === -1 ? "earl:passed" : "earl:failed";
-
         autoAssertions.result.description = questions[failedIndex > -1 ? failedIndex : 0].result.description; 
 
         questions.forEach(question => {
-            const {description, ...filterQuestion} = question.result;
-            autoAssertions.result.source.push({result: filterQuestion});
+            // const {description, ...filterQuestion} = question.result;
+            autoAssertions.result.source.push({result: question.result});
         });
 
         assertions.push(autoAssertions);
@@ -3955,6 +3984,7 @@ function filterRulesByType(type) {
                 if (filterQuestions.length > 0) {
                     filterResults.push({
                         ...rule,
+                        category: category.name,
                         questions: filterQuestions
                     });
                 }
@@ -3962,6 +3992,7 @@ function filterRulesByType(type) {
             } else if (rule.manualTest && type === "manual") {
                 filterResults.push({
                     ...rule,
+                    category: category.name,
                     manualTest: {
                         ...rule.manualTest,
                         type: "manual"
@@ -3975,6 +4006,7 @@ function filterRulesByType(type) {
                 if (filterQuestions.length > 0) {
                     filterResults.push({
                         ...rule,
+                        category: category.name,
                         questions: filterQuestions
                     });
                 }   
@@ -4046,19 +4078,19 @@ chrome.runtime.onMessage.addListener(
                 clickedDownload = "csv";
                 popupClass.classList.toggle('show');
             }
-
             popupClassButton.onclick = async function() {
                 const formData = new FormData(formAssertor);
                 const firstname = formData.get("fname");
                 const lastname = formData.get("lname");
                 jsonResult = await resultToEarl(request.result, resultData, request.website, firstname, lastname);
-
+                console.log(jsonResult)
+                
                 if (clickedDownload === "csv") {
-                    downloadCSV();
+                    downloadCSV(request.website);
                 } else if (clickedDownload === "earl") {
                     downloadEARL();
                 }
-
+                
                 popupClass.classList.toggle('show');
             }
 
@@ -4099,32 +4131,57 @@ function downloadEARL() {
     dlAnchorElem.click();
 }
 
-function downloadCSV() {
-    const entries = Object.entries(jsonResult);
+function downloadCSV(website) {
+   
+    console.log(jsonResult);
 
-    const fields = Object.keys(entries[0]);
-    const replacer = function(key, value) {
-        return value === null ? '' : value 
+    let csv = [];
+
+    //falata category, rule id, reason (by result), observations, modified
+    const keys = ["ASSERT BY", "CATEGORY", "TYPE OF TEST", "RULE ID", "RULE NAME", "TEST RESULT", "REASON", "POINTER", "OBSERVATIONS", "MODIFIED" ];
+    csv.push(keys);
+
+    const result = jsonResult[website]["@graph"][0]["assertions"];
+
+    for (let i = 0; i < result.length; i++){
+        const mode = result[i].mode;
+        const assertBy = result[i]["@assertedBy"];
+        const ruleName = result[i]["test"]["title"];
+        const ruleCategory = result[i]["test"]["category"];
+        const ruleId = result[i]["test"]["idRule"];
+        const sources = result[i]["result"]["source"];
+        for (let source = 0; source < sources.length; source++) {
+            let csvLine = new Array(keys.length);
+            csvLine[0] = assertBy;
+            csvLine[1] = ruleCategory;
+            csvLine[2] = mode;
+            csvLine[3] = ruleId;
+            csvLine[4] = ruleName;
+            csvLine[5] = sources[source]["result"]["outcome"];
+            csvLine[6] = sources[source]["result"]["description"];
+            csvLine[7] = sources[source]["result"]["pointer"];
+            csvLine[8] = sources[source]["result"]["observations"];
+            csvLine[9] = sources[source]["result"]["modified"];
+            csv.push(csvLine);
+        }
     }
-    let csv = entries.map(function(row) {
-        return fields.map(function(fieldName) {
-            return JSON.stringify(row[fieldName], replacer)
 
-        }).join(',')
+    csv.forEach((line, index) => {
+        csv[index] = line.join(',');
     })
 
-    csv.unshift(fields.join(','));
-    csv = csv.join('\r\n');
+    console.log(csv);
 
-    var  dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(csv);
+    const csv2 = csv.join('\r\n');
+
+    console.log(csv2)
+
+    var  dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(csv2);
     const newLocal = 'downloadCSV';
     var  dlAnchorElem = document.createElement("a");
     dlAnchorElem.setAttribute("href", dataStr);
     dlAnchorElem.setAttribute("download", "accessBot_csv.csv");
     dlAnchorElem.click();
-
-
-
 }
 
 function isRuleValid(ruleToCheck, result) {
@@ -4683,6 +4740,9 @@ function generateManualTest(manualTest, index) {
     const button = document.querySelector(`#button-revert-${index}`);
     const textarea = document.querySelector(`#manualTest-area-${index} > textarea`);
 
+    console.log("found textarea");
+    console.log(textarea)
+
     if(button) {
         button.onclick = function() {
             test.revert(); 
@@ -4693,7 +4753,10 @@ function generateManualTest(manualTest, index) {
     }
 
     if(textarea) {
+        console.log("area textarea");
         textarea.oninput = function(e) {
+            console.log("textarea");
+            console.log(manualTest)
             manualTest.note = e.target.value;
         }
     }
@@ -4761,6 +4824,7 @@ function generateResult(result, index) {
 
     const checkmark = document.querySelector(`#checkmark-question-${index}`);
     const select = document.querySelector(`#select-${index}`);
+    const textarea = document.querySelector(`#question-area-${index} > textarea`);
 
     if (result.manualAnswer !== "warning" && result.manualAnswer !== "") {
         document.querySelector(`#select-${index} [value=${result.manualAnswer}]`).selected = true;
@@ -4771,6 +4835,15 @@ function generateResult(result, index) {
         checkmark.onchange = function(e) {
             result.selected = e.target.checked;
             checkPageHighlight(checkmark);
+        }
+    }
+
+    if(textarea) {
+        console.log("area textarea");
+        textarea.oninput = function(e) {
+            console.log("textarea");
+            console.log(result)
+            result.note = e.target.value;
         }
     }
 
@@ -4876,6 +4949,9 @@ function generateQuestion(question, index) {
     const textarea = document.querySelector(`#question-area-${index} > textarea`);
     const checkmark = document.querySelector(`#checkmark-question-${index}`);
 
+    console.log("found textarea");
+    console.log(textarea)
+
     if(button) {
         button.onclick = function() {
             decisionTree.revert(); 
@@ -4895,7 +4971,10 @@ function generateQuestion(question, index) {
     }
 
     if(textarea) {
+        console.log("area textarea");
         textarea.oninput = function(e) {
+            console.log("textarea");
+            console.log(question)
             question.note = e.target.value;
         }
     }

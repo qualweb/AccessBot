@@ -55,19 +55,19 @@ chrome.runtime.onMessage.addListener(
                 clickedDownload = "csv";
                 popupClass.classList.toggle('show');
             }
-
             popupClassButton.onclick = async function() {
                 const formData = new FormData(formAssertor);
                 const firstname = formData.get("fname");
                 const lastname = formData.get("lname");
                 jsonResult = await resultToEarl(request.result, resultData, request.website, firstname, lastname);
-
+                console.log(jsonResult)
+                
                 if (clickedDownload === "csv") {
-                    downloadCSV();
+                    downloadCSV(request.website);
                 } else if (clickedDownload === "earl") {
                     downloadEARL();
                 }
-
+                
                 popupClass.classList.toggle('show');
             }
 
@@ -108,32 +108,57 @@ function downloadEARL() {
     dlAnchorElem.click();
 }
 
-function downloadCSV() {
-    const entries = Object.entries(jsonResult);
+function downloadCSV(website) {
+   
+    console.log(jsonResult);
 
-    const fields = Object.keys(entries[0]);
-    const replacer = function(key, value) {
-        return value === null ? '' : value 
+    let csv = [];
+
+    //falata category, rule id, reason (by result), observations, modified
+    const keys = ["ASSERT BY", "CATEGORY", "TYPE OF TEST", "RULE ID", "RULE NAME", "TEST RESULT", "REASON", "POINTER", "OBSERVATIONS", "MODIFIED" ];
+    csv.push(keys);
+
+    const result = jsonResult[website]["@graph"][0]["assertions"];
+
+    for (let i = 0; i < result.length; i++){
+        const mode = result[i].mode;
+        const assertBy = result[i]["@assertedBy"];
+        const ruleName = result[i]["test"]["title"];
+        const ruleCategory = result[i]["test"]["category"];
+        const ruleId = result[i]["test"]["idRule"];
+        const sources = result[i]["result"]["source"];
+        for (let source = 0; source < sources.length; source++) {
+            let csvLine = new Array(keys.length);
+            csvLine[0] = assertBy;
+            csvLine[1] = ruleCategory;
+            csvLine[2] = mode;
+            csvLine[3] = ruleId;
+            csvLine[4] = ruleName;
+            csvLine[5] = sources[source]["result"]["outcome"];
+            csvLine[6] = sources[source]["result"]["description"];
+            csvLine[7] = sources[source]["result"]["pointer"];
+            csvLine[8] = sources[source]["result"]["observations"];
+            csvLine[9] = sources[source]["result"]["modified"];
+            csv.push(csvLine);
+        }
     }
-    let csv = entries.map(function(row) {
-        return fields.map(function(fieldName) {
-            return JSON.stringify(row[fieldName], replacer)
 
-        }).join(',')
+    csv.forEach((line, index) => {
+        csv[index] = line.join(',');
     })
 
-    csv.unshift(fields.join(','));
-    csv = csv.join('\r\n');
+    console.log(csv);
 
-    var  dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(csv);
+    const csv2 = csv.join('\r\n');
+
+    console.log(csv2)
+
+    var  dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(csv2);
     const newLocal = 'downloadCSV';
     var  dlAnchorElem = document.createElement("a");
     dlAnchorElem.setAttribute("href", dataStr);
     dlAnchorElem.setAttribute("download", "accessBot_csv.csv");
     dlAnchorElem.click();
-
-
-
 }
 
 function isRuleValid(ruleToCheck, result) {
@@ -692,6 +717,9 @@ function generateManualTest(manualTest, index) {
     const button = document.querySelector(`#button-revert-${index}`);
     const textarea = document.querySelector(`#manualTest-area-${index} > textarea`);
 
+    console.log("found textarea");
+    console.log(textarea)
+
     if(button) {
         button.onclick = function() {
             test.revert(); 
@@ -702,7 +730,10 @@ function generateManualTest(manualTest, index) {
     }
 
     if(textarea) {
+        console.log("area textarea");
         textarea.oninput = function(e) {
+            console.log("textarea");
+            console.log(manualTest)
             manualTest.note = e.target.value;
         }
     }
@@ -770,6 +801,7 @@ function generateResult(result, index) {
 
     const checkmark = document.querySelector(`#checkmark-question-${index}`);
     const select = document.querySelector(`#select-${index}`);
+    const textarea = document.querySelector(`#question-area-${index} > textarea`);
 
     if (result.manualAnswer !== "warning" && result.manualAnswer !== "") {
         document.querySelector(`#select-${index} [value=${result.manualAnswer}]`).selected = true;
@@ -780,6 +812,15 @@ function generateResult(result, index) {
         checkmark.onchange = function(e) {
             result.selected = e.target.checked;
             checkPageHighlight(checkmark);
+        }
+    }
+
+    if(textarea) {
+        console.log("area textarea");
+        textarea.oninput = function(e) {
+            console.log("textarea");
+            console.log(result)
+            result.note = e.target.value;
         }
     }
 
@@ -885,6 +926,9 @@ function generateQuestion(question, index) {
     const textarea = document.querySelector(`#question-area-${index} > textarea`);
     const checkmark = document.querySelector(`#checkmark-question-${index}`);
 
+    console.log("found textarea");
+    console.log(textarea)
+
     if(button) {
         button.onclick = function() {
             decisionTree.revert(); 
@@ -904,7 +948,10 @@ function generateQuestion(question, index) {
     }
 
     if(textarea) {
+        console.log("area textarea");
         textarea.oninput = function(e) {
+            console.log("textarea");
+            console.log(question)
             question.note = e.target.value;
         }
     }
