@@ -56,7 +56,9 @@ chrome.runtime.onMessage.addListener(
 
                 chrome.windows.create({
                   url: chrome.runtime.getURL("result.html"),
-                  type: "popup"
+                  type: "popup",
+                  height: 1000,
+                  width: 900
                 });
               })
             })
@@ -64,7 +66,9 @@ chrome.runtime.onMessage.addListener(
 
             chrome.windows.create({
               url: chrome.runtime.getURL("result.html"),
-              type: "popup"
+              type: "popup",
+              height: 1000,
+              width: 900
             });
           }
 

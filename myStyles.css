@@ -118,7 +118,7 @@
 
         .ResultPage {
             display: flex;
-            width: 845px;
+            width: 100%;
 
         }
         .ResultPage .ResultSection {
