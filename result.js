@@ -1036,6 +1036,12 @@ function updateTotal() {
 }
 
 
+/*
+<label class="checkbox" for="manual">manual:</label>
+      <input type="checkbox" id="manual" name="manual" value="manual" checked></input>
+
+ */
+
 function generateResultCount() {
     const text = document.querySelector("#resultcount");
     text.innerHTML = 
@@ -1043,24 +1049,29 @@ function generateResultCount() {
     <h2> Filter tests by result: </h2>
     <div>
         <div>
-        <input type="checkbox" id="passLeftFilter" name="passLeftFilter">
-        Pass:&nbsp<span id="passCount">${resultData.pass}</span>
+            <input type="checkbox" id="passLeftFilter" name="passLeftFilter" value="passLeftFilter" checked>
+            <label class="checkbox" for="passLeftFilter">Pass:&nbsp</label>
+            <span id="passCount">${resultData.pass}</span>
         </div>
         <div>
-        <input type="checkbox" id="failLeftFilter" name="failLeftFilter">
-        Fail:&nbsp<span id="failCount">${resultData.fail}</span> 
+            <input type="checkbox" id="failLeftFilter" name="failLeftFilter" value="failLeftFilter" checked>
+            <label class="checkbox" for="failLeftFilter">Fail:&nbsp</label>
+            <span id="failCount">${resultData.fail}</span> 
         </div>
         <div>
-        <input type="checkbox" id="cannotTellFilter" name="cannotTellFilter">
-        Cannot tell:&nbsp<span id="warningCount">${resultData.warning}</span>
+            <input type="checkbox" id="cannotTellFilter" name="cannotTellFilter" value="cannotTellFilter" checked>
+            <label class="checkbox" for="cannotTellFilter">Cannot tell:&nbsp</label>
+            <span id="warningCount">${resultData.warning}</span>
         </div>
         <div>
-        <input type="checkbox" id="inapplicableLeftFilter" name="inapplicableLeftFilter">
-        Inapplicable:&nbsp<span id="inappliacbleCount">${resultData.inapplicable}</span> 
+            <input type="checkbox" id="inapplicableLeftFilter" name="inapplicableLeftFilter" value="inapplicableLeftFilter" checked>
+            <label class="checkbox" for="inapplicableLeftFilter">Inapplicable:&nbsp</label>
+            <span id="inappliacbleCount">${resultData.inapplicable}</span> 
         </div>
         <div>
-        <input type="checkbox" id="uncompletedLeftFilter" name="uncompletedLeftFilter">
-        Uncompleted evaluations:&nbsp<span id="missingCount">${resultData.missing}</span>
+            <input type="checkbox" id="uncompletedLeftFilter" name="uncompletedLeftFilter" value="uncompletedLeftFilter" checked>
+            <label class="checkbox" for="uncompletedLeftFilter">Uncompleted evaluations:&nbsp</label>
+            <span id="missingCount">${resultData.missing}</span>
          </div>
     </div>
     <br>
