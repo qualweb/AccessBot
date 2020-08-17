@@ -1035,6 +1035,7 @@ function updateTotal() {
     });
 }
 
+
 function generateResultCount() {
     const text = document.querySelector("#resultcount");
     text.innerHTML = 
@@ -1043,23 +1044,23 @@ function generateResultCount() {
     <div>
         <div>
         <input type="checkbox" id="passLeftFilter" name="passLeftFilter">
-        Pass:  <span id="passCount">${resultData.pass}</span>
+        Pass:&nbsp<span id="passCount">${resultData.pass}</span>
         </div>
         <div>
         <input type="checkbox" id="failLeftFilter" name="failLeftFilter">
-        Fail:  <span id="failCount">${resultData.fail}</span> 
+        Fail:&nbsp<span id="failCount">${resultData.fail}</span> 
         </div>
         <div>
         <input type="checkbox" id="cannotTellFilter" name="cannotTellFilter">
-        Cannot tell:  <span id="warningCount">${resultData.warning}</span>
+        Cannot tell:&nbsp<span id="warningCount">${resultData.warning}</span>
         </div>
         <div>
         <input type="checkbox" id="inapplicableLeftFilter" name="inapplicableLeftFilter">
-        Inapplicable:  <span id="inappliacbleCount">${resultData.inapplicable}</span> 
+        Inapplicable:&nbsp<span id="inappliacbleCount">${resultData.inapplicable}</span> 
         </div>
         <div>
         <input type="checkbox" id="uncompletedLeftFilter" name="uncompletedLeftFilter">
-        Uncompleted evaluations:  <span id="missingCount">${resultData.missing}</span>
+        Uncompleted evaluations:&nbsp<span id="missingCount">${resultData.missing}</span>
          </div>
     </div>
     <br>
