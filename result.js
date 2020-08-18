@@ -542,23 +542,39 @@ function showQuestion(question) {
     }
 }
 
+/*
+<
+<div>
+            <input type="checkbox" id="passLeftFilter" name="passLeftFilter" value="passLeftFilter" checked>
+            <label class="checkbox" for="passLeftFilter">Pass:&nbsp</label>
+            <span id="passCount">${resultData.pass}</span>
+        </div>
+
+ */
+
+
 function showFilters() {
     const resultSection = document.querySelector('.ResultList');
     resultSection.insertAdjacentHTML('beforeBegin', `<div class="resultFilters">
         <div>
-        <input type="checkbox" id="passFilter" name="passFilter">Pass
+            <input type="checkbox" id="passFilter" name="passFilter" value="passFilter" checked>
+            <label class="checkbox" for="passFilter">Pass&nbsp</label>
         </div>
         <div>
-        <input type="checkbox" id="failFilter" name="failFilter">Fail
+            <input type="checkbox" id="failFilter" name="failFilter" value="failFilter" checked>
+            <label class="checkbox" for="failFilter">Fail&nbsp</label>
         </div>
         <div>
-        <input type="checkbox" id="cannotTellFilter" name="cannotTellFilter">Cannot tell
+            <input type="checkbox" id="cannotTellFilter" name="cannotTellFilter" value="cannotTellFilter" checked>
+            <label class="checkbox" for="cannotTellFilter">Cannot tell&nbsp</label>
         </div>
         <div>
-        <input type="checkbox" id="inapplicableFilter" name="inapplicableFilter">Inapplicable
+            <input type="checkbox" id="inapplicableFilter" name="inapplicableFilter"  value="inapplicableFilter" checked>
+            <label class="checkbox" for="inapplicableFilter">Inapplicable&nbsp</label>
         </div>
         <div>
-        <input type="checkbox" id="uncompletedTestsFilter" name="uncompletedTestsFilter">Uncompleted tests 
+            <input type="checkbox" id="uncompletedTestsFilter" name="uncompletedTestsFilter" value="uncompletedTestsFilter" checked>
+            <label class="checkbox" for="uncompletedTestsFilter">Uncompleted tests&nbsp</label> 
         </div>
     </div>`);
 
@@ -1036,11 +1052,7 @@ function updateTotal() {
 }
 
 
-/*
-<label class="checkbox" for="manual">manual:</label>
-      <input type="checkbox" id="manual" name="manual" value="manual" checked></input>
 
- */
 
 function generateResultCount() {
     const text = document.querySelector("#resultcount");
@@ -1059,8 +1071,8 @@ function generateResultCount() {
             <span id="failCount">${resultData.fail}</span> 
         </div>
         <div>
-            <input type="checkbox" id="cannotTellFilter" name="cannotTellFilter" value="cannotTellFilter" checked>
-            <label class="checkbox" for="cannotTellFilter">Cannot tell:&nbsp</label>
+            <input type="checkbox" id="cannotTellLeftFilter" name="cannotTellLeftFilter" value="cannotTellLeftFilter" checked>
+            <label class="checkbox" for="cannotTellLeftFilter">Cannot tell:&nbsp</label>
             <span id="warningCount">${resultData.warning}</span>
         </div>
         <div>
@@ -1081,7 +1093,7 @@ function generateResultCount() {
     const inapplicableFilter = document.querySelector('#inapplicableLeftFilter');
     const failFilter = document.querySelector('#failLeftFilter');
     const passFilter = document.querySelector('#passLeftFilter');
-    const cannotTellFilter = document.querySelector('#cannotTellFilter');
+    const cannotTellFilter = document.querySelector('#cannotTellLeftFilter');
 
     passFilter.checked = filtersLeft.pass;
     failFilter.checked = filtersLeft.fail;

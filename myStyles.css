@@ -225,6 +225,8 @@
         .resultFilters > div {
             margin-left: 0 5px;
             margin-right: 0 5px;
+            display: flex;
+            align-items: center;
 
 
         }
