@@ -10,7 +10,7 @@ export default {
     SENSORYVISUALCLUES: "Sensory and Visual Clue",
     AUDIOVIDEO: "Audio and Video",
     PARSING: "Parsing",
-    ARIA: "Aria",
+    ARIA: "ARIA",
     FORMS: "Form",
     HEADINGS: "Heading",
     TABLES: "Table",
