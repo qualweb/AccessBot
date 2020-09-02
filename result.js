@@ -262,6 +262,11 @@ function generateCategoriesData(result, options) {
                     fixedName: currentCategory.replace(/ /g, '').replace(/[^A-Za-z0-9]/g, ''),
                     total: total,
                     count: 0,
+                    pass: 0,
+                    fail: 0,
+                    inapplicable: 0,
+                    warning: 0,
+                    missing: 0,
                     selected: false,
                     index: categoryNextIndex,
                     rules: [
@@ -555,28 +560,52 @@ function showQuestion(question) {
 
 function showFilters() {
     const resultSection = document.querySelector('.ResultList');
-    resultSection.insertAdjacentHTML('beforeBegin', `<div class="resultFilters">
-        <div>
+
+    let checkboxesFilters = "";
+
+    if (filtersLeft.pass) {
+        checkboxesFilters += `<div>
             <input type="checkbox" id="passFilter" name="passFilter" value="passFilter" checked>
             <label class="checkbox" for="passFilter">Pass&nbsp</label>
-        </div>
-        <div>
-            <input type="checkbox" id="failFilter" name="failFilter" value="failFilter" checked>
-            <label class="checkbox" for="failFilter">Fail&nbsp</label>
-        </div>
-        <div>
-            <input type="checkbox" id="cannotTellFilter" name="cannotTellFilter" value="cannotTellFilter" checked>
-            <label class="checkbox" for="cannotTellFilter">Cannot tell&nbsp</label>
-        </div>
-        <div>
-            <input type="checkbox" id="inapplicableFilter" name="inapplicableFilter"  value="inapplicableFilter" checked>
-            <label class="checkbox" for="inapplicableFilter">Inapplicable&nbsp</label>
-        </div>
-        <div>
-            <input type="checkbox" id="uncompletedTestsFilter" name="uncompletedTestsFilter" value="uncompletedTestsFilter" checked>
-            <label class="checkbox" for="uncompletedTestsFilter">Uncompleted tests&nbsp</label> 
-        </div>
-    </div>`);
+        </div>`;
+    }
+
+    if (filtersLeft.pass) {
+        checkboxesFilters += `<div>
+            <input type="checkbox" id="passFilter" name="passFilter" value="passFilter" checked>
+            <label class="checkbox" for="passFilter">Pass&nbsp</label>
+        </div>`;
+    }
+
+    if (filtersLeft.fail) {
+        checkboxesFilters += `<div>
+        <input type="checkbox" id="failFilter" name="failFilter" value="failFilter" checked>
+        <label class="checkbox" for="failFilter">Fail&nbsp</label>
+        </div>`;
+    }
+
+    if (filtersLeft.cannotTell) {
+        checkboxesFilters += `<div>
+        <input type="checkbox" id="cannotTellFilter" name="cannotTellFilter" value="cannotTellFilter" checked>
+        <label class="checkbox" for="cannotTellFilter">Cannot tell&nbsp</label>
+        </div>`;
+    }
+
+    if (filtersLeft.inapplicable) {
+        checkboxesFilters += `<div>
+        <input type="checkbox" id="inapplicableFilter" name="inapplicableFilter"  value="inapplicableFilter" checked>
+        <label class="checkbox" for="inapplicableFilter">Inapplicable&nbsp</label>
+        </div>`;
+    }
+
+    if (filtersLeft.uncompletedTests) {
+        checkboxesFilters += `<div>
+        <input type="checkbox" id="uncompletedTestsFilter" name="uncompletedTestsFilter" value="uncompletedTestsFilter" checked>
+        <label class="checkbox" for="uncompletedTestsFilter">Uncompleted tests&nbsp</label> 
+        </div>`;
+    }
+
+    resultSection.insertAdjacentHTML('beforeBegin', `<div class="resultFilters">${checkboxesFilters}</div>`);
 
     const passFilter = document.querySelector('#passFilter');
     const failFilter = document.querySelector('#failFilter');
@@ -584,38 +613,51 @@ function showFilters() {
     const inapplicableFilter = document.querySelector('#inapplicableFilter');
     const uncompletedTestsFilter = document.querySelector('#uncompletedTestsFilter');
 
-    passFilter.checked = filters.pass;
-    failFilter.checked = filters.fail;
-    cannotTellFilter.checked = filters.cannotTell;
-    inapplicableFilter.checked = filters.inapplicable;
-    uncompletedTestsFilter.checked = filters.uncompletedTests;
 
-    passFilter.onchange = function(e) {
-        filters.pass = e.target.checked;
-        storedQuestions = [];
-        updateResults();
-    }
-    failFilter.onchange = function(e) {
-        filters.fail = e.target.checked;
-        storedQuestions = [];
-        updateResults();
-    }
-    cannotTellFilter.onchange = function(e) {
-        filters.cannotTell = e.target.checked;
-        storedQuestions = [];
-        updateResults();
-    }
-    inapplicableFilter.onchange = function(e) {
-        filters.inapplicable = e.target.checked;
-        storedQuestions = [];
-        updateResults();
-    }
-    uncompletedTestsFilter.onchange = function(e) {
-        filters.uncompletedTests = e.target.checked;
-        storedQuestions = [];
-        updateResults();
+    if (passFilter) {
+        passFilter.checked = filters.pass;
+        passFilter.onchange = function(e) {
+            filters.pass = e.target.checked;
+            storedQuestions = [];
+            updateResults();
+        }
     }
 
+    if (failFilter) {
+        failFilter.checked = filters.fail;
+        failFilter.onchange = function(e) {
+            filters.fail = e.target.checked;
+            storedQuestions = [];
+            updateResults();
+        }
+    }
+
+    if (cannotTellFilter) {
+        cannotTellFilter.checked = filters.cannotTell;
+        cannotTellFilter.onchange = function(e) {
+            filters.cannotTell = e.target.checked;
+            storedQuestions = [];
+            updateResults();
+        }
+    }  
+
+    if (inapplicableFilter) {
+        inapplicableFilter.checked = filters.inapplicable;
+        inapplicableFilter.onchange = function(e) {
+            filters.inapplicable = e.target.checked;
+            storedQuestions = [];
+            updateResults();
+        }
+    }  
+
+    if (uncompletedTestsFilter) {
+        uncompletedTestsFilter.checked = filters.uncompletedTests;
+        uncompletedTestsFilter.onchange = function(e) {
+            filters.uncompletedTests = e.target.checked;
+            storedQuestions = [];
+            updateResults();
+        }
+    }  
 }
 
 function removeHTML() {
@@ -768,8 +810,29 @@ function generateResult(result, index) {
         verdict = "Cannot tell"
     }
 
+    console.log(verdict);
+
+    let counterClass = "";
+    switch(verdict) {
+        case "passed":
+            counterClass = "result-counter-pass";
+            break;
+        case "failed":
+            counterClass = "result-counter-fail";
+            break;
+        case "inapplicable":
+            counterClass = "result-counter-inapplicable";
+            break;
+        case "Cannot tell":
+            counterClass = "result-counter-cannottell";
+            break;
+        default:
+            counterClass = "result-counter-uncompleted";
+            break;
+    }
+
     questionSection.insertAdjacentHTML('beforeend', `<li>
-        <div id="question-${index}">
+        <div id="question-${index}" class="result-counter-before ${counterClass}">
             <div class="htmlCodeWrapper">
             </div>
             <div class="CommunicateResult" id="question-area-${index}">
@@ -860,9 +923,24 @@ function generateQuestion(question, index) {
     
     const status = decisionTree.getStatus();
 
+    console.log(status);
+
+    let counterClass = "";
+    switch(status) {
+        case "Pass":
+            counterClass = "result-counter-pass";
+            break;
+        case "Fail":
+            counterClass = "result-counter-fail";
+            break;
+        default:
+            counterClass = "result-counter-uncompleted";
+            break;
+    }
+
     if (!status) {
         questionSection.insertAdjacentHTML('beforeend', `<li>
-            <div id="question-${index}">
+            <div id="question-${index}" class="result-counter-before ${counterClass}">
                 <div class="htmlCodeWrapper"> 
                 </div>
                 <div class="QuestionText" id="text-0">${title}</div>
@@ -878,7 +956,7 @@ function generateQuestion(question, index) {
         </li>`);
     } else {
         questionSection.insertAdjacentHTML('beforeend', `<li>
-            <div id="question-${index}">
+            <div id="question-${index}" class="result-counter-before ${counterClass}">
                 <div class="htmlCodeWrapper"> 
                 </div>
                 <div class="CommunicateResult" id="question-area-${index}">
@@ -987,8 +1065,14 @@ function updateTotal() {
     resultData.fail = 0;
     resultData.inapplicable = 0;
     resultData.warning = 0;
+    resultData.missing = 0;
     resultData.categories.forEach(function (category) {
         category.count = 0;
+        category.pass = 0;
+        category.fail = 0;
+        category.inapplicable = 0;
+        category.warning = 0;
+        category.missing = 0;
         category.rules.forEach(function(rule) {
             rule.count = 0;
             if (rule.manualTest) {
@@ -999,11 +1083,16 @@ function updateTotal() {
                     switch(rule.manualTest.test.getStatus()) {
                         case 'Pass':
                             resultData.pass++;
+                            category.pass++;
                             break;
                         case 'Fail':
                             resultData.fail++;
+                            category.fail++;
                             break;
                     }
+                } else {
+                    category.missing++;
+                    resultData.missing++;
                 }
             } else {
                 rule.questions.forEach(function(question) {
@@ -1016,15 +1105,19 @@ function updateTotal() {
                             switch(changed) {
                                 case 'passed':
                                     resultData.pass++;
+                                    category.pass++;
                                     break;
                                 case 'failed':
                                     resultData.fail++;
+                                    category.fail++;
                                     break;
                                 case 'inapplicable':
                                     resultData.inapplicable++;
+                                    category.inapplicable++;
                                     break;
                                 case 'warning':
                                     resultData.warning++;
+                                    category.warning++;
                                     break;
                             }
                         } else {
@@ -1043,10 +1136,12 @@ function updateTotal() {
                                     break;
                             }
                         }
+                    } else {
+                        category.missing++;
+                        resultData.missing++;
                     }
                 });
             }
-            resultData.missing = resultData.total - resultData.count;
         });
     });
 }
@@ -1063,27 +1158,27 @@ function generateResultCount() {
         <div>
             <input type="checkbox" id="passLeftFilter" name="passLeftFilter" value="passLeftFilter" checked>
             <label class="checkbox" for="passLeftFilter">Pass:&nbsp</label>
-            <span id="passCount">${resultData.pass}</span>
+            <span id="passCount" class="result-counter result-counter-pass">${resultData.pass}</span>
         </div>
         <div>
             <input type="checkbox" id="failLeftFilter" name="failLeftFilter" value="failLeftFilter" checked>
             <label class="checkbox" for="failLeftFilter">Fail:&nbsp</label>
-            <span id="failCount">${resultData.fail}</span> 
+            <span id="failCount" class="result-counter result-counter-fail">${resultData.fail}</span> 
         </div>
         <div>
             <input type="checkbox" id="cannotTellLeftFilter" name="cannotTellLeftFilter" value="cannotTellLeftFilter" checked>
             <label class="checkbox" for="cannotTellLeftFilter">Cannot tell:&nbsp</label>
-            <span id="warningCount">${resultData.warning}</span>
+            <span id="warningCount" class="result-counter result-counter-cannottell">${resultData.warning}</span>
         </div>
         <div>
             <input type="checkbox" id="inapplicableLeftFilter" name="inapplicableLeftFilter" value="inapplicableLeftFilter" checked>
             <label class="checkbox" for="inapplicableLeftFilter">Inapplicable:&nbsp</label>
-            <span id="inappliacbleCount">${resultData.inapplicable}</span> 
+            <span id="inappliacbleCount" class="result-counter result-counter-inapplicable">${resultData.inapplicable}</span> 
         </div>
         <div>
             <input type="checkbox" id="uncompletedLeftFilter" name="uncompletedLeftFilter" value="uncompletedLeftFilter" checked>
             <label class="checkbox" for="uncompletedLeftFilter">Uncompleted evaluations:&nbsp</label>
-            <span id="missingCount">${resultData.missing}</span>
+            <span id="missingCount" class="result-counter result-counter-uncompleted">${resultData.missing}</span>
          </div>
     </div>
     <br>
@@ -1135,11 +1230,28 @@ function generateAccordions(originalCategory, category) {
         text = `Completed ${category.count} out of ${category.total} evaluations.`;
     }
 
+    let filterCategoryCount = "";
+
+    if(filtersLeft.pass)
+        filterCategoryCount += `<li><div class="result-counter result-counter-pass">${category.pass}</div></li>`;
+    if(filtersLeft.fail)
+        filterCategoryCount += `<li><div class="result-counter result-counter-fail">${category.fail}</div></li>`;
+    if(filtersLeft.uncompletedTests)
+        filterCategoryCount += `<li><div class="result-counter result-counter-uncompleted">${category.missing}</div></li>`;
+    if(filtersLeft.cannotTell)
+        filterCategoryCount += `<li><div class="result-counter result-counter-cannottell">${category.warning}</div></li>`;
+    if(filtersLeft.inapplicable)
+        filterCategoryCount += `<li><div class="result-counter result-counter-inapplicable">${category.inapplicable}</div></li>`;
+
+    filterCategoryCount += `<li><div class="result-counter result-counter-total">${category.total}</div></li>`;
+
     accordionSection.insertAdjacentHTML('beforeend', `<div class="accordion-group">
     <button id="category-button-${category.fixedName}" class="accordion">
-        <div class=Flex-h>
+        <div class="category-content">
             <span>${category.name}</span>
-            <span class="pushToRight">${text}</span>
+            <ul class="counter-list-color">
+                ${filterCategoryCount}
+            </ul>
         </div>
     </button>
     <div id="panel-category-${category.fixedName}" class="panel ${category.selected ? 'active' : ''}"></div>
