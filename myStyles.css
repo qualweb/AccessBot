@@ -225,7 +225,6 @@
 
         .result-counter.result-counter-pass, .result-counter-pass.result-counter-before::before {
             background-color: #5bc83e;
-            color: white;
         }
 
         .result-counter.result-counter-fail, .result-counter-fail.result-counter-before::before {
