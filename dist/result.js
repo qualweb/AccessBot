@@ -5205,6 +5205,13 @@ function generateResultCount() {
          </div>
     </div>
     <br>
+    <h2>Legend:</h2>
+       <div>Pass:&nbsp<label class="result-counter result-counter-pass reduce-size"></label></div>
+       <div>Fail:&nbsp<label class="result-counter result-counter-fail reduce-size"></label></div>
+       <div>Cannot Tell:&nbsp<label class="result-counter result-counter-cannottell reduce-size"></label></div>
+       <div>Innaplicable:&nbsp<label class="result-counter result-counter-inapplicable reduce-size"</label></div>
+       <div>Uncompleted evaluations:&nbsp<label class="result-counter result-counter-uncompleted reduce-size"</label></div>
+       <div>Total evaluations:&nbsp<label class="result-counter result-counter-total reduce-size"</label></div>
     <h2>List of tests:</h2>`;
   
     const uncompletedTestsFilter = document.querySelector('#uncompletedLeftFilter');
@@ -5259,12 +5266,13 @@ function generateAccordions(originalCategory, category) {
         filterCategoryCount += `<li><div class="result-counter result-counter-pass">${category.pass}</div></li>`;
     if(filtersLeft.fail)
         filterCategoryCount += `<li><div class="result-counter result-counter-fail">${category.fail}</div></li>`;
-    if(filtersLeft.uncompletedTests)
-        filterCategoryCount += `<li><div class="result-counter result-counter-uncompleted">${category.missing}</div></li>`;
+   
     if(filtersLeft.cannotTell)
         filterCategoryCount += `<li><div class="result-counter result-counter-cannottell">${category.warning}</div></li>`;
     if(filtersLeft.inapplicable)
         filterCategoryCount += `<li><div class="result-counter result-counter-inapplicable">${category.inapplicable}</div></li>`;
+    if(filtersLeft.uncompletedTests)
+        filterCategoryCount += `<li><div class="result-counter result-counter-uncompleted">${category.missing}</div></li>`;
 
     filterCategoryCount += `<li><div class="result-counter result-counter-total">${category.total}</div></li>`;
 
