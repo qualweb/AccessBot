@@ -2,7 +2,7 @@ const path = require('path')
 
 module.exports = [{
   entry: {
-    result: './result.js', // build foi modificado //require nao funciona browser
+    result: './result.js', 
     popup: './popup.js',
     background: './background.js',
     contentScript: './contentScript.js',

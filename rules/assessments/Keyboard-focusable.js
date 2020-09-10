@@ -10,8 +10,7 @@ export default {
     keyboard because using a mouse is not possible when the user has no vision or low vision
     or doesn't have the physical capability or dexterity to effectively control a pointing
     device.`,
-    descriptionTest:`Users must be able to navigate away from all components
-    using a keyboard.`,
+    descriptionTest:`Users must be able to navigate away from all components using a keyboard.`,
     tree: [
         {
             key: '',

@@ -76,11 +76,33 @@ function adjustAutotoManual(generatedEarl, assertor) {
             return !origin.categories[categoryIndex].rules[ruleIndex].questions.some(originQuestion => {
                 return originQuestion.elements[0] && originQuestion.elements[0].pointer === question.result.pointer && originQuestion.type === "semi" ||
                 originQuestion.manualAnswer && originQuestion.manualAnswer !== originQuestion.verdict
+            })
+        }).map((questionResult, index, originalArray) => {
+            const questionIndex = origin.categories[categoryIndex].rules[ruleIndex].questions.findIndex(question => {
+                return originalArray.some(earlQuestion => {
+                    return question.elements[0] && question.elements[0].pointer === earlQuestion.result.pointer;
+                })
             });
+            return {
+                ...questionResult,
+                result: {
+                    ...questionResult.result,
+                    modified: false,
+                    observations: questionIndex > -1 ? origin.categories[categoryIndex].rules[ruleIndex].questions[questionIndex].note : "",
+                    description: questionIndex > -1 ? origin.categories[categoryIndex].rules[ruleIndex].questions[questionIndex].description : "",
+                },
+            }
         });
 
         if (assertionsToKeep.length > 0) {
-            const duplicateAssertion = {...assertion};
+            const duplicateAssertion = {
+                ...assertion,
+                test: {
+                    ...assertion.test,
+                    category: origin.categories[categoryIndex].name,
+                    idRule: origin.categories[categoryIndex].rules[ruleIndex].id
+                },
+            };
             duplicateAssertion.result.source = assertionsToKeep;
             duplicateAssertion["@assertedBy"] = assertor;
             filteredAssertions.push(duplicateAssertion);
@@ -126,6 +148,8 @@ function addRules(rules, mode) {
     const assertions = [];
 
     for (const rule of rules) {
+        console.log("rule");
+        console.log(rule);
         const autoAssertions = {
             "@type" : "Assertion",
             "@assertedBy": manualAssertedBy,
@@ -139,8 +163,10 @@ function addRules(rules, mode) {
             test: {
                 "@id": rule.url,
                 "@type": "TestCase",
-                description: mode === rule[tests] && rule[tests].test ? rule[tests].description : rule.description,
-                title: rule.name
+                description: mode === "manual" && rule[tests] && rule[tests].test ? rule[tests].description : rule.description,
+                title: rule.name,
+                idRule: mode === "manual" ? rule.rule : rule.id,
+                category: rule.category
             }
         }
 
@@ -185,7 +211,9 @@ function addRules(rules, mode) {
                     result:{
                         outcome: getStatus === "passed" ? "earl:passed" : "earl:failed", 
                         pointer: pointer,
-                        description: question[tree].current().title
+                        description: question[tree].current().title,
+                        modified: false,
+                        observations: question.note
                     }
                 })
             }
@@ -223,7 +251,9 @@ function addRules(rules, mode) {
                     result:{
                         outcome: getStatus === "passed" ? "earl:passed" : "earl:failed", 
                         pointer: "",
-                        description: rule[tests].test.current().title
+                        description: rule[tests].test.current().title,
+                        modified: false,
+                        observations: rule[tests].note
                     }
                 });
             } else {
@@ -240,7 +270,7 @@ function addRules(rules, mode) {
                     if (question.elements) {
                         question.elements.forEach(element => {
                             if (element.pointer) {
-                                pointer = `${pointer}, ${element.pointer}`
+                                pointer = `${pointer}, ${element.pointer}`;
                             }
                         });
                     }
@@ -266,7 +296,9 @@ function addRules(rules, mode) {
                         result:{
                             outcome: getStatus,
                             pointer: pointer,
-                            description: question.description
+                            description: question.description,
+                            modified: true,
+                            observations: question.note
                         }
                     })
                 }
@@ -278,14 +310,12 @@ function addRules(rules, mode) {
         }
 
         const failedIndex = questions.findIndex(question => question.result.outcome === "earl:failed");
-
         autoAssertions.result.outcome = failedIndex === -1 ? "earl:passed" : "earl:failed";
-
         autoAssertions.result.description = questions[failedIndex > -1 ? failedIndex : 0].result.description; 
 
         questions.forEach(question => {
-            const {description, ...filterQuestion} = question.result;
-            autoAssertions.result.source.push({result: filterQuestion});
+            // const {description, ...filterQuestion} = question.result;
+            autoAssertions.result.source.push({result: question.result});
         });
 
         assertions.push(autoAssertions);
@@ -315,6 +345,7 @@ function filterRulesByType(type) {
                 if (filterQuestions.length > 0) {
                     filterResults.push({
                         ...rule,
+                        category: category.name,
                         questions: filterQuestions
                     });
                 }
@@ -322,6 +353,7 @@ function filterRulesByType(type) {
             } else if (rule.manualTest && type === "manual") {
                 filterResults.push({
                     ...rule,
+                    category: category.name,
                     manualTest: {
                         ...rule.manualTest,
                         type: "manual"
@@ -335,6 +367,7 @@ function filterRulesByType(type) {
                 if (filterQuestions.length > 0) {
                     filterResults.push({
                         ...rule,
+                        category: category.name,
                         questions: filterQuestions
                     });
                 }   

@@ -119,6 +119,7 @@
         .ResultPage {
             display: flex;
             width: 100%;
+
         }
         .ResultPage .ResultSection {
             flex: 1 ;
@@ -197,11 +198,13 @@
         .ResultList > li > div {
             position: relative;
         }
-        .ResultList:not(.ManualTest) > li > div::before {
+
+        .result-counter-before {
             counter-increment: section;
-            content:  counter(section);
+        }
+
+        .result-counter, .result-counter-before::before {
             display: block;
-            position: absolute;
             background-color: #0077C8;
             border-radius: 50%; 
             width: 30px;
@@ -210,9 +213,94 @@
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            color: white;
+            color: black;
+        }
+
+        .result-counter-before::before {
             top: -10px;
             left: -10px;
+            position: absolute;
+            content: counter(section);
+        }
+
+        .result-counter.result-counter-pass, .result-counter-pass.result-counter-before::before {
+            background-color: #5bc83e;
+            
+        }
+
+        .result-counter.result-counter-pass.reduce-size {
+            width: 15px;
+            height: 15px;
+        }
+
+        .result-counter.result-counter-fail.reduce-size {
+            width: 15px;
+            height: 15px;
+        }
+
+        .result-counter.result-counter-cannottell.reduce-size {
+            width: 15px;
+            height: 15px;
+        }
+
+        .result-counter.result-counter-inapplicable.reduce-size {
+            width: 15px;
+            height: 15px;
+        }
+
+        .result-counter.result-counter-uncompleted.reduce-size {
+            width: 15px;
+            height: 15px;
+        }
+
+
+        .result-counter.result-counter-fail, .result-counter-fail.result-counter-before::before {
+            background-color: #f52226;
+            color:white;
+        }
+
+        .result-counter.result-counter-inapplicable, .result-counter-inapplicable.result-counter-before::before {
+            background-color: transparent;
+            border: 1px solid black;
+        }
+
+        .result-counter.result-counter-cannottell, .result-counter-cannottell.result-counter-before::before {
+            background-color: white;
+        }
+
+        .result-counter.result-counter-uncompleted, .result-counter-uncompleted.result-counter-before::before {
+            background-color: #fdfc4f;
+        }
+
+        
+
+        .result-counter.result-counter-total, .result-counter-total.result-counter-before::before {
+            border: 1px solid black;
+            background-color: transparent;
+            border-radius: 0;
+        }
+
+        .result-counter.result-counter-total.reduce-size {
+            width: 15px;
+            height: 15px;
+        }
+
+        .counter-list-color {
+            display: flex;
+        }
+
+        .category-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .category-content > .counter-list-color {
+            margin-left: 10px;
+        }
+
+        .counter-list-color > li {
+            margin: 0 5px;
         }
 
         .resultFilters {
@@ -224,26 +312,23 @@
         .resultFilters > div {
             margin-left: 0 5px;
             margin-right: 0 5px;
+            display: flex;
+            align-items: center;
 
 
-        }
-
-        .pushToRight {
-            margin-left: 10px;
-            text-align: right;
-            
         }
 
         #resultcount > div {
-            column-count: 2;
             margin-bottom: 10px;
-            align-items: flex-start;
+            display: inline-flex;
+            flex-wrap: wrap;
+            align-items: center;
         }
         #resultcount > div > div {
             padding-bottom: 1rem;
+            width: 50%;
             display: flex;
-            align-items: center;
-            
+            align-items: center;  
         }
         
         #resultcount >  h2 {
