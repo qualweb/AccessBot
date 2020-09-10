@@ -4152,16 +4152,16 @@ function downloadCSV(website) {
         const sources = result[i]["result"]["source"];
         for (let source = 0; source < sources.length; source++) {
             let csvLine = new Array(keys.length);
-            csvLine[0] = assertBy;
-            csvLine[1] = ruleCategory;
-            csvLine[2] = mode;
-            csvLine[3] = ruleId;
-            csvLine[4] = ruleName;
-            csvLine[5] = sources[source]["result"]["outcome"];
-            csvLine[6] = sources[source]["result"]["description"];
-            csvLine[7] = sources[source]["result"]["pointer"];
-            csvLine[8] = sources[source]["result"]["observations"];
-            csvLine[9] = sources[source]["result"]["modified"];
+            csvLine[0] = `\"${assertBy}\"`;
+            csvLine[1] = `\"${ruleCategory}\"`;
+            csvLine[2] = `\"${mode}\"`;
+            csvLine[3] = `\"${ruleId}\"`;
+            csvLine[4] = `\"${ruleName}\"`;
+            csvLine[5] = `\"${sources[source]["result"]["outcome"]}\"`;
+            csvLine[6] = `\"${sources[source]["result"]["description"]}\"`;
+            csvLine[7] = `\"${sources[source]["result"]["pointer"]}\"`;
+            csvLine[8] = `\"${sources[source]["result"]["observations"]}\"`;
+            csvLine[9] = `\"${sources[source]["result"]["modified"]}\"`;
             csv.push(csvLine);
         }
     }
