@@ -89,7 +89,7 @@ var result =
 /* 0 */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"b\":\"AccessBot\",\"c\":\"1.1.2\",\"a\":\"Assisted Evaluation powered by QualWeb.\"}");
+module.exports = JSON.parse("{\"b\":\"AccessBot\",\"c\":\"1.1.3\",\"a\":\"Assisted Evaluation powered by QualWeb.\"}");
 
 /***/ }),
 /* 1 */
@@ -4301,6 +4301,11 @@ function generateCategoriesData(result, options) {
                             url,
                             total: total,
                             count: 0,
+                            pass: 0,
+                            fail: 0,
+                            inapplicable: 0,
+                            warning: 0,
+                            missing: 0,
                             questions: questions,
                             selected: false,
                             plusRule: manualRule && manualRule.plusRule ? manualRule.plusRule : [],
@@ -4319,6 +4324,11 @@ function generateCategoriesData(result, options) {
                         url,
                         total: total,
                         count: 0,
+                        pass: 0,
+                        fail: 0,
+                        inapplicable: 0,
+                        warning: 0,
+                        missing: 0,
                         questions: questions,
                         selected: false,
                         plusRule: manualRule && manualRule.plusRule ? manualRule.plusRule : [],
@@ -4364,6 +4374,11 @@ function generateManualTests(manualTests, optionManual) {
                         id: assessment.id,
                         total: 1,
                         count: 0,
+                        pass: 0,
+                        fail: 0,
+                        inapplicable: 0,
+                        warning: 0,
+                        missing: 0,
                         selected: false,
                         index: 0,
                         manualTest: {
@@ -4389,6 +4404,11 @@ function generateManualTests(manualTests, optionManual) {
                     url: assessment.url,
                     id: assessment.id,
                     count: 0,
+                    pass: 0,
+                    fail: 0,
+                    inapplicable: 0,
+                    warning: 0,
+                    missing: 0,
                     total: 1,
                     selected: false,
                     index: rulesNextIndex,
@@ -4523,7 +4543,7 @@ function updateResults() {
             if (rule.selected) {
                 if(rule.questions) {
                     generateQuestionSection(originalRule, rule);
-                    showFilters()
+                    showFilters(rule)
                 } else if(rule.manualTest) {
                     generateManualTestSection(originalRule, rule);
                 }
@@ -4570,61 +4590,59 @@ function showQuestion(question) {
     }
 }
 
-/*
-<
-<div>
-            <input type="checkbox" id="passLeftFilter" name="passLeftFilter" value="passLeftFilter" checked>
-            <label class="checkbox" for="passLeftFilter">Pass:&nbsp</label>
-            <span id="passCount">${resultData.pass}</span>
-        </div>
-
- */
-
-
-function showFilters() {
+function showFilters(rule) {
     const resultSection = document.querySelector('.ResultList');
 
     let checkboxesFilters = "";
 
     if (filtersLeft.pass) {
-        checkboxesFilters += `<div>
-            <input type="checkbox" id="passFilter" name="passFilter" value="passFilter" checked>
-            <label class="checkbox" for="passFilter">Pass&nbsp</label>
+        checkboxesFilters += `<div class="filter-rule">
+            <div class="filter-checkbox">
+                <input type="checkbox" id="passFilter" name="passFilter" value="passFilter" checked>
+                <label class="checkbox" for="passFilter">Pass:&nbsp</label>
+            </div>
+            <div class="result-counter result-counter-pass">${rule.pass}</div>
         </div>`;
     }
 
-    if (filtersLeft.pass) {
-        checkboxesFilters += `<div>
-            <input type="checkbox" id="passFilter" name="passFilter" value="passFilter" checked>
-            <label class="checkbox" for="passFilter">Pass&nbsp</label>
-        </div>`;
-    }
 
     if (filtersLeft.fail) {
-        checkboxesFilters += `<div>
-        <input type="checkbox" id="failFilter" name="failFilter" value="failFilter" checked>
-        <label class="checkbox" for="failFilter">Fail&nbsp</label>
+        checkboxesFilters += `<div class="filter-rule">
+            <div class="filter-checkbox">
+                <input type="checkbox" id="failFilter" name="failFilter" value="failFilter" checked>
+                <label class="checkbox" for="failFilter">Fail:&nbsp</label>
+            </div>
+            <div class="result-counter result-counter-fail">${rule.fail}</div>
         </div>`;
     }
 
     if (filtersLeft.cannotTell) {
-        checkboxesFilters += `<div>
-        <input type="checkbox" id="cannotTellFilter" name="cannotTellFilter" value="cannotTellFilter" checked>
-        <label class="checkbox" for="cannotTellFilter">Cannot tell&nbsp</label>
+        checkboxesFilters += `<div class="filter-rule">
+            <div class="filter-checkbox">
+                <input type="checkbox" id="cannotTellFilter" name="cannotTellFilter" value="cannotTellFilter" checked>
+                <label class="checkbox" for="cannotTellFilter">Cannot tell:&nbsp</label>
+            </div>
+            <div class="result-counter result-counter-cannottell">${rule.warning}</div>
         </div>`;
     }
 
     if (filtersLeft.inapplicable) {
-        checkboxesFilters += `<div>
-        <input type="checkbox" id="inapplicableFilter" name="inapplicableFilter"  value="inapplicableFilter" checked>
-        <label class="checkbox" for="inapplicableFilter">Inapplicable&nbsp</label>
+        checkboxesFilters += `<div class="filter-rule">
+            <div class="filter-checkbox">
+                <input type="checkbox" id="inapplicableFilter" name="inapplicableFilter"  value="inapplicableFilter" checked>
+                <label class="checkbox" for="inapplicableFilter">Inapplicable:&nbsp</label>
+            </div>
+            <div class="result-counter result-counter-inapplicable">${rule.inapplicable}</div>
         </div>`;
     }
 
     if (filtersLeft.uncompletedTests) {
-        checkboxesFilters += `<div>
-        <input type="checkbox" id="uncompletedTestsFilter" name="uncompletedTestsFilter" value="uncompletedTestsFilter" checked>
-        <label class="checkbox" for="uncompletedTestsFilter">Uncompleted tests&nbsp</label> 
+        checkboxesFilters += `<div class="filter-rule">
+            <div class="filter-checkbox">
+                <input type="checkbox" id="uncompletedTestsFilter" name="uncompletedTestsFilter" value="uncompletedTestsFilter" checked>
+                <label class="checkbox" for="uncompletedTestsFilter">Uncompleted tests:&nbsp</label>
+            </div>
+            <div class="result-counter result-counter-uncompleted">${rule.missing}</div>
         </div>`;
     }
 
@@ -5098,6 +5116,11 @@ function updateTotal() {
         category.missing = 0;
         category.rules.forEach(function(rule) {
             rule.count = 0;
+            rule.pass = 0;
+            rule.fail = 0;
+            rule.inapplicable = 0;
+            rule.warning = 0;
+            rule.missing = 0;
             if (rule.manualTest) {
                 if(rule.manualTest.complete) {
                     resultData.count++;
@@ -5107,15 +5130,18 @@ function updateTotal() {
                         case 'Pass':
                             resultData.pass++;
                             category.pass++;
+                            rule.pass++;
                             break;
                         case 'Fail':
                             resultData.fail++;
                             category.fail++;
+                            rule.fail++;
                             break;
                     }
                 } else {
                     category.missing++;
                     resultData.missing++;
+                    rule.missing++;
                 }
             } else {
                 rule.questions.forEach(function(question) {
@@ -5129,18 +5155,22 @@ function updateTotal() {
                                 case 'passed':
                                     resultData.pass++;
                                     category.pass++;
+                                    rule.pass++;
                                     break;
                                 case 'failed':
                                     resultData.fail++;
                                     category.fail++;
+                                    rule.fail++;
                                     break;
                                 case 'inapplicable':
                                     resultData.inapplicable++;
                                     category.inapplicable++;
+                                    rule.inapplicable++;
                                     break;
                                 case 'warning':
                                     resultData.warning++;
                                     category.warning++;
+                                    rule.warning++;
                                     break;
                             }
                         } else {
@@ -5162,6 +5192,7 @@ function updateTotal() {
                     } else {
                         category.missing++;
                         resultData.missing++;
+                        rule.missing++;
                     }
                 });
             }
@@ -5176,6 +5207,16 @@ function generateResultCount() {
     const text = document.querySelector("#resultcount");
     text.innerHTML = 
     `
+    <h2>Legend:</h2>
+    <div id="legend">
+        <div>Pass:&nbsp<label class="result-counter result-counter-pass reduce-size"></label></div>
+        <div>Fail:&nbsp<label class="result-counter result-counter-fail reduce-size"></label></div>
+        <div>Cannot Tell:&nbsp<label class="result-counter result-counter-cannottell reduce-size"></label></div>
+        <div>Innaplicable:&nbsp<label class="result-counter result-counter-inapplicable reduce-size"</label></div>
+        <div>Uncompleted evaluations:&nbsp<label class="result-counter result-counter-uncompleted reduce-size"</label></div>
+        <div>Total evaluations:&nbsp<label class="result-counter result-counter-total reduce-size"</label></div>
+    </div>
+    <br>
     <h2> Filter tests by result: </h2>
     <div>
         <div>
@@ -5205,13 +5246,6 @@ function generateResultCount() {
          </div>
     </div>
     <br>
-    <h2>Legend:</h2>
-       <div>Pass:&nbsp<label class="result-counter result-counter-pass reduce-size"></label></div>
-       <div>Fail:&nbsp<label class="result-counter result-counter-fail reduce-size"></label></div>
-       <div>Cannot Tell:&nbsp<label class="result-counter result-counter-cannottell reduce-size"></label></div>
-       <div>Innaplicable:&nbsp<label class="result-counter result-counter-inapplicable reduce-size"</label></div>
-       <div>Uncompleted evaluations:&nbsp<label class="result-counter result-counter-uncompleted reduce-size"</label></div>
-       <div>Total evaluations:&nbsp<label class="result-counter result-counter-total reduce-size"</label></div>
     <h2>List of tests:</h2>`;
   
     const uncompletedTestsFilter = document.querySelector('#uncompletedLeftFilter');

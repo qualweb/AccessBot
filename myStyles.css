@@ -231,11 +231,13 @@
         .result-counter.result-counter-pass.reduce-size {
             width: 15px;
             height: 15px;
+           
         }
 
         .result-counter.result-counter-fail.reduce-size {
             width: 15px;
             height: 15px;
+            
         }
 
         .result-counter.result-counter-cannottell.reduce-size {
@@ -251,7 +253,7 @@
         .result-counter.result-counter-uncompleted.reduce-size {
             width: 15px;
             height: 15px;
-        }
+         }
 
 
         .result-counter.result-counter-fail, .result-counter-fail.result-counter-before::before {
@@ -305,26 +307,30 @@
 
         .resultFilters {
             display: flex;
-            justify-content: center;
             flex-wrap: wrap;
         }
 
-        .resultFilters > div {
-            margin-left: 0 5px;
-            margin-right: 0 5px;
+        .resultFilters .filter-rule {
+            padding-bottom: 1rem;
+            width: 50%;
             display: flex;
             align-items: center;
-
-
+            flex-wrap: wrap;
         }
 
-        #resultcount > div {
+        .resultFilters .filter-rule .filter-checkbox {
+            display: flex;
+            align-items: center;
+        }
+
+        #resultcount > div:not(#legend) {
             margin-bottom: 10px;
             display: inline-flex;
             flex-wrap: wrap;
             align-items: center;
         }
-        #resultcount > div > div {
+
+        #resultcount > div:not(#legend) > div {
             padding-bottom: 1rem;
             width: 50%;
             display: flex;
@@ -434,6 +440,24 @@
             flex-direction: column;
             padding: 15px;
             background: #0077C8;
+
+        }
+
+        #legend {
+            background-color: #eee;
+            color: black;
+            padding: 13px 18px;
+            width: 100%;
+            display: flex;
+            cursor: pointer;
+            flex-wrap: wrap;
+        }
+
+        #legend > div {
+            margin: 5px 0px;
+            width: 50%;
+            display: flex;
+            align-items: center; 
         }
 
      
