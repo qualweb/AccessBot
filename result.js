@@ -698,7 +698,7 @@ function generateQuestionSection(rule, filteredRule) {
         </span>
     </div>
     <p class="RuleDescription">${rule.description}</p>
-    <h2>Filter evaluations by result:</h2>
+    <h2>Show evaluations by result:</h2>
     <ol class="ResultList"></ol>`
     filteredRule.questions.forEach(function(question) {
         const originalQuestion = rule.questions[question.index]
@@ -1192,9 +1192,12 @@ function generateResultCount() {
         <div>Innaplicable:&nbsp<label class="result-counter result-counter-inapplicable reduce-size"</label></div>
         <div>Uncompleted evaluations:&nbsp<label class="result-counter result-counter-uncompleted reduce-size"</label></div>
         <div>Total evaluations:&nbsp<label class="result-counter result-counter-total reduce-size"</label></div>
+        <div>Automatic test:&nbsp<img class="result-counter result-counter-total reduce-size" src="./imgs README/automatic evaluation.png"></div>
+        <div>Semi-automatic test:&nbsp<img class="result-counter result-counter-total reduce-size" src="./imgs README/semi-automatic evaluation icon.png"></div>
+        <div>Manual test:&nbsp<img class="result-counter result-counter-total reduce-size" src="./imgs README/manual evaluation.png"></div>
     </div>
     <br>
-    <h2> Filter tests by result: </h2>
+    <h2> Show tests by result: </h2>
     <div>
         <div>
             <input type="checkbox" id="passLeftFilter" name="passLeftFilter" value="passLeftFilter" checked>
