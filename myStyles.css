@@ -229,30 +229,30 @@
         }
 
         .result-counter.result-counter-pass.reduce-size {
-            width: 15px;
-            height: 15px;
+            width: 20px;
+            height: 20px;
            
         }
 
         .result-counter.result-counter-fail.reduce-size {
-            width: 15px;
-            height: 15px;
+            width: 20px;
+            height: 20px;
             
         }
 
         .result-counter.result-counter-cannottell.reduce-size {
-            width: 15px;
-            height: 15px;
+            width: 20px;
+            height: 20px;
         }
 
         .result-counter.result-counter-inapplicable.reduce-size {
-            width: 15px;
-            height: 15px;
+            width: 20px;
+            height: 20px;
         }
 
         .result-counter.result-counter-uncompleted.reduce-size {
-            width: 15px;
-            height: 15px;
+            width: 20px;
+            height: 20px;
          }
 
 
@@ -283,8 +283,8 @@
         }
 
         .result-counter.result-counter-total.reduce-size {
-            width: 15px;
-            height: 15px;
+            width: 20px;
+            height: 20px;
         }
 
         .counter-list-color {
