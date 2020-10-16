@@ -33,7 +33,7 @@ chrome.runtime.sendMessage({message:"resultLoaded"});
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
-        if(request.message === "resultsToPopup") {
+        if(request.message === "resultsToResultPopup") {
             resultData = generateManualTests(generateCategoriesData(request.values, request.options), request.options.manual);
             updateResults();
             const exportToEarlButton = document.querySelectorAll('#downloadEARL')[0];
@@ -1190,7 +1190,7 @@ function generateResultCount() {
         <div>Fail:&nbsp<label class="result-counter result-counter-fail reduce-size"></label></div>
         <div>Cannot Tell:&nbsp<label class="result-counter result-counter-cannottell reduce-size"></label></div>
         <div>Innaplicable:&nbsp<label class="result-counter result-counter-inapplicable reduce-size"</label></div>
-        <div>Uncompleted evaluations:&nbsp<label class="result-counter result-counter-uncompleted reduce-size"</label></div>
+        <div>Uncompleted tests:&nbsp<label class="result-counter result-counter-uncompleted reduce-size"</label></div>
         <div>Total evaluations:&nbsp<label class="result-counter result-counter-total reduce-size"</label></div>
         <div>Automatic test:&nbsp<img class="result-counter result-counter-total reduce-size" src="./imgs README/automatic evaluation.png"></div>
         <div>Semi-automatic test:&nbsp<img class="result-counter result-counter-total reduce-size" src="./imgs README/semi-automatic evaluation icon.png"></div>
