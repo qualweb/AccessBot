@@ -7,6 +7,7 @@
   "permissions": ["storage", "tabs", "activeTab", "http://127.0.0.1:9222/*"],
   "background": {
     "page": "background.html",
+    "script": "background.js",
     "persistent": true
   },
   "browser_action": {

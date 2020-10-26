@@ -179,6 +179,8 @@ function generateCategoriesData(result, options) {
         inapplicable: 0,
         warning: 0,
         missing: 0,
+        legend: false,
+        filterLeft: false,
         categories: []
     };
 
@@ -764,7 +766,7 @@ function generateManualTest(manualTest, index) {
                 <div class="CommunicateResult" id="manualTest-area-${index}">
                     <div>Status: <span>${status}</span></div>
                     <div>Reason: <span>${test.current().title}</span></div>
-                    <textarea placeholder="add an observation here">${manualTest.note}</textarea>
+                    <textarea placeholder="add an observation here and will be automatically saved">${manualTest.note}</textarea>
                 </div>
             </div>
         </li>`);
@@ -856,10 +858,10 @@ function generateResult(result, index) {
             <div class="CommunicateResult" id="question-area-${index}">
                 <div>Status: <span>${verdict}</span></div>
                 <div>Reason: <span>${result.description}</span></div>
-                <textarea placeholder="add an observation here">${result.note}</textarea>
+                <textarea placeholder="add an observation here and will be automatically saved">${result.note}</textarea>
             </div>
             <i class="material-icons selectwarning ${visible}">warning</i>
-            <label class="checkmark" for="select-${index}">Manually change this result</label>
+            <label class="checkmark" for="select-${index}">Manually change this result:</label>
             <select id="select-${index}">
                 <option value="" selected>--</option>
                 <option value="passed">Pass</option>
@@ -980,7 +982,7 @@ function generateQuestion(question, index) {
                 <div class="CommunicateResult" id="question-area-${index}">
                     <div>Status: <span>${status}</span></div>
                     <div>Reason: <span>${decisionTree.current().title}</span></div>
-                    <textarea placeholder="add an observation here">${question.note}</textarea>
+                    <textarea placeholder="add an observation here and will be automatically saved">${question.note}</textarea>
                 </div>
             </div>
         </li>`);
@@ -1181,53 +1183,101 @@ function updateTotal() {
 
 
 function generateResultCount() {
-    const text = document.querySelector("#resultcount");
-    text.innerHTML = 
-    `
-    <h2>Legend:</h2>
-    <div id="legend">
-        <div>Pass:&nbsp<label class="result-counter result-counter-pass reduce-size"></label></div>
-        <div>Fail:&nbsp<label class="result-counter result-counter-fail reduce-size"></label></div>
-        <div>Cannot Tell:&nbsp<label class="result-counter result-counter-cannottell reduce-size"></label></div>
-        <div>Innaplicable:&nbsp<label class="result-counter result-counter-inapplicable reduce-size"</label></div>
-        <div>Uncompleted tests:&nbsp<label class="result-counter result-counter-uncompleted reduce-size"</label></div>
-        <div>Total evaluations:&nbsp<label class="result-counter result-counter-total reduce-size"</label></div>
-        <div>Automatic test:&nbsp<img class="result-counter result-counter-total reduce-size" src="./imgs README/automatic evaluation.png"></div>
-        <div>Semi-automatic test:&nbsp<img class="result-counter result-counter-total reduce-size" src="./imgs README/semi-automatic evaluation icon.png"></div>
-        <div>Manual test:&nbsp<img class="result-counter result-counter-total reduce-size" src="./imgs README/manual evaluation.png"></div>
+    const text = document.querySelector(".buttons-top-wrapper");
+    text.innerHTML = `
+    <div class="buttons-top">
+        <button id="legendButton">
+            ${resultData.legend ? 'Hide' : 'Show'} Legend
+        </button>
+        <button id="filterButton">
+            ${resultData.filterLeft ? 'Hide' : 'Show'} Filters
+        </button>
     </div>
-    <br>
-    <h2> Show tests by result: </h2>
-    <div>
-        <div>
-            <input type="checkbox" id="passLeftFilter" name="passLeftFilter" value="passLeftFilter" checked>
-            <label class="checkbox" for="passLeftFilter">Pass:&nbsp</label>
-            <span id="passCount" class="result-counter result-counter-pass">${resultData.pass}</span>
+    <div class="panel ${resultData.legend ? 'active' : ''} top-block">
+        <div id="legend" class="resultFilters">
+            <div class="filter-rule">
+                Pass:&nbsp
+                <label class="result-counter result-counter-pass reduce-size"></label>
+            </div>
+            <div class="filter-rule">
+                Fail:&nbsp
+                <label class="result-counter result-counter-fail reduce-size"></label>
+            </div>
+            <div class="filter-rule">
+                Cannot Tell:&nbsp
+                <label class="result-counter result-counter-cannottell reduce-size"></label>
+            </div>
+            <div class="filter-rule">
+                Innaplicable:&nbsp
+                <label class="result-counter result-counter-inapplicable reduce-size"</label>
+            </div>
+            <div class="filter-rule">
+                Uncompleted tests:&nbsp
+                <label class="result-counter result-counter-uncompleted reduce-size"</label>
+            </div>
+            <div class="filter-rule">
+                Total evaluations:&nbsp
+                <label class="result-counter result-counter-total reduce-size"</label>
+            </div>
+            <div class="filter-rule">
+                Automatic test:&nbsp
+                <i class="material-icons result-icon">miscellaneous_services</i>
+            </div>
+            <div class="filter-rule">
+                Semi-automatic test:&nbsp
+                <i class="material-icons result-icon">engineering</i>
+            </div>
+            <div class="filter-rule">
+                Manual test:&nbsp
+                <i class="material-icons result-icon">person</i>
+            </div>
         </div>
-        <div>
-            <input type="checkbox" id="failLeftFilter" name="failLeftFilter" value="failLeftFilter" checked>
-            <label class="checkbox" for="failLeftFilter">Fail:&nbsp</label>
-            <span id="failCount" class="result-counter result-counter-fail">${resultData.fail}</span> 
-        </div>
-        <div>
-            <input type="checkbox" id="cannotTellLeftFilter" name="cannotTellLeftFilter" value="cannotTellLeftFilter" checked>
-            <label class="checkbox" for="cannotTellLeftFilter">Cannot tell:&nbsp</label>
-            <span id="warningCount" class="result-counter result-counter-cannottell">${resultData.warning}</span>
-        </div>
-        <div>
-            <input type="checkbox" id="inapplicableLeftFilter" name="inapplicableLeftFilter" value="inapplicableLeftFilter" checked>
-            <label class="checkbox" for="inapplicableLeftFilter">Inapplicable:&nbsp</label>
-            <span id="inappliacbleCount" class="result-counter result-counter-inapplicable">${resultData.inapplicable}</span> 
-        </div>
-        <div>
-            <input type="checkbox" id="uncompletedLeftFilter" name="uncompletedLeftFilter" value="uncompletedLeftFilter" checked>
-            <label class="checkbox" for="uncompletedLeftFilter">Uncompleted evaluations:&nbsp</label>
-            <span id="missingCount" class="result-counter result-counter-uncompleted">${resultData.missing}</span>
-         </div>
     </div>
-    <br>
-    <h2>List of tests:</h2>`;
-  
+    <div class="panel ${resultData.filterLeft ? 'active' : ''} top-block">
+        <div class="resultFilters">
+                <div class="filter-rule">
+                    <input type="checkbox" id="passLeftFilter" name="passLeftFilter" value="passLeftFilter" checked>
+                    <label class="checkbox" for="passLeftFilter">Pass:&nbsp</label>
+                    <span id="passCount" class="result-counter result-counter-pass">${resultData.pass}</span>
+                </div>
+                <div class="filter-rule">
+                    <input type="checkbox" id="failLeftFilter" name="failLeftFilter" value="failLeftFilter" checked>
+                    <label class="checkbox" for="failLeftFilter">Fail:&nbsp</label>
+                    <span id="failCount" class="result-counter result-counter-fail">${resultData.fail}</span> 
+                </div>
+                <div class="filter-rule">
+                    <input type="checkbox" id="cannotTellLeftFilter" name="cannotTellLeftFilter" value="cannotTellLeftFilter" checked>
+                    <label class="checkbox" for="cannotTellLeftFilter">Cannot tell:&nbsp</label>
+                    <span id="warningCount" class="result-counter result-counter-cannottell">${resultData.warning}</span>
+                </div>
+                <div class="filter-rule">
+                    <input type="checkbox" id="inapplicableLeftFilter" name="inapplicableLeftFilter" value="inapplicableLeftFilter" checked>
+                    <label class="checkbox" for="inapplicableLeftFilter">Inapplicable:&nbsp</label>
+                    <span id="inappliacbleCount" class="result-counter result-counter-inapplicable">${resultData.inapplicable}</span> 
+                </div>
+                <div class="filter-rule">
+                    <input type="checkbox" id="uncompletedLeftFilter" name="uncompletedLeftFilter" value="uncompletedLeftFilter" checked>
+                    <label class="checkbox" for="uncompletedLeftFilter">Uncompleted tests:&nbsp</label>
+                    <span id="missingCount" class="result-counter result-counter-uncompleted">${resultData.missing}</span>
+                </div>
+        </div>
+    </div>`;
+
+    const legendButton = document.querySelector('#legendButton');
+    const filterButton = document.querySelector('#filterButton');
+
+    legendButton.onclick = function() {
+        resultData.filterLeft = false;
+        resultData.legend = !resultData.legend;
+        updateResults();
+    }
+
+    filterButton.onclick = function() {
+        resultData.legend = false;
+        resultData.filterLeft = !resultData.filterLeft;
+        updateResults();
+    }
+
     const uncompletedTestsFilter = document.querySelector('#uncompletedLeftFilter');
     const inapplicableFilter = document.querySelector('#inapplicableLeftFilter');
     const failFilter = document.querySelector('#failLeftFilter');
@@ -1260,10 +1310,11 @@ function generateResultCount() {
         filtersLeft.pass = e.target.checked;
         updateResults();        
     }
+    
 }
 
 function generateAccordions(originalCategory, category) {
-    const accordionSection = document.querySelector('.ResultPage .result:first-child');
+    const accordionSection = document.querySelector('.categories-result');
 
     let text = "";
     if (category.total === 0) {
@@ -1290,7 +1341,8 @@ function generateAccordions(originalCategory, category) {
 
     filterCategoryCount += `<li><div class="result-counter result-counter-total">${category.total}</div></li>`;
 
-    accordionSection.insertAdjacentHTML('beforeend', `<div class="accordion-group">
+    accordionSection.insertAdjacentHTML('beforeend', `
+    <div class="accordion-group">
     <button id="category-button-${category.fixedName}" class="accordion">
         <div class="category-content">
             <span>${category.name}</span>

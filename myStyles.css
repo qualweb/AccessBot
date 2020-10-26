@@ -62,7 +62,8 @@
         button {
             font-family: 'Roboto', sans-serif;
         }
-        .RuleTitle {
+        
+        .ResultPage .ResultSection .RuleTitle {
             font-weight: 700;
             font-size: 1.4rem;
             margin-bottom: 15px;
@@ -123,34 +124,70 @@
         }
         .ResultPage .ResultSection {
             flex: 1 ;
-            border-right: 2px black solid;
+            border-left: 2px black solid;
             padding: 1.2rem;
             text-align: center;
-            max-height: 100vh;
+            height: 100vh;
             overflow-y: auto;
-           
         }
 
         .RuleDescription {
-            margin-bottom:20px ;
+            margin-bottom:20px;
         }
 
         .ResultPage .ResultSection  > h2 {
             font-size: medium;
             margin-bottom: 10px;
-            text-align: center;
+            text-align: left;
         }
 
         .ResultPage .ResultSection  > h2:nth-of-type(2) {
             text-align: left;
         }
 
-        .ResultPage .ResultSection:last-child {
-            border-right: none;
+        .ResultPage .ResultSection:first-child {
+            border-left: none;
         }
         .Flex-h {
             display: flex;
             justify-content: space-between;
+        }
+
+        .ResultPage .result:first-child {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .buttons-top-wrapper, .buttons-bottom-wrapper {
+            background-color: #0077C8;
+            width: 100%;
+            padding: 15px 0;
+            display: flex;
+            flex: 0 0 auto;
+            justify-content: space-between;
+        }
+
+        .buttons-top-wrapper {
+            flex-direction: column;
+            padding-top: 0;
+        }
+
+        .buttons-bottom-wrapper {
+            padding-bottom: 0;
+        }
+
+        .buttons-top {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .buttons-top-wrapper > button {
+            margin: 0 15px;
+        }
+
+        .buttons-top-wrapper .top-block {
+            margin-top: 15px;
         }
 
         .PanelButton {
@@ -176,10 +213,13 @@
             padding: 1rem 0;
         }
         .actionButtons {
-            width: 100%;
-            margin-top: 3rem;
             display: flex;
             justify-content: space-between;
+            background-color: #0077C8;
+            position: fixed;
+            width: calc(50% - 2.4rem - 4px);
+            bottom: 0;
+            padding: 15px 0;
         }
         .ResultList {
             counter-reset: section;
@@ -201,6 +241,21 @@
 
         .result-counter-before {
             counter-increment: section;
+        }
+
+        .SectionRules  {
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .categories-result {
+            overflow-y: auto;
+            margin: 0 -7px;
+            position: relative;
+            left: 8px;
+            padding-right: 15px;
+            flex: 1;
         }
 
         .result-counter, .result-counter-before::before {
@@ -255,6 +310,10 @@
             height: 20px;
          }
 
+        .result-counter.result-icon {
+            font-size: 30px;
+            margin-left: 5px;
+        }
 
         .result-counter.result-counter-fail, .result-counter-fail.result-counter-before::before {
             background-color: #f52226;
@@ -308,6 +367,10 @@
         .resultFilters {
             display: flex;
             flex-wrap: wrap;
+            background-color: #eee;
+            padding: 13px 18px 0;
+            color: black;
+            width: 100%;
         }
 
         .resultFilters .filter-rule {
@@ -322,7 +385,7 @@
             display: flex;
             align-items: center;
         }
-
+/*
         #resultcount > div:not(#legend) {
             margin-bottom: 10px;
             display: inline-flex;
@@ -336,12 +399,11 @@
             display: flex;
             align-items: center;  
         }
-        
+*/       
         #resultcount >  h2 {
             font-size: medium;
             margin-bottom: 10px;
             display: flex;
-            
         }
 
         .CommunicateResult > div {
@@ -360,7 +422,13 @@
         .ResultList > li .checkmark {
             margin-bottom: 1rem;
             display: block;
-        }
+            font-size: 16px;
+            font-weight: bolder;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+        }   
+        
         .manualTestText {
             font-size: 14px;
             line-height: 150%;
@@ -440,9 +508,16 @@
             flex-direction: column;
             padding: 15px;
             background: #0077C8;
-
         }
 
+        
+        .material-icons.testtype {
+            padding: 5px;
+
+            
+        }
+        
+/*
         #legend {
             background-color: #eee;
             color: black;
@@ -459,4 +534,16 @@
             align-items: center; 
         }
 
+        .white-box {
+            background-color: #eee;
+        }
+
+        .white-box > div {
+            color: black;
+            display: flex;
+            padding: 0px 0px;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+*/
      
