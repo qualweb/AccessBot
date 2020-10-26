@@ -89,7 +89,7 @@ var result =
 /* 0 */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"b\":\"AccessBot\",\"c\":\"1.1.3\",\"a\":\"Assisted Evaluation powered by QualWeb.\"}");
+module.exports = JSON.parse("{\"b\":\"AccessBot\",\"c\":\"1.1.4\",\"a\":\"Assisted Evaluation powered by QualWeb.\"}");
 
 /***/ }),
 /* 1 */
