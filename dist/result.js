@@ -5179,15 +5179,23 @@ function updateTotal() {
                             switch(question.decisionTree.getStatus()) {
                                 case 'Pass':
                                     resultData.pass++;
+                                    category.pass++;
+                                    rule.pass++;
                                     break;
                                 case 'Fail':
                                     resultData.fail++;
+                                    category.fail++;
+                                    rule.fail++;
                                     break;
                                 case 'Inapplicable':
                                     resultData.inapplicable++;
+                                    category.inapplicable++;
+                                    rule.inapplicable++;
                                     break;
                                 case 'warning':
                                     resultData.warning++;
+                                    category.warning++;
+                                    rule.warning++;
                                     break;
                             }
                         }
