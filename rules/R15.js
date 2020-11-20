@@ -6,7 +6,7 @@ export default {
     category: CategoryConst.AUDIOVIDEO,
     tree: [{
         prerequisite: 'RC5',
-        fluxo: [
+        flow: [
             {
                 key: '1A',
                 title: 'Can you verify if target has a visible control mechanism?',

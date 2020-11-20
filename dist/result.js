@@ -89,7 +89,7 @@ var result =
 /* 0 */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"b\":\"AccessBot\",\"c\":\"1.1.4\",\"a\":\"Assisted Evaluation powered by QualWeb.\"}");
+module.exports = JSON.parse("{\"b\":\"AccessBot\",\"c\":\"1.1.6\",\"a\":\"Assisted Evaluation powered by QualWeb.\"}");
 
 /***/ }),
 /* 1 */
@@ -2274,7 +2274,7 @@ __webpack_require__.r(__webpack_exports__);
     plusRule: [ {plusRuleCode:'c4a8a4', plusRuleUrl: 'https://act-rules.github.io/rules/c4a8a4', plusRuleName: 'HTML page title is descriptive.'}],
     tree: [{
         prerequisite: 'RC3',
-        fluxo: [
+        flow: [
             {
                 key: '1A',
                 title: 'Does title describe page?',
@@ -2303,7 +2303,7 @@ __webpack_require__.r(__webpack_exports__);
     category: rules_const.LANGUAGE,
     tree: [{
         prerequisite: 'RC1',
-        fluxo: [
+        flow: [
             {
                 key: '1A',
                 title: 'Is the content of the page according to the value of lang attribute?',
@@ -2331,7 +2331,7 @@ __webpack_require__.r(__webpack_exports__);
     category: rules_const.IMAGE,
     tree: [{
         prerequisite: 'RC1',
-        fluxo: [
+        flow: [
             {
                 key: '1A',
                 title: 'Does accessible name #{a} describe purpose?',
@@ -2360,7 +2360,7 @@ __webpack_require__.r(__webpack_exports__);
     category: rules_const.IMAGE,
     tree: [{
         prerequisite: 'RC1',
-        fluxo:[
+        flow:[
             {
             key: '1A',
             title: 'Does accessible name #{a} describes purpose?',
@@ -2388,7 +2388,7 @@ __webpack_require__.r(__webpack_exports__);
     category: rules_const.LINKS,
     tree: [{
         prerequisite: 'RC3',
-        fluxo: [
+        flow: [
             {
                 key: '1A',
                 title: 'Is the content equivalent?',
@@ -2417,7 +2417,7 @@ __webpack_require__.r(__webpack_exports__);
     category: rules_const.IFRAMES,
     tree: [{
         prerequisite: 'RC3',
-        fluxo: [
+        flow: [
             {
                 key: '1A',
                 title: 'Is the content equivalent?',
@@ -2446,7 +2446,7 @@ __webpack_require__.r(__webpack_exports__);
     category: rules_const.BUTTONS,
     tree: [{
         prerequisite: 'RC1',
-        fluxo: [
+        flow: [
             {
                 key: '1A',
                 title: 'Does accessible name #{a} describe purpose?',
@@ -2476,7 +2476,7 @@ __webpack_require__.r(__webpack_exports__);
     plusRule: [ {plusRuleCode:'5effbb', plusRuleUrl: 'https://act-rules.github.io/rules/5effbb', plusRuleName: 'Link in context is descriptive.'}],
     tree: [{
         prerequisite: 'RC1',
-        fluxo: [
+        flow: [
             {
                 key: '1A',
                 title: 'Does accessible name #{a} describe purpose?',
@@ -2505,7 +2505,7 @@ __webpack_require__.r(__webpack_exports__);
     category: rules_const.AUDIOVIDEO,
     tree: [{
         prerequisite: 'RC5',
-        fluxo: [
+        flow: [
             {
                 key: '1A',
                 title: 'Can you verify if target has a visible control mechanism?',
@@ -2534,7 +2534,7 @@ __webpack_require__.r(__webpack_exports__);
     category: rules_const.FORMS,
     tree: [{
         prerequisite: 'RC1',
-        fluxo: [
+        flow: [
             {
                 key: '1A',
                 title: 'Does accessible name #{a} describes purpose?',
@@ -2562,7 +2562,7 @@ __webpack_require__.r(__webpack_exports__);
         category: rules_const.IMAGE,
         tree: [{
             prerequisite: 'RC1',
-            fluxo: [
+            flow: [
                 {
                     key: '1A',
                     title: 'Is the image decorative?',
@@ -2581,7 +2581,7 @@ __webpack_require__.r(__webpack_exports__);
         },
         {
             prerequisite: 'RC3, RC6',
-            fluxo: [
+            flow: [
                 {
                     key: '1B',
                     title: 'Is image a complex image (for example, a graph)?',
@@ -2690,7 +2690,7 @@ __webpack_require__.r(__webpack_exports__);
     category: rules_const.IFRAMES,
     tree: [{
         prerequisite: 'RC2',
-        fluxo: [
+        flow: [
             {
                 key: '1A',
                 title: 'Does accessible name #{a} describe purpose?',
@@ -2718,7 +2718,7 @@ __webpack_require__.r(__webpack_exports__);
     category: rules_const.IMAGE,
     tree: [{
     prerequisite: 'RC2',
-    fluxo: [
+    flow: [
     {
         key: '1A',
         title: 'Is image a complex image (for example, a graph)?',
@@ -2824,7 +2824,7 @@ __webpack_require__.r(__webpack_exports__);
     category: rules_const.LANGUAGE,
     tree: [{
         prerequisite: 'RC2',
-        fluxo: [
+        flow: [
             {
                 key: '1A',
                 title: 'Is the language content  of the element the same as the value of lang attribute?',
@@ -2853,7 +2853,7 @@ __webpack_require__.r(__webpack_exports__);
     category: rules_const.AUDIOVIDEO,
     tree: [{
         prerequisite: 'RC3',
-        fluxo: [
+        flow: [
             {
                 key: '1A',
                 title: "Is it an  audio alternative (voice over)?",
@@ -2946,7 +2946,7 @@ __webpack_require__.r(__webpack_exports__);
     category: rules_const.AUDIOVIDEO,
     tree: [{
         prerequisite: 'RC1',
-        fluxo: [
+        flow: [
             {
                 key: '1A',
                 title: 'Does it have a text alternative?',
@@ -2985,7 +2985,7 @@ __webpack_require__.r(__webpack_exports__);
     category: rules_const.LABEL,
     tree: [{
         prerequisite: 'RC4',
-        fluxo: [
+        flow: [
             {
                 key: '1A',
                 title: 'Does accessible name #{a} describe purpose?',
@@ -3015,7 +3015,7 @@ __webpack_require__.r(__webpack_exports__);
     plusRule: [{plusRuleCode:'b49b2e', plusRuleUrl: 'https://act-rules.github.io/rules/b49b2e', plusRuleName: 'Heading is descriptive.'}],
     tree: [{
         prerequisite: 'RC1',
-        fluxo: [
+        flow: [
             {
                 key: '1A',
                 title: 'Does the heading describe the contents of its section?',
@@ -3043,7 +3043,7 @@ __webpack_require__.r(__webpack_exports__);
     category: rules_const.TABLES,
     tree: [{
         prerequisite: 'RC7',
-        fluxo: [
+        flow: [
             {
                 key: '1A',
                 title: 'Does the data cells have appropriate headers?',
@@ -3071,7 +3071,7 @@ __webpack_require__.r(__webpack_exports__);
     category: rules_const.CONTRAST,
     tree: [{
         prerequisite: 'RC12',
-        fluxo: [
+        flow: [
             {
                 key: '1A',
                 title: 'Can you read text presented over the background?',
@@ -3099,7 +3099,7 @@ __webpack_require__.r(__webpack_exports__);
     category: rules_const.SENSORYVISUALCLUES,
     tree: [{
         prerequisite: 'RC1',
-        fluxo: [
+        flow: [
             {
                 key: '1A',
                 title: 'Can you verify if text content is not clipped?',
@@ -3127,7 +3127,7 @@ __webpack_require__.r(__webpack_exports__);
     category: rules_const.FORMS,
     tree: [{
         prerequisite: 'RC1',
-        fluxo: [
+        flow: [
             {
                 key: '1A',
                 title: 'An error indicator appeared when there is an invalid form field value?',
@@ -3166,7 +3166,7 @@ __webpack_require__.r(__webpack_exports__);
     category: rules_const.OBJECT,
     tree: [{
         prerequisite: 'RC1',
-        fluxo: [
+        flow: [
             {
                 key: '1A',
                 title: 'Accessible name #{a} describes purpose?',
@@ -3194,7 +3194,7 @@ __webpack_require__.r(__webpack_exports__);
     category: rules_const.LINKS,
     tree: [{
         prerequisite: 'RC3',
-        fluxo: [
+        flow: [
             {
                 key: '1A',
                 title: 'Do the links have the same purpose?',
@@ -3421,7 +3421,7 @@ class DecisionTree {
     }
 
     constructor(data) {
-        this.data = data.fluxo;
+        this.data = data.flow;
         this._current = this.data[0];
         this.allValues = [this.data[0]];
     }
@@ -4058,6 +4058,7 @@ chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         if(request.message === "resultsToResultPopup") {
             resultData = generateManualTests(generateCategoriesData(request.values, request.options), request.options.manual);
+            console.log(resultData);
             updateResults();
             const exportToEarlButton = document.querySelectorAll('#downloadEARL')[0];
             const exportToCSVButton = document.querySelectorAll('#downloadCSV')[0];
@@ -4202,7 +4203,7 @@ function generateCategoriesData(result, options) {
         inapplicable: 0,
         warning: 0,
         missing: 0,
-        legend: false,
+        legend: true,
         filterLeft: false,
         categories: []
     };
@@ -4552,6 +4553,21 @@ function updateResults() {
             }
         })
     })
+    addHTMLEvents();
+}
+
+function addHTMLEvents() {
+    const legendElements = document.querySelectorAll('.legend-hover');
+
+    legendElements.forEach(element => {
+        element.addEventListener('mouseenter', e => {
+            element.classList.add("active")
+        });
+        element.addEventListener('mouseleave', e => {
+            element.classList.remove("active")
+        });
+    })
+
 }
 
 
@@ -4883,7 +4899,7 @@ function generateResult(result, index) {
                 <div>Reason: <span>${result.description}</span></div>
                 <textarea placeholder="add an observation here and will be automatically saved">${result.note}</textarea>
             </div>
-            <i class="material-icons selectwarning ${visible}">warning</i>
+            <i class="material-icons selectwarning ${visible}">verified</i>
             <label class="checkmark" for="select-${index}">Manually change this result:</label>
             <select id="select-${index}">
                 <option value="" selected>--</option>
@@ -5210,8 +5226,45 @@ function updateTotal() {
     });
 }
 
+function legendInfo(type, classes, text) {
+    let infoText = "";
+    switch(type) {
+        case "pass":
+            infoText = "Pass";
+        break;
+        case "fail":
+            infoText = "Fail";
+        break;
+        case "cannot tell":
+            infoText = "Cannot tell";
+        break;
+        case "inapplicable":
+            infoText = "Inapplicable";
+        break;
+        case "uncompleted":
+            infoText = "Uncompleted";
+        break;
+        case "total":
+            infoText = "Total";
+        break;
+        case "auto":
+            infoText = "automatic";
+        break;
+        case "semi":
+            infoText = "semi-automatic";
+        break;
+        case "manual":
+            infoText = "manual";
+        break;
+        default:
+        break;
+    }
 
-
+    return `<div class="${classes} legend-hover">
+        <div class="info-hover">${infoText}</div>
+        ${text}
+    </div>`;
+}
 
 function generateResultCount() {
     const text = document.querySelector(".buttons-top-wrapper");
@@ -5239,7 +5292,7 @@ function generateResultCount() {
                 <label class="result-counter result-counter-cannottell reduce-size"></label>
             </div>
             <div class="filter-rule">
-                Innaplicable:&nbsp
+                Inapplicable:&nbsp
                 <label class="result-counter result-counter-inapplicable reduce-size"</label>
             </div>
             <div class="filter-rule">
@@ -5293,6 +5346,24 @@ function generateResultCount() {
                 </div>
         </div>
     </div>`;
+
+    const resultsTop = document.querySelector('.show-results-top ul');
+    let filterTopCount = "";
+
+    if(filtersLeft.pass)
+        filterTopCount += `<li>${legendInfo("pass", "result-counter result-counter-pass", resultData.pass)}</li>`;
+    if(filtersLeft.uncompletedTests)
+        filterTopCount += `<li>${legendInfo("uncompleted", "result-counter result-counter-uncompleted", resultData.missing)}</li>`;
+    if(filtersLeft.fail)
+        filterTopCount += `<li>${legendInfo("fail", "result-counter result-counter-fail", resultData.fail)}</li>`;
+    if(filtersLeft.cannotTell)
+        filterTopCount += `<li>${legendInfo("cannot tell", "result-counter result-counter-cannottell", resultData.warning)}</li>`;
+    if(filtersLeft.inapplicable)
+        filterTopCount += `<li>${legendInfo("inapplicable", "result-counter result-counter-inapplicable", resultData.inapplicable)}</li>`;
+       
+    filterTopCount += `<li> ${legendInfo("total", "result-counter result-counter-total", resultData.total)}</li>`;
+    
+    resultsTop.innerHTML = filterTopCount;
 
     const legendButton = document.querySelector('#legendButton');
     const filterButton = document.querySelector('#filterButton');
@@ -5359,18 +5430,17 @@ function generateAccordions(originalCategory, category) {
     let filterCategoryCount = "";
 
     if(filtersLeft.pass)
-        filterCategoryCount += `<li><div class="result-counter result-counter-pass">${category.pass}</div></li>`;
-    if(filtersLeft.fail)
-        filterCategoryCount += `<li><div class="result-counter result-counter-fail">${category.fail}</div></li>`;
-   
-    if(filtersLeft.cannotTell)
-        filterCategoryCount += `<li><div class="result-counter result-counter-cannottell">${category.warning}</div></li>`;
-    if(filtersLeft.inapplicable)
-        filterCategoryCount += `<li><div class="result-counter result-counter-inapplicable">${category.inapplicable}</div></li>`;
+        filterCategoryCount += `<li>${legendInfo("pass", "result-counter result-counter-pass", category.pass)}</li>`;
     if(filtersLeft.uncompletedTests)
-        filterCategoryCount += `<li><div class="result-counter result-counter-uncompleted">${category.missing}</div></li>`;
+        filterCategoryCount += `<li>${legendInfo("fail", "result-counter result-counter-uncompleted", category.missing)}</li>`;
+    if(filtersLeft.fail)
+        filterCategoryCount += `<li>${legendInfo("fail", "result-counter result-counter-fail", category.fail)}</li>`;
+    if(filtersLeft.cannotTell)
+        filterCategoryCount += `<li>${legendInfo("cannot tell", "result-counter result-counter-cannottell", category.warning)}</li>`;
+    if(filtersLeft.inapplicable)
+        filterCategoryCount += `<li>${legendInfo("inapplicable", "result-counter result-counter-inapplicable", category.inapplicable)}</li>`;
 
-    filterCategoryCount += `<li><div class="result-counter result-counter-total">${category.total}</div></li>`;
+    filterCategoryCount += `<li>${legendInfo("total", "result-counter result-counter-total", category.total)}</li>`;
 
     accordionSection.insertAdjacentHTML('beforeend', `
     <div class="accordion-group">

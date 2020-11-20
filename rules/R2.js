@@ -6,7 +6,7 @@ export default {
     category: CategoryConst.LANGUAGE,
     tree: [{
         prerequisite: 'RC1',
-        fluxo: [
+        flow: [
             {
                 key: '1A',
                 title: 'Is the content of the page according to the value of lang attribute?',

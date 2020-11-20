@@ -7,7 +7,7 @@ export default {
     plusRule: [{plusRuleCode:'b49b2e', plusRuleUrl: 'https://act-rules.github.io/rules/b49b2e', plusRuleName: 'Heading is descriptive.'}],
     tree: [{
         prerequisite: 'RC1',
-        fluxo: [
+        flow: [
             {
                 key: '1A',
                 title: 'Does the heading describe the contents of its section?',

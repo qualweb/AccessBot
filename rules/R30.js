@@ -6,7 +6,7 @@ export default {
     category: CategoryConst.LABEL,
     tree: [{
         prerequisite: 'RC4',
-        fluxo: [
+        flow: [
             {
                 key: '1A',
                 title: 'Does accessible name #{a} describe purpose?',

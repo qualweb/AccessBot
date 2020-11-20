@@ -6,7 +6,7 @@ export default {
     category: CategoryConst.IFRAMES,
     tree: [{
         prerequisite: 'RC3',
-        fluxo: [
+        flow: [
             {
                 key: '1A',
                 title: 'Is the content equivalent?',

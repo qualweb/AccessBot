@@ -7,7 +7,7 @@ export default {
     plusRule: [ {plusRuleCode:'c4a8a4', plusRuleUrl: 'https://act-rules.github.io/rules/c4a8a4', plusRuleName: 'HTML page title is descriptive.'}],
     tree: [{
         prerequisite: 'RC3',
-        fluxo: [
+        flow: [
             {
                 key: '1A',
                 title: 'Does title describe page?',

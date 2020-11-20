@@ -44,7 +44,7 @@ export default class DecisionTree {
     }
 
     constructor(data) {
-        this.data = data.fluxo;
+        this.data = data.flow;
         this._current = this.data[0];
         this.allValues = [this.data[0]];
     }

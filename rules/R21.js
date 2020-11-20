@@ -5,7 +5,7 @@ export default {
     category: CategoryConst.IMAGE,
     tree: [{
     prerequisite: 'RC2',
-    fluxo: [
+    flow: [
     {
         key: '1A',
         title: 'Is image a complex image (for example, a graph)?',

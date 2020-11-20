@@ -6,7 +6,7 @@ export default {
     category: CategoryConst.LINKS,
     tree: [{
         prerequisite: 'RC3',
-        fluxo: [
+        flow: [
             {
                 key: '1A',
                 title: 'Is the content equivalent?',

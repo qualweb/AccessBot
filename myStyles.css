@@ -51,9 +51,8 @@
         }
         /*custom css*/
         html {
-            font-size: 12px;
+            font-size: 15px;
             font-family: 'Roboto', sans-serif;
-            
         }
         body {
           background-color: #0077C8;
@@ -61,16 +60,17 @@
         }
         button {
             font-family: 'Roboto', sans-serif;
+            font-size: 1rem;
         }
         
         .ResultPage .ResultSection .RuleTitle {
             font-weight: 700;
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             margin-bottom: 15px;
             text-align: center;
         }
         
-        .ResultSection .result  > .h2 {
+        .ResultSection .result .h2 {
             text-align: center;
         }
 
@@ -80,7 +80,7 @@
             display: block;
         }
         .RuleLink a {
-            color: #ffffff;
+            color: #7ffed4;
         }
         #resultcount span {
             font-weight: bold;
@@ -135,13 +135,13 @@
             margin-bottom:20px;
         }
 
-        .ResultPage .ResultSection  > h2 {
+        .ResultPage .ResultSection h2 {
             font-size: medium;
             margin-bottom: 10px;
             text-align: left;
         }
 
-        .ResultPage .ResultSection  > h2:nth-of-type(2) {
+        .ResultPage .ResultSection h2:nth-of-type(2) {
             text-align: left;
         }
 
@@ -311,8 +311,17 @@
          }
 
         .result-counter.result-icon {
-            font-size: 30px;
+            font-size: 2rem;
             margin-left: 5px;
+        }
+
+        .result-counter-total-list {
+            margin-right: 35px;
+        }
+
+        .result-counter-total-list .result-counter.result-counter-inapplicable, .result-counter-total-list .result-counter.result-counter-total {
+            border-color: white;
+            color: white;
         }
 
         .result-counter.result-counter-fail, .result-counter-fail.result-counter-before::before {
@@ -332,8 +341,6 @@
         .result-counter.result-counter-uncompleted, .result-counter-uncompleted.result-counter-before::before {
             background-color: #fdfc4f;
         }
-
-        
 
         .result-counter.result-counter-total, .result-counter-total.result-counter-before::before {
             border: 1px solid black;
@@ -358,6 +365,10 @@
 
         .category-content > .counter-list-color {
             margin-left: 10px;
+        }
+
+        .category-content .result-counter.result-counter-total {
+            margin-left: 20px;
         }
 
         .counter-list-color > li {
@@ -385,22 +396,30 @@
             display: flex;
             align-items: center;
         }
-/*
-        #resultcount > div:not(#legend) {
-            margin-bottom: 10px;
-            display: inline-flex;
-            flex-wrap: wrap;
+        .show-results-top {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
+            margin-bottom: 15px;
         }
 
-        #resultcount > div:not(#legend) > div {
-            padding-bottom: 1rem;
-            width: 50%;
+        .show-results-top > ul {
             display: flex;
-            align-items: center;  
         }
-*/       
-        #resultcount >  h2 {
+
+        .ResultPage .ResultSection .show-results-top h2 {
+            margin-bottom: 0;
+        }
+
+        .show-results-top > ul li {
+            margin: 0 5px;
+        }
+
+        .show-results-top > ul li .result-counter-total {
+            margin-left: 20px;
+        }
+        
+        #resultcount h2 {
             font-size: medium;
             margin-bottom: 10px;
             display: flex;
@@ -408,7 +427,7 @@
 
         .CommunicateResult > div {
             padding: 1rem 0 0 0;
-            font-size: 14px;
+            font-size: 1.1rem;
         }
         .CommunicateResult > div > span {
             font-weight: bold;
@@ -422,7 +441,7 @@
         .ResultList > li .checkmark {
             margin-bottom: 1rem;
             display: block;
-            font-size: 16px;
+            font-size: 1.2rem;
             font-weight: bolder;
             align-items: center;
             display: flex;
@@ -430,7 +449,7 @@
         }   
         
         .manualTestText {
-            font-size: 14px;
+            font-size: 1rem;
             line-height: 150%;
             margin-bottom: 15px;
             text-align: left;
@@ -440,7 +459,7 @@
         }
         .RuleImportance {
             margin-top: 15px;
-            font-size: 14px;
+            font-size: 1rem;
             font-weight: bold;
             border: 2px solid white;
             padding: 15px;
@@ -459,7 +478,7 @@
         }
 
         .selectwarning {
-            font-size: 32px;
+            font-size: 2rem;
             width: 100%;
             margin-bottom: 8px;
             display: none;
@@ -501,7 +520,7 @@
         }
 
         .popup-content {
-            font-size: 14px;
+            font-size: 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -512,11 +531,29 @@
 
         
         .material-icons.testtype {
-            padding: 5px;
-
-            
+            padding: 5px;    
         }
-        
+
+        .legend-hover {
+            position: relative;
+        }
+
+        .legend-hover .info-hover {
+            display: none;
+            z-index: 1;
+            position: absolute;
+            top: 90%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 4px;
+            background-color:#5b5b5b;
+            color: #ffffff;
+            font-size: 12px;
+        }
+
+        .legend-hover.active .info-hover {
+            display: block;
+        }
 /*
         #legend {
             background-color: #eee;

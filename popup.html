@@ -5,6 +5,9 @@
       <title>AccessBot</title>
       <script type = "module" src ="./dist/popup.js" defer></script>
     <style>
+      html {
+        font-size: 15px;
+      }
       body {
         background-color: #0077C8;
         color: #ffffff;
@@ -12,15 +15,35 @@
         text-align: center;
         padding: 10px;
         display: block;
-      }      
+      }
+      button {
+        font-size: 15px;
+      }  
       h1 {
         margin: 0 0 10px;
+      }
+      .testSelection-wrapper {
+        background-color: #ffffff;
+        padding: 10px;
+        color: #000000;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .checkbox-wrapper {
+        display: flex;
+        align-items: center;
       }
       .checkbox .input {
         display: flex;
         flex-direction: row;
         justify-content: center;
-
+      }
+      label {
+        font-size: 1rem;
+        bottom: 2px;
+        position: relative;
+        line-height: 1;
       }
 
     </style>
@@ -29,12 +52,20 @@
     <h1>AccessBot</h1>
     <h2>Powered by Qualweb</h2>
     <h3 id="URL"></h3>
-    <label class="checkbox" for="manual">manual:</label>
-      <input type="checkbox" id="manual" name="manual" value="manual" checked>
-    <label class="checkbox" for="semimanual">semi-automatic:</label>
-      <input type="checkbox" id="semimanual" name="semimanual" value="semimanual" checked>
-    <label class="checkbox" for="automatic">automatic:</label>
-      <input type="checkbox" id="automatic" name="automatic" value="automatic" checked>
+    <div class="testSelection-wrapper">
+      <div class="checkbox-wrapper">
+        <input type="checkbox" id="manual" name="manual" value="manual" checked>
+        <label class="checkbox" for="manual">manual</label>
+      </div>
+      <div class="checkbox-wrapper">
+        <input type="checkbox" id="semimanual" name="semimanual" value="semimanual" checked>
+        <label class="checkbox" for="semimanual">semi-automatic</label>
+      </div>
+      <div class="checkbox-wrapper">
+        <input type="checkbox" id="automatic" name="automatic" value="automatic" checked>
+        <label class="checkbox" for="automatic">automatic</label>
+      </div>
+    </div>
     <br>
     <br>
     <button accesskey= "s" id="getUrl" style="margin:auto;display:block">Start Evaluation</button>

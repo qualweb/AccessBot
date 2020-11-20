@@ -6,7 +6,7 @@ export default {
     category: CategoryConst.CONTRAST,
     tree: [{
         prerequisite: 'RC12',
-        fluxo: [
+        flow: [
             {
                 key: '1A',
                 title: 'Can you read text presented over the background?',

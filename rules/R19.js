@@ -6,7 +6,7 @@ export default {
     category: CategoryConst.IFRAMES,
     tree: [{
         prerequisite: 'RC2',
-        fluxo: [
+        flow: [
             {
                 key: '1A',
                 title: 'Does accessible name #{a} describe purpose?',

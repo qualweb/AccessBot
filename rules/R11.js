@@ -6,7 +6,7 @@ export default {
     category: CategoryConst.BUTTONS,
     tree: [{
         prerequisite: 'RC1',
-        fluxo: [
+        flow: [
             {
                 key: '1A',
                 title: 'Does accessible name #{a} describe purpose?',

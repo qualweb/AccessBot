@@ -6,7 +6,7 @@ export default {
     category: CategoryConst.SENSORYVISUALCLUES,
     tree: [{
         prerequisite: 'RC1',
-        fluxo: [
+        flow: [
             {
                 key: '1A',
                 title: 'Can you verify if text content is not clipped?',

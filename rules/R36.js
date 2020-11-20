@@ -6,7 +6,7 @@ export default {
     category: CategoryConst.TABLES,
     tree: [{
         prerequisite: 'RC7',
-        fluxo: [
+        flow: [
             {
                 key: '1A',
                 title: 'Does the data cells have appropriate headers?',

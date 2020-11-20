@@ -6,7 +6,7 @@ export default {
     category: CategoryConst.OBJECT,
     tree: [{
         prerequisite: 'RC1',
-        fluxo: [
+        flow: [
             {
                 key: '1A',
                 title: 'Accessible name #{a} describes purpose?',

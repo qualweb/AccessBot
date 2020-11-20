@@ -6,7 +6,7 @@ export default {
     category: CategoryConst.AUDIOVIDEO,
     tree: [{
         prerequisite: 'RC3',
-        fluxo: [
+        flow: [
             {
                 key: '1A',
                 title: "Is it an  audio alternative (voice over)?",
