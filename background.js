@@ -25,7 +25,7 @@ chrome.runtime.onMessage.addListener(
               const activeTabId = tabs[0].id;
               url = tabs[0].url;
               chrome.tabs.sendMessage(activeTabId, {message: "getDocument"}, async function(actResult){
-                qualwebResult = actResult; 
+                qualwebResult = actResult; //from content to background with callback function to handle the result from content response
                 
                 console.log("resultado sem filtro")
                 console.log(actResult);
@@ -40,7 +40,7 @@ chrome.runtime.onMessage.addListener(
                     }
                   })
 
-                  return {
+                  return { //object filtrado
                     code: rule.code,
                     description: rule.description,
                     results: results,
@@ -54,6 +54,8 @@ chrome.runtime.onMessage.addListener(
                 
                 console.log("onlyValidResults", onlyValidResults)
 
+
+                  //apos objecto filtrado call to the browser - open result.html como popup para o utilizador
                 chrome.windows.create({
                   url: chrome.runtime.getURL("result.html"),
                   type: "popup",
@@ -62,7 +64,7 @@ chrome.runtime.onMessage.addListener(
                 });
               })
             })
-          } else {
+          } else { //if only manual nao vai object bucar document
 
             chrome.windows.create({
               url: chrome.runtime.getURL("result.html"),
@@ -76,7 +78,7 @@ chrome.runtime.onMessage.addListener(
     }
     if (request.message === "resultLoaded") {
       chrome.runtime.sendMessage({message: "resultsToResultPopup", values: onlyValidResults, options, result: qualwebResult, website: url });
-    }
+    } //para garantir q fica tudo carregado
 
       //from background to content
     if(request.message === "overResultElement") {

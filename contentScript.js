@@ -37,7 +37,6 @@ chrome.runtime.onMessage.addListener(
     const result = new QWPage.QWPage(document, window);
     let act = new ACTRules.ACTRules()
     const actResult = await act.execute({},result,[]);
-    console.log(actResult);
     sendResponse(actResult);
   }
 });

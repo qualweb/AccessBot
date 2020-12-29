@@ -35,6 +35,7 @@ chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         if(request.message === "resultsToResultPopup") {
             resultData = generateManualTests(generateCategoriesData(request.values, request.options), request.options.manual);
+            console.log("resultado qualweb")
             console.log(resultData);
             updateResults();
             const exportToEarlButton = document.querySelectorAll('#downloadEARL')[0];
@@ -171,7 +172,7 @@ function isRuleValid(ruleToCheck, result) {
     });
 }
 
-function generateCategoriesData(result, options) {
+function generateCategoriesData(result, options){ 
     const semiManualTests = {
         total: 0,
         count: 0,
@@ -809,6 +810,7 @@ function generateManualTest(manualTest, index) {
     }
 
     const button = document.querySelector(`#button-revert-${index}`);
+    //area texto para user escrever
     const textarea = document.querySelector(`#manualTest-area-${index} > textarea`);
 
     console.log("found textarea");
@@ -1270,15 +1272,15 @@ function generateResultCount() {
             </div>
             <div class="filter-rule">
                 Inapplicable:&nbsp
-                <label class="result-counter result-counter-inapplicable reduce-size"</label>
+                <label class="result-counter result-counter-inapplicable reduce-size"></label>
             </div>
             <div class="filter-rule">
                 Uncompleted tests:&nbsp
-                <label class="result-counter result-counter-uncompleted reduce-size"</label>
+                <label class="result-counter result-counter-uncompleted reduce-size"></label>
             </div>
             <div class="filter-rule">
                 Total evaluations:&nbsp
-                <label class="result-counter result-counter-total reduce-size"</label>
+                <label class="result-counter result-counter-total reduce-size"></label>
             </div>
             <div class="filter-rule">
                 Automatic test:&nbsp
@@ -1409,7 +1411,7 @@ function generateAccordions(originalCategory, category) {
     if(filtersLeft.pass)
         filterCategoryCount += `<li>${legendInfo("pass", "result-counter result-counter-pass", category.pass)}</li>`;
     if(filtersLeft.uncompletedTests)
-        filterCategoryCount += `<li>${legendInfo("fail", "result-counter result-counter-uncompleted", category.missing)}</li>`;
+        filterCategoryCount += `<li>${legendInfo("uncompleted", "result-counter result-counter-uncompleted", category.missing)}</li>`;
     if(filtersLeft.fail)
         filterCategoryCount += `<li>${legendInfo("fail", "result-counter result-counter-fail", category.fail)}</li>`;
     if(filtersLeft.cannotTell)
