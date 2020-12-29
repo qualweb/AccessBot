@@ -21,7 +21,29 @@ export default {
             {
                 key: "Fail",
                 title: "Text is not readable over the background."
-            },
+            }
         ]
-    }]
+    },
+    {
+        prerequisite: 'RC13',
+        flow: [
+            {
+                key: '1A',
+                title: 'Can you verify if element has a gradient?',
+                answerYes: 'Pass',
+                answerNo: 'Fail',
+            },
+            {
+                key: 'Pass',
+                title: "Element has a gradient that is verifiable."
+                
+            },
+            {
+                key: "Fail",
+                title: "Element has a gradient that is not verifiable."
+            }
+        ]
+
+    }
+    ]
 }
