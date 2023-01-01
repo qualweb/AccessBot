@@ -20,8 +20,8 @@
     "lodash.clonedeep": "^4.5.0",
     "rematrix": "^0.4.1",
     "stew-select": "0.0.5",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.12"
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
   },
   "dependencies": {
     "@qualweb/act-rules": "^0.4.18",
